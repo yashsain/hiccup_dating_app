@@ -8,7 +8,8 @@ plugins {
 android {
     namespace = "com.example.hiccup_dating_app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // 🔧 FIXED: Added NDK version to resolve flutter_native_splash compatibility
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

@@ -24,15 +24,14 @@ class HiccupApp extends ConsumerWidget {
       // 📱 App Configuration
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
-      
+
       // 🧭 Router Configuration
       routerConfig: router,
-      
+
       // 🎨 Theme Configuration - Modern Material Design 3
       theme: _buildLightTheme(),
       darkTheme: _buildDarkTheme(),
       themeMode: ThemeMode.system, // Follows system preference
-      
       // 🌍 Future: Localization support
       // locale: const Locale('en', 'US'),
       // supportedLocales: const [
@@ -55,7 +54,7 @@ class HiccupApp extends ConsumerWidget {
         background: AppColors.backgroundLight,
         error: AppColors.error,
       ),
-      
+
       // ✍️ Typography
       textTheme: const TextTheme(
         displayLarge: AppTextStyles.heading1,
@@ -69,7 +68,7 @@ class HiccupApp extends ConsumerWidget {
         labelMedium: AppTextStyles.labelMedium,
         labelSmall: AppTextStyles.labelSmall,
       ),
-      
+
       // 🎯 Component Themes
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.backgroundLight,
@@ -78,7 +77,7 @@ class HiccupApp extends ConsumerWidget {
         titleTextStyle: AppTextStyles.heading3,
         centerTitle: true,
       ),
-      
+
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
@@ -91,18 +90,19 @@ class HiccupApp extends ConsumerWidget {
           elevation: AppConstants.elevationMedium,
         ),
       ),
-      
-      cardTheme: CardTheme(
+
+      // 🔧 FIXED: Changed CardTheme to CardThemeData
+      cardTheme: CardThemeData(
         color: AppColors.cardBackground,
         elevation: AppConstants.elevationLow,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppConstants.borderRadius),
         ),
       ),
-      
+
       // 📱 Visual Density
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      
+
       // ✨ Modern Material 3 features
       useMaterial3: true,
     );
@@ -120,7 +120,7 @@ class HiccupApp extends ConsumerWidget {
         background: AppColors.backgroundDark,
         error: AppColors.error,
       ),
-      
+
       textTheme: const TextTheme(
         displayLarge: AppTextStyles.heading1,
         displayMedium: AppTextStyles.heading2,
@@ -133,7 +133,7 @@ class HiccupApp extends ConsumerWidget {
         labelMedium: AppTextStyles.labelMedium,
         labelSmall: AppTextStyles.labelSmall,
       ),
-      
+
       visualDensity: VisualDensity.adaptivePlatformDensity,
       useMaterial3: true,
     );
