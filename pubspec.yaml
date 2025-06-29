@@ -1,0 +1,50 @@
+name: hiccup_dating_app
+description: "A modern Flutter dating app built with industry best practices."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.8.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # 🎯 ROUTING - Modern Navigation (2025 Standard)
+  go_router: ^14.2.0
+  
+  # 🔧 STATE MANAGEMENT - Riverpod (2025 Recommended)
+  flutter_riverpod: ^2.5.1
+  
+  # 🎨 SPLASH SCREEN - Native Implementation (Best Practice)
+  flutter_native_splash: ^2.4.1
+  
+  # 🎯 UI ICONS - Modern Icon Set
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  # 📏 LINTING - Flutter Team Recommended (2025)
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  
+  # 🖼️ ASSETS - Prepare for logo and images
+  assets:
+    - assets/images/
+    - assets/icons/
+
+# 🎨 SPLASH SCREEN CONFIGURATION
+flutter_native_splash:
+  color: "#1a1a1a"
+  image: assets/images/hiccup_logo.png
+  color_dark: "#000000"
+  image_dark: assets/images/hiccup_logo.png
+  android_12:
+    image: assets/images/hiccup_logo.png
+    color: "#1a1a1a"
+  web: false
