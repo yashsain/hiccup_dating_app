@@ -41,22 +41,22 @@ class HiccupApp extends ConsumerWidget {
     );
   }
 
-  /// 🌞 Light Theme - Modern and clean
+  /// 🌞 Light Theme - Rose-Gold Luxury
   ThemeData _buildLightTheme() {
     return ThemeData(
       // 🎨 Color Scheme
       colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.primary,
+        seedColor: AppColors.hiccupRose,
         brightness: Brightness.light,
-        primary: AppColors.primary,
-        secondary: AppColors.secondary,
+        primary: AppColors.hiccupRose,
+        secondary: AppColors.gold24k,
         surface: AppColors.surfaceLight,
         background: AppColors.backgroundLight,
         error: AppColors.error,
       ),
 
-      // ✍️ Typography
-      textTheme: const TextTheme(
+      // ✍️ Typography - NOT const because GoogleFonts are runtime
+      textTheme: TextTheme(
         displayLarge: AppTextStyles.heading1,
         displayMedium: AppTextStyles.heading2,
         displaySmall: AppTextStyles.heading3,
@@ -70,7 +70,7 @@ class HiccupApp extends ConsumerWidget {
       ),
 
       // 🎯 Component Themes
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: AppColors.backgroundLight,
         foregroundColor: AppColors.textPrimary,
         elevation: 0,
@@ -80,7 +80,7 @@ class HiccupApp extends ConsumerWidget {
 
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.hiccupRose,
           foregroundColor: AppColors.white,
           textStyle: AppTextStyles.button,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -91,7 +91,7 @@ class HiccupApp extends ConsumerWidget {
         ),
       ),
 
-      // 🔧 FIXED: Changed CardTheme to CardThemeData
+      // 🔧 Card Theme
       cardTheme: CardThemeData(
         color: AppColors.cardBackground,
         elevation: AppConstants.elevationLow,
@@ -108,20 +108,21 @@ class HiccupApp extends ConsumerWidget {
     );
   }
 
-  /// 🌙 Dark Theme - Future-ready for dark mode
+  /// 🌙 Dark Theme - Luxurious Night Mode
   ThemeData _buildDarkTheme() {
     return ThemeData(
       colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.primary,
+        seedColor: AppColors.hiccupRose,
         brightness: Brightness.dark,
-        primary: AppColors.primaryLight,
-        secondary: AppColors.secondaryLight,
+        primary: AppColors.blushPink,
+        secondary: AppColors.gold24k,
         surface: AppColors.surfaceDark,
         background: AppColors.backgroundDark,
         error: AppColors.error,
       ),
 
-      textTheme: const TextTheme(
+      // ✍️ Typography - NOT const because GoogleFonts are runtime
+      textTheme: TextTheme(
         displayLarge: AppTextStyles.heading1,
         displayMedium: AppTextStyles.heading2,
         displaySmall: AppTextStyles.heading3,

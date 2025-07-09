@@ -22,6 +22,9 @@ dependencies:
   
   # 🎯 UI ICONS - Modern Icon Set
   cupertino_icons: ^1.0.6
+  
+  # 📝 TYPOGRAPHY - Premium Fonts from Google
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -40,11 +43,11 @@ flutter:
 
 # 🎨 SPLASH SCREEN CONFIGURATION
 flutter_native_splash:
-  color: "#1a1a1a"
+  color: "#E11D48"  # Hiccup Rose
   image: assets/images/hiccup_logo.png
-  color_dark: "#000000"
+  color_dark: "#BE123C"  # Crimson Passion
   image_dark: assets/images/hiccup_logo.png
   android_12:
     image: assets/images/hiccup_logo.png
-    color: "#1a1a1a"
+    color: "#E11D48"
   web: false

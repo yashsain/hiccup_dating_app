@@ -18,60 +18,58 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     with TickerProviderStateMixin {
-  
   // 🎬 Animation Controllers
   late AnimationController _fadeController;
   late AnimationController _slideController;
-  
+
   // ✨ Animations
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
-  
+
   @override
   void initState() {
     super.initState();
     _setupAnimations();
     _startAnimations();
   }
-  
+
   @override
   void dispose() {
     _fadeController.dispose();
     _slideController.dispose();
     super.dispose();
   }
-  
+
   /// 🎬 Setup entrance animations
   void _setupAnimations() {
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     _slideController = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
-    
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _fadeController, curve: Curves.easeIn),
-    );
-    
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.3),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
-    );
+
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeIn));
+
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(
+          CurvedAnimation(parent: _slideController, curve: Curves.easeOutCubic),
+        );
   }
-  
+
   /// ⏰ Start the entrance animations
   void _startAnimations() async {
     await Future.delayed(const Duration(milliseconds: 300));
     _fadeController.forward();
     _slideController.forward();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,10 +78,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              AppColors.backgroundLight,
-              AppColors.primaryLight,
-            ],
+            colors: [AppColors.champagneWhite, AppColors.blushPink],
             stops: [0.0, 1.0],
           ),
         ),
@@ -94,7 +89,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
               children: [
                 // 📱 Top spacer
                 const Spacer(),
-                
+
                 // 🎯 Main content
                 AnimatedBuilder(
                   animation: _fadeController,
@@ -108,10 +103,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                     );
                   },
                 ),
-                
+
                 // 📱 Bottom spacer
                 const Spacer(),
-                
+
                 // 🎯 Action buttons
                 AnimatedBuilder(
                   animation: _fadeController,
@@ -122,7 +117,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                     );
                   },
                 ),
-                
+
                 const SizedBox(height: 32),
               ],
             ),
@@ -131,7 +126,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
       ),
     );
   }
-  
+
   /// 🎯 Build the main content section
   Widget _buildMainContent() {
     return Column(
@@ -141,107 +136,98 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           width: 200,
           height: 200,
           decoration: BoxDecoration(
-            color: AppColors.white,
+            gradient: AppColors.roseGoldGradient,
             borderRadius: BorderRadius.circular(100),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withOpacity(0.3),
+                color: AppColors.hiccupRose.withOpacity(0.3),
                 blurRadius: 30,
                 offset: const Offset(0, 15),
               ),
             ],
           ),
           child: const Icon(
-            Icons.waving_hand_rounded,
+            Icons.card_giftcard_rounded,
             size: 100,
-            color: AppColors.primary,
+            color: AppColors.white,
           ),
         ),
-        
+
         const SizedBox(height: 48),
-        
+
         // 👋 Welcome message
         Text(
-          'Hello there!',
-          style: AppTextStyles.brandTitle.copyWith(
-            color: AppColors.primary,
-          ),
+          'Ready to Hiccup?',
+          style: AppTextStyles.brandTitle.copyWith(color: AppColors.hiccupRose),
           textAlign: TextAlign.center,
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         // 💭 Subtitle message
         Text(
           'Welcome to ${AppConstants.appName}',
-          style: AppTextStyles.heading2.copyWith(
-            color: AppColors.textPrimary,
-          ),
+          style: AppTextStyles.heading2.copyWith(color: AppColors.textPrimary),
           textAlign: TextAlign.center,
         ),
-        
+
         const SizedBox(height: 24),
-        
+
         // 📝 Description
         Text(
-          'The modern way to find meaningful connections. '
-          'Built with love using Flutter and the latest 2025 best practices.',
+          'Send thoughtful gifts to spark meaningful connections. '
+          'Where romance meets premium experiences.',
           style: AppTextStyles.bodyLarge.copyWith(
             color: AppColors.textSecondary,
             height: 1.6,
           ),
           textAlign: TextAlign.center,
         ),
-        
+
         const SizedBox(height: 32),
-        
+
         // ✨ Feature highlights
         _buildFeatureHighlights(),
       ],
     );
   }
-  
+
   /// ✨ Build feature highlights
   Widget _buildFeatureHighlights() {
     return Column(
       children: [
         _buildFeatureItem(
+          icon: Icons.card_giftcard_rounded,
+          text: 'Send Thoughtful Gifts',
+        ),
+        const SizedBox(height: 16),
+        _buildFeatureItem(
           icon: Icons.security_rounded,
-          text: 'Secure & Private',
+          text: 'Secure Until Accepted',
         ),
         const SizedBox(height: 16),
-        _buildFeatureItem(
-          icon: Icons.favorite_rounded,
-          text: 'Meaningful Matches',
-        ),
-        const SizedBox(height: 16),
-        _buildFeatureItem(
-          icon: Icons.chat_bubble_rounded,
-          text: 'Real Conversations',
-        ),
+        _buildFeatureItem(icon: Icons.star_rounded, text: 'Premium Experience'),
       ],
     );
   }
-  
+
   /// 🎯 Build individual feature item
-  Widget _buildFeatureItem({
-    required IconData icon,
-    required String text,
-  }) {
+  Widget _buildFeatureItem({required IconData icon, required String text}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            gradient: LinearGradient(
+              colors: [
+                AppColors.hiccupRose.withOpacity(0.1),
+                AppColors.gold24k.withOpacity(0.1),
+              ],
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(
-            icon,
-            color: AppColors.primary,
-            size: 20,
-          ),
+          child: Icon(icon, color: AppColors.hiccupRose, size: 20),
         ),
         const SizedBox(width: 12),
         Text(
@@ -254,7 +240,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
       ],
     );
   }
-  
+
   /// 🎯 Build action buttons
   Widget _buildActionButtons() {
     return Column(
@@ -269,22 +255,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
               _showComingSoonDialog();
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
+              backgroundColor: AppColors.hiccupRose,
               foregroundColor: AppColors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppConstants.borderRadius),
               ),
               elevation: AppConstants.elevationMedium,
             ),
-            child: Text(
-              'Get Started',
-              style: AppTextStyles.button,
-            ),
+            child: Text('Start Sending Hiccups', style: AppTextStyles.button),
           ),
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         // 🎯 Secondary action button
         SizedBox(
           width: double.infinity,
@@ -295,24 +278,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
               _showComingSoonDialog();
             },
             style: OutlinedButton.styleFrom(
-              foregroundColor: AppColors.primary,
-              side: const BorderSide(color: AppColors.primary, width: 2),
+              foregroundColor: AppColors.hiccupRose,
+              side: const BorderSide(color: AppColors.hiccupRose, width: 2),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppConstants.borderRadius),
               ),
             ),
             child: Text(
               'I Already Have an Account',
-              style: AppTextStyles.button.copyWith(
-                color: AppColors.primary,
-              ),
+              style: AppTextStyles.button.copyWith(color: AppColors.hiccupRose),
             ),
           ),
         ),
       ],
     );
   }
-  
+
   /// 🔮 Show coming soon dialog (temporary)
   void _showComingSoonDialog() {
     showDialog(

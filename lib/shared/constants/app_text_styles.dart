@@ -1,132 +1,167 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
-/// ✍️ App Text Styles - Modern Typography System (2025)
-/// Following Material Design 3 and modern typography best practices
+/// ✍️ Hiccup App Typography - Premium Dating Experience (2025)
+/// Primary Font: Manrope Variable - Modern, readable sans-serif
+/// Display Font: Playfair Display - Elegant serif for romantic moments
 class AppTextStyles {
   // 🚫 Private constructor
   AppTextStyles._();
-  
-  // 📱 Base Font Configuration
-  static const String fontFamily = 'SF Pro Display'; // iOS-style, falls back to system
-  
-  // 🎯 Heading Styles - For major sections and titles
-  static const TextStyle heading1 = TextStyle(
+
+  // 🎯 Heading Styles - Major sections and romantic moments
+  static TextStyle heading1 = GoogleFonts.manrope(
     fontSize: 32,
-    fontWeight: FontWeight.w700, // Bold
+    fontWeight: FontWeight.w800, // Extra Bold
     color: AppColors.textPrimary,
-    height: 1.2, // Line height
+    height: 1.2,
     letterSpacing: -0.5,
   );
-  
-  static const TextStyle heading2 = TextStyle(
+
+  static TextStyle heading2 = GoogleFonts.manrope(
     fontSize: 28,
-    fontWeight: FontWeight.w600, // Semi-bold
+    fontWeight: FontWeight.w700, // Bold
     color: AppColors.textPrimary,
     height: 1.25,
     letterSpacing: -0.25,
   );
-  
-  static const TextStyle heading3 = TextStyle(
+
+  static TextStyle heading3 = GoogleFonts.manrope(
     fontSize: 24,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w600, // Semi-bold
     color: AppColors.textPrimary,
     height: 1.3,
   );
-  
-  static const TextStyle heading4 = TextStyle(
+
+  static TextStyle heading4 = GoogleFonts.manrope(
     fontSize: 20,
     fontWeight: FontWeight.w500, // Medium
     color: AppColors.textPrimary,
     height: 1.4,
   );
-  
-  // 📝 Body Text Styles - For main content
-  static const TextStyle bodyLarge = TextStyle(
+
+  // 📝 Body Text Styles - Main content
+  static TextStyle bodyLarge = GoogleFonts.manrope(
     fontSize: 18,
     fontWeight: FontWeight.w400, // Regular
     color: AppColors.textPrimary,
     height: 1.5,
   );
-  
-  static const TextStyle bodyMedium = TextStyle(
+
+  static TextStyle bodyMedium = GoogleFonts.manrope(
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: AppColors.textPrimary,
     height: 1.5,
   );
-  
-  static const TextStyle bodySmall = TextStyle(
+
+  static TextStyle bodySmall = GoogleFonts.manrope(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
     height: 1.4,
   );
-  
-  // 🏷️ Label Styles - For buttons, chips, and UI elements
-  static const TextStyle labelLarge = TextStyle(
+
+  // 🏷️ Label Styles - Buttons, chips, and UI elements
+  static TextStyle labelLarge = GoogleFonts.manrope(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: AppColors.textPrimary,
     height: 1.25,
     letterSpacing: 0.1,
   );
-  
-  static const TextStyle labelMedium = TextStyle(
+
+  static TextStyle labelMedium = GoogleFonts.manrope(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: AppColors.textPrimary,
     height: 1.25,
     letterSpacing: 0.1,
   );
-  
-  static const TextStyle labelSmall = TextStyle(
+
+  static TextStyle labelSmall = GoogleFonts.manrope(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: AppColors.textSecondary,
     height: 1.25,
     letterSpacing: 0.15,
   );
-  
-  // 🎯 Special Styles - For specific use cases
-  static const TextStyle button = TextStyle(
+
+  // 🎯 Special Styles - Specific use cases
+  static TextStyle button = GoogleFonts.manrope(
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: AppColors.white,
     height: 1.25,
     letterSpacing: 0.5,
   );
-  
-  static const TextStyle caption = TextStyle(
+
+  static TextStyle caption = GoogleFonts.manrope(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
     height: 1.33,
     letterSpacing: 0.4,
   );
-  
-  static const TextStyle overline = TextStyle(
+
+  static TextStyle overline = GoogleFonts.manrope(
     fontSize: 10,
     fontWeight: FontWeight.w500,
     color: AppColors.textSecondary,
     height: 1.6,
     letterSpacing: 1.5,
   );
-  
-  // ✨ Brand Styles - Special styling for brand elements
-  static const TextStyle brandTitle = TextStyle(
+
+  // 💕 Romantic Styles - Special moments using Playfair Display
+  static TextStyle brandTitle = GoogleFonts.playfairDisplay(
     fontSize: 36,
     fontWeight: FontWeight.w800, // Extra bold
-    color: AppColors.primary,
+    color: AppColors.hiccupRose,
     height: 1.1,
     letterSpacing: -1.0,
   );
-  
-  static const TextStyle brandSubtitle = TextStyle(
+
+  static TextStyle brandSubtitle = GoogleFonts.playfairDisplay(
     fontSize: 18,
-    fontWeight: FontWeight.w300, // Light
+    fontWeight: FontWeight.w400, // Regular
     color: AppColors.textSecondary,
     height: 1.4,
+    letterSpacing: 0.5,
+    fontStyle: FontStyle.italic,
+  );
+
+  // 🎁 Special notification styles for romantic moments
+  static TextStyle giftDelivered = GoogleFonts.playfairDisplay(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    color: AppColors.gold24k,
+    height: 1.2,
+    letterSpacing: 0.5,
+  );
+
+  static TextStyle matchMadeInHeaven = GoogleFonts.playfairDisplay(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: AppColors.hiccupRose,
+    height: 1.3,
+    letterSpacing: 0.3,
+    fontStyle: FontStyle.italic,
+  );
+
+  // ✨ Premium styles for special features
+  static TextStyle premiumLabel = GoogleFonts.manrope(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: AppColors.gold24k,
+    height: 1.25,
+    letterSpacing: 1.0,
+  );
+
+  static TextStyle hiccupAction = GoogleFonts.manrope(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.hiccupRose,
+    height: 1.2,
     letterSpacing: 0.5,
   );
 }
