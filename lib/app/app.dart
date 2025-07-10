@@ -1,24 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:io' show Platform;
 
 import 'router/app_router.dart';
-import '../shared/constants/app_colors.dart';
-import '../shared/constants/app_text_styles.dart';
 import '../shared/constants/app_constants.dart';
+import '../shared/services/theme_provider.dart';
+import '../platform/android/theme_config.dart';
+import '../platform/ios/theme_config.dart';
 
-/// 🎯 Main App Widget - Modern Flutter Architecture (2025)
-/// This widget sets up the entire app with:
-/// - Riverpod for state management
-/// - go_router for navigation
-/// - Material Design 3 theming
-/// - Dark mode support
+/// 🎯 Main App Widget - New Theme System Integration (2025)
+///
+/// This widget now uses:
+/// - Centralized theme service for all styling
+/// - Riverpod theme provider for state management
+/// - Platform-specific theme adaptations
+/// - Automatic system theme detection
+/// - Single source of truth for all colors and styling
+///
+/// Key improvements:
+/// - ✅ Change one color, update entire app
+/// - ✅ Automatic light/dark theme switching
+/// - ✅ Platform-specific system UI handling
+/// - ✅ Clean, maintainable architecture
+/// - ✅ Future-ready for manual theme switching
 class HiccupApp extends ConsumerWidget {
   const HiccupApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // 🎭 Watch theme providers
+    final themeMode = ref.watch(themeProvider);
+    final lightTheme = ref.watch(lightThemeProvider);
+    final darkTheme = ref.watch(darkThemeProvider);
+    final currentBrightness = ref.watch(currentBrightnessProvider);
+
     // 🧭 Get the router from Riverpod
     final router = ref.watch(AppRouter.routerProvider);
+
+    // 🎨 Apply platform-specific theme adaptations
+    final adaptedLightTheme = _adaptThemeForPlatform(lightTheme);
+    final adaptedDarkTheme = _adaptThemeForPlatform(darkTheme);
+
+    // 🔄 Update system UI overlay style when theme changes
+    ref.listen<Brightness>(currentBrightnessProvider, (previous, next) {
+      if (previous != next) {
+        _handleThemeChange(next);
+      }
+    });
 
     return MaterialApp.router(
       // 📱 App Configuration
@@ -28,11 +56,22 @@ class HiccupApp extends ConsumerWidget {
       // 🧭 Router Configuration
       routerConfig: router,
 
-      // 🎨 Theme Configuration - Modern Material Design 3
-      theme: _buildLightTheme(),
-      darkTheme: _buildDarkTheme(),
-      themeMode: ThemeMode.system, // Follows system preference
-      // 🌍 Future: Localization support
+      // 🎨 Theme Configuration - NEW CENTRALIZED SYSTEM
+      theme: adaptedLightTheme,
+      darkTheme: adaptedDarkTheme,
+      themeMode: themeMode,
+
+      // 🎯 Builder - Handle theme changes and system UI
+      builder: (context, child) {
+        // Ensure system UI is updated when app builds
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _handleThemeChange(currentBrightness);
+        });
+
+        return child ?? const SizedBox.shrink();
+      },
+
+      // 🌍 Future: Localization support (Phase 2)
       // locale: const Locale('en', 'US'),
       // supportedLocales: const [
       //   Locale('en', 'US'),
@@ -41,102 +80,89 @@ class HiccupApp extends ConsumerWidget {
     );
   }
 
-  /// 🌞 Light Theme - Rose-Gold Luxury
-  ThemeData _buildLightTheme() {
-    return ThemeData(
-      // 🎨 Color Scheme
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.hiccupRose,
-        brightness: Brightness.light,
-        primary: AppColors.hiccupRose,
-        secondary: AppColors.gold24k,
-        surface: AppColors.surfaceLight,
-        background: AppColors.backgroundLight,
-        error: AppColors.error,
-      ),
+  /// 🎨 Adapt theme for current platform
+  ThemeData _adaptThemeForPlatform(ThemeData theme) {
+    if (Platform.isAndroid) {
+      return AndroidThemeConfig.adaptThemeForAndroid(theme);
+    } else if (Platform.isIOS) {
+      return IOSThemeConfig.adaptThemeForIOS(theme);
+    }
 
-      // ✍️ Typography - NOT const because GoogleFonts are runtime
-      textTheme: TextTheme(
-        displayLarge: AppTextStyles.heading1,
-        displayMedium: AppTextStyles.heading2,
-        displaySmall: AppTextStyles.heading3,
-        headlineMedium: AppTextStyles.heading4,
-        bodyLarge: AppTextStyles.bodyLarge,
-        bodyMedium: AppTextStyles.bodyMedium,
-        bodySmall: AppTextStyles.bodySmall,
-        labelLarge: AppTextStyles.labelLarge,
-        labelMedium: AppTextStyles.labelMedium,
-        labelSmall: AppTextStyles.labelSmall,
-      ),
-
-      // 🎯 Component Themes
-      appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.backgroundLight,
-        foregroundColor: AppColors.textPrimary,
-        elevation: 0,
-        titleTextStyle: AppTextStyles.heading3,
-        centerTitle: true,
-      ),
-
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.hiccupRose,
-          foregroundColor: AppColors.white,
-          textStyle: AppTextStyles.button,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-          ),
-          elevation: AppConstants.elevationMedium,
-        ),
-      ),
-
-      // 🔧 Card Theme
-      cardTheme: CardThemeData(
-        color: AppColors.cardBackground,
-        elevation: AppConstants.elevationLow,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppConstants.borderRadius),
-        ),
-      ),
-
-      // 📱 Visual Density
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-
-      // ✨ Modern Material 3 features
-      useMaterial3: true,
-    );
+    // Default: return theme as-is for other platforms
+    return theme;
   }
 
-  /// 🌙 Dark Theme - Luxurious Night Mode
-  ThemeData _buildDarkTheme() {
-    return ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.hiccupRose,
-        brightness: Brightness.dark,
-        primary: AppColors.blushPink,
-        secondary: AppColors.gold24k,
-        surface: AppColors.surfaceDark,
-        background: AppColors.backgroundDark,
-        error: AppColors.error,
-      ),
+  /// 🔄 Handle theme changes across platforms
+  void _handleThemeChange(Brightness brightness) {
+    if (Platform.isAndroid) {
+      AndroidThemeConfig.handleThemeChange(brightness);
+    } else if (Platform.isIOS) {
+      IOSThemeConfig.handleThemeChange(brightness);
+    }
+  }
+}
 
-      // ✍️ Typography - NOT const because GoogleFonts are runtime
-      textTheme: TextTheme(
-        displayLarge: AppTextStyles.heading1,
-        displayMedium: AppTextStyles.heading2,
-        displaySmall: AppTextStyles.heading3,
-        headlineMedium: AppTextStyles.heading4,
-        bodyLarge: AppTextStyles.bodyLarge,
-        bodyMedium: AppTextStyles.bodyMedium,
-        bodySmall: AppTextStyles.bodySmall,
-        labelLarge: AppTextStyles.labelLarge,
-        labelMedium: AppTextStyles.labelMedium,
-        labelSmall: AppTextStyles.labelSmall,
-      ),
+/// 🎭 Theme-Aware App Widget - For widgets that need theme context
+///
+/// This is a helper widget that provides theme context to child widgets
+/// without requiring them to use Consumer widgets directly.
+class ThemeAwareApp extends ConsumerWidget {
+  final Widget child;
 
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      useMaterial3: true,
+  const ThemeAwareApp({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 🎨 Provide theme context to child widgets
+    final currentBrightness = ref.watch(currentBrightnessProvider);
+
+    return Theme(
+      data: Theme.of(context),
+      child: Builder(
+        builder: (context) {
+          // 🔄 Update system UI when theme changes
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (Platform.isAndroid) {
+              AndroidThemeConfig.handleThemeChange(currentBrightness);
+            } else if (Platform.isIOS) {
+              IOSThemeConfig.handleThemeChange(currentBrightness);
+            }
+          });
+
+          return child;
+        },
+      ),
     );
   }
+}
+
+/// 🎯 Theme Context Extensions - Helper extensions for theme access
+extension ThemeContextExtensions on BuildContext {
+  /// Get current theme brightness
+  Brightness get themeBrightness => Theme.of(this).brightness;
+
+  /// Check if current theme is dark
+  bool get isDarkTheme => themeBrightness == Brightness.dark;
+
+  /// Check if current theme is light
+  bool get isLightTheme => themeBrightness == Brightness.light;
+
+  /// Get primary color from current theme
+  Color get primaryColor => Theme.of(this).colorScheme.primary;
+
+  /// Get secondary color from current theme
+  Color get secondaryColor => Theme.of(this).colorScheme.secondary;
+
+  /// Get surface color from current theme
+  Color get surfaceColor => Theme.of(this).colorScheme.surface;
+
+  /// Get background color from current theme
+  Color get backgroundColor => Theme.of(this).colorScheme.surface;
+
+  /// Get primary text color from current theme
+  Color get primaryTextColor => Theme.of(this).colorScheme.onSurface;
+
+  /// Get secondary text color from current theme
+  Color get secondaryTextColor =>
+      Theme.of(this).colorScheme.onSurface.withOpacity(0.6);
 }

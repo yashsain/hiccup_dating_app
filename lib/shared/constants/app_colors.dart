@@ -1,111 +1,159 @@
 import 'package:flutter/material.dart';
 
-/// 🎨 Hiccup App Colors - Rose-Gold Luxury Aesthetic (2025)
-/// Following the design requirements for a premium dating experience
-/// that combines romance with sophistication.
+/// 🎨 Hiccup App Colors - New Gradient System (2025)
+/// Following the new requirements:
+/// - Dark Theme: Deep Chatak Red (#A2000B) → Burnt Maroon (#380014)
+/// - Light Theme: Soft Rosé (#FFB4BE) → Pale Blush Pink (#FFE6EB)
+/// - Single source of truth for all colors
+/// - Centralized theme management
 class AppColors {
-  // 🚫 Private constructor
+  // 🚫 Private constructor - This class should not be instantiated
   AppColors._();
 
-  // 🌹 Primary Brand Colors (60% of UI) - Rose-Gold Palette
-  static const Color hiccupRose = Color(
-    0xFFE11D48,
-  ); // Deep romantic red with pink undertones
-  static const Color blushPink = Color(
-    0xFFFFC0CB,
-  ); // Soft, approachable romance
-  static const Color crimsonPassion = Color(
-    0xFFBE123C,
-  ); // Deep love, premium feel
+  // 🌙 DARK THEME COLORS - "Lustful & Mysterious"
+  static const Color darkGradientStart = Color(0xFFA2000B); // Deep Chatak Red
+  static const Color darkGradientEnd = Color(0xFF380014); // Burnt Maroon
 
-  // Legacy naming (keeping for backwards compatibility during transition)
-  static const Color primary = hiccupRose;
-  static const Color primaryDark = crimsonPassion;
-  static const Color primaryLight = blushPink;
+  // ☀️ LIGHT THEME COLORS - "Warm & Premium"
+  static const Color lightGradientStart = Color(0xFFFFB4BE); // Soft Rosé
+  static const Color lightGradientEnd = Color(0xFFFFE6EB); // Pale Blush Pink
 
-  // 🥂 Neutral Colors (30% of UI) - Elegant Sophistication
-  static const Color champagneWhite = Color(
-    0xFFFFF8F3,
-  ); // Warm, luxurious backgrounds
-  static const Color silkGray = Color(0xFFF5F5F4); // Elegant secondary surfaces
-  static const Color midnightBlack = Color(
-    0xFF0A0A0A,
-  ); // Premium text, high contrast
-  static const Color nudeBeige = Color(
-    0xFFE7D7CE,
-  ); // Soft warmth for content areas
+  // 🎯 DERIVED COLORS - Automatically calculated from gradients
 
-  // ✨ Accent Colors (10% of UI) - Premium Features
-  static const Color gold24k = Color(
-    0xFFFFD700,
-  ); // Gift indicators, premium features
-  static const Color emeraldGreen = Color(
-    0xFF10B981,
-  ); // Success states, gift accepted
-  static const Color diamondBlue = Color(
-    0xFF60A5FA,
-  ); // Trust, security, verification
-  static const Color velvetPurple = Color(
-    0xFF9333EA,
-  ); // Luxury gifts, exclusive features
+  // Dark Theme Derived Colors
+  static const Color darkPrimary = darkGradientStart; // #A2000B
+  static const Color darkSecondary = Color(0xFF6B0508); // Midpoint of gradient
+  static const Color darkSurface = Color(
+    0xFF1A0A0C,
+  ); // Lighter version for surfaces
+  static const Color darkBackground = Color(0xFF0F0A0B); // Darker background
 
-  // Legacy accent colors (for compatibility)
-  static const Color secondary = gold24k;
-  static const Color secondaryDark = Color(0xFFDAA520); // Darker gold
-  static const Color secondaryLight = Color(0xFFFFF59D); // Lighter gold
-  static const Color accent = emeraldGreen;
-  static const Color warning = Color(0xFFF59E0B); // Amber warning
-  static const Color success = emeraldGreen;
-  static const Color error = hiccupRose;
+  // Light Theme Derived Colors
+  static const Color lightPrimary = Color(
+    0xFFFF8A9B,
+  ); // Slightly darker than start
+  static const Color lightSecondary = Color(0xFFFFCDD4); // Midpoint of gradient
+  static const Color lightSurface = Color(
+    0xFFFFF8F9,
+  ); // Almost white with hint of pink
+  static const Color lightBackground = Color(0xFFFFFFFF); // Pure white
 
-  // ⚫ System Colors
-  static const Color black = midnightBlack;
-  static const Color darkGrey = Color(0xFF374151);
-  static const Color mediumGrey = Color(0xFF6B7280);
-  static const Color lightGrey = Color(0xFFE5E7EB);
-  static const Color offWhite = champagneWhite;
-  static const Color white = Color(0xFFFFFFFF);
-
-  // 🌙 Background Colors (Dark Mode Ready)
-  static const Color backgroundLight = champagneWhite;
-  static const Color backgroundDark = Color(0xFF121212);
-  static const Color surfaceLight = white;
-  static const Color surfaceDark = Color(0xFF1E1E1E);
-
-  // 📝 Text Colors
-  static const Color textPrimary = midnightBlack;
-  static const Color textSecondary = mediumGrey;
-  static const Color textLight = white;
-  static const Color textHint = lightGrey;
-
-  // 🔲 Component Colors
-  static const Color cardBackground = white;
-  static const Color divider = Color(0xFFE5E7EB);
-  static const Color shadow = Color(0x1A000000); // 10% black
-
-  // 🎨 Premium Gradients - Signature Hiccup Effects
-  static const LinearGradient primaryGradient = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [hiccupRose, blushPink, gold24k],
-    stops: [0.0, 0.5, 1.0],
-  );
-
-  static const LinearGradient roseGoldGradient = LinearGradient(
+  // 🎨 GRADIENTS - Primary theme gradients
+  static const LinearGradient darkThemeGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [hiccupRose, gold24k],
+    colors: [darkGradientStart, darkGradientEnd],
+    stops: [0.0, 0.71], // 71% as specified in requirements
   );
 
-  static const LinearGradient champagneGradient = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [champagneWhite, blushPink],
-  );
-
-  static const LinearGradient luxuryGradient = LinearGradient(
+  static const LinearGradient lightThemeGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [gold24k, velvetPurple],
+    colors: [lightGradientStart, lightGradientEnd],
+    stops: [0.0, 0.71], // 71% as specified in requirements
   );
+
+  // 🎯 ACCENT COLORS - For buttons, highlights, success/error states
+  static const Color accentGold = Color(0xFFFFD700); // Premium gold
+  static const Color accentGreen = Color(0xFF10B981); // Success green
+  static const Color accentRed = Color(0xFFEF4444); // Error red
+  static const Color accentBlue = Color(0xFF3B82F6); // Info blue
+
+  // ⚫ NEUTRAL COLORS - For text, borders, dividers
+  static const Color neutralWhite = Color(0xFFFFFFFF);
+  static const Color neutralGray100 = Color(0xFFF3F4F6);
+  static const Color neutralGray200 = Color(0xFFE5E7EB);
+  static const Color neutralGray300 = Color(0xFFD1D5DB);
+  static const Color neutralGray400 = Color(0xFF9CA3AF);
+  static const Color neutralGray500 = Color(0xFF6B7280);
+  static const Color neutralGray600 = Color(0xFF4B5563);
+  static const Color neutralGray700 = Color(0xFF374151);
+  static const Color neutralGray800 = Color(0xFF1F2937);
+  static const Color neutralGray900 = Color(0xFF111827);
+  static const Color neutralBlack = Color(0xFF000000);
+
+  // 📱 TEXT COLORS - Theme-specific text colors
+
+  // Dark Theme Text Colors
+  static const Color darkTextPrimary = neutralWhite;
+  static const Color darkTextSecondary = neutralGray300;
+  static const Color darkTextTertiary = neutralGray400;
+  static const Color darkTextDisabled = neutralGray600;
+
+  // Light Theme Text Colors
+  static const Color lightTextPrimary = neutralGray900;
+  static const Color lightTextSecondary = neutralGray700;
+  static const Color lightTextTertiary = neutralGray500;
+  static const Color lightTextDisabled = neutralGray400;
+
+  // 🔧 SYSTEM COLORS - For system UI elements
+  static const Color systemDivider = neutralGray200;
+  static const Color systemBorder = neutralGray300;
+  static const Color systemShadow = Color(0x1A000000); // 10% black
+
+  // 🎭 SEMANTIC COLORS - For different app states
+  static const Color semanticSuccess = accentGreen;
+  static const Color semanticWarning = Color(0xFFF59E0B);
+  static const Color semanticError = accentRed;
+  static const Color semanticInfo = accentBlue;
+
+  // 🎨 UTILITY METHODS - For getting theme-specific colors
+
+  /// Get primary color based on theme brightness
+  static Color getPrimaryColor(Brightness brightness) {
+    return brightness == Brightness.dark ? darkPrimary : lightPrimary;
+  }
+
+  /// Get secondary color based on theme brightness
+  static Color getSecondaryColor(Brightness brightness) {
+    return brightness == Brightness.dark ? darkSecondary : lightSecondary;
+  }
+
+  /// Get surface color based on theme brightness
+  static Color getSurfaceColor(Brightness brightness) {
+    return brightness == Brightness.dark ? darkSurface : lightSurface;
+  }
+
+  /// Get background color based on theme brightness
+  static Color getBackgroundColor(Brightness brightness) {
+    return brightness == Brightness.dark ? darkBackground : lightBackground;
+  }
+
+  /// Get primary text color based on theme brightness
+  static Color getPrimaryTextColor(Brightness brightness) {
+    return brightness == Brightness.dark ? darkTextPrimary : lightTextPrimary;
+  }
+
+  /// Get secondary text color based on theme brightness
+  static Color getSecondaryTextColor(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? darkTextSecondary
+        : lightTextSecondary;
+  }
+
+  /// Get theme-specific gradient
+  static LinearGradient getThemeGradient(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? darkThemeGradient
+        : lightThemeGradient;
+  }
+
+  // 🔮 LEGACY SUPPORT - For backward compatibility during transition
+  // These will be removed in Phase 2
+  @deprecated
+  static const Color primary = lightPrimary;
+  @deprecated
+  static const Color secondary = accentGold;
+  @deprecated
+  static const Color accent = accentGreen;
+  @deprecated
+  static const Color error = semanticError;
+  @deprecated
+  static const Color success = semanticSuccess;
+  @deprecated
+  static const Color warning = semanticWarning;
+  @deprecated
+  static const Color white = neutralWhite;
+  @deprecated
+  static const Color black = neutralBlack;
 }

@@ -5,11 +5,23 @@ import 'package:go_router/go_router.dart';
 import '../../../shared/constants/app_colors.dart';
 import '../../../shared/constants/app_text_styles.dart';
 import '../../../shared/constants/app_constants.dart';
+import '../../../shared/services/theme_provider.dart';
 import '../../../app/router/app_router.dart';
 
-/// 🚀 Splash Screen - Modern Implementation (2025)
-/// This screen appears while the app loads and provides a smooth transition
-/// to the main app. It follows current best practices for splash screens.
+/// 🚀 Splash Screen - New Theme System Integration (2025)
+///
+/// This screen now uses:
+/// - Centralized theme system for all styling
+/// - Automatic gradient selection based on theme
+/// - Platform-agnostic design with consistent look
+/// - Proper theme-aware colors and text
+///
+/// Key improvements:
+/// - ✅ Automatically uses correct gradient (light/dark)
+/// - ✅ Theme-aware text colors
+/// - ✅ No hardcoded colors
+/// - ✅ Smooth theme transitions
+/// - ✅ Platform-consistent appearance
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -99,10 +111,23 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    // 🎨 Get current theme information
+    final currentBrightness = ref.watch(currentBrightnessProvider);
+    final isDarkTheme = currentBrightness == Brightness.dark;
+
+    // 🎯 Get theme-appropriate colors
+    final gradient = AppColors.getThemeGradient(currentBrightness);
+    final textColor = isDarkTheme
+        ? AppColors.darkTextPrimary
+        : AppColors.lightTextPrimary;
+    final shadowColor = isDarkTheme
+        ? AppColors.darkPrimary
+        : AppColors.lightPrimary;
+
     return Scaffold(
-      // 🎨 Gradient background for luxurious feel
+      // 🎨 Theme-aware gradient background
       body: Container(
-        decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
+        decoration: BoxDecoration(gradient: gradient),
         child: SafeArea(
           child: Center(
             child: Column(
@@ -116,7 +141,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       scale: _logoScale.value,
                       child: Opacity(
                         opacity: _logoOpacity.value,
-                        child: _buildLogo(),
+                        child: _buildLogo(currentBrightness),
                       ),
                     );
                   },
@@ -132,7 +157,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       position: _textSlide,
                       child: Opacity(
                         opacity: _textOpacity.value,
-                        child: _buildBrandText(),
+                        child: _buildBrandText(textColor, shadowColor),
                       ),
                     );
                   },
@@ -146,10 +171,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   builder: (context, child) {
                     return Opacity(
                       opacity: _textOpacity.value,
-                      child: const CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          AppColors.white,
-                        ),
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(textColor),
                         strokeWidth: 2,
                       ),
                     );
@@ -163,27 +186,31 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     );
   }
 
-  /// 🎯 Build the logo widget
-  Widget _buildLogo() {
-    // 💕 Romantic heart icon with rose-gold aesthetic
+  /// 🎯 Build the logo widget with theme-aware styling
+  Widget _buildLogo(Brightness brightness) {
+    final isDarkTheme = brightness == Brightness.dark;
+
+    // 💕 Theme-aware logo styling
     return Container(
       width: 120,
       height: 120,
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: isDarkTheme ? AppColors.darkSurface : AppColors.lightSurface,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: AppColors.hiccupRose.withOpacity(0.3),
+            color: isDarkTheme
+                ? AppColors.darkPrimary.withOpacity(0.3)
+                : AppColors.lightPrimary.withOpacity(0.3),
             blurRadius: 30,
             offset: const Offset(0, 15),
           ),
         ],
       ),
-      child: const Icon(
+      child: Icon(
         Icons.favorite_rounded,
         size: 60,
-        color: AppColors.hiccupRose,
+        color: isDarkTheme ? AppColors.darkPrimary : AppColors.lightPrimary,
       ),
     );
 
@@ -195,9 +222,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     //     borderRadius: BorderRadius.circular(30),
     //     boxShadow: [
     //       BoxShadow(
-    //         color: Colors.black.withOpacity(0.1),
-    //         blurRadius: 20,
-    //         offset: const Offset(0, 10),
+    //         color: isDarkTheme
+    //             ? AppColors.darkPrimary.withOpacity(0.3)
+    //             : AppColors.lightPrimary.withOpacity(0.3),
+    //         blurRadius: 30,
+    //         offset: const Offset(0, 15),
     //       ),
     //     ],
     //   ),
@@ -211,19 +240,19 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     // );
   }
 
-  /// ✍️ Build the brand text
-  Widget _buildBrandText() {
+  /// ✍️ Build the brand text with theme-aware colors
+  Widget _buildBrandText(Color textColor, Color shadowColor) {
     return Column(
       children: [
         Text(
           AppConstants.appName.toUpperCase(),
           style: AppTextStyles.brandTitle.copyWith(
-            color: AppColors.white,
+            color: textColor,
             shadows: [
               Shadow(
                 offset: const Offset(0, 2),
                 blurRadius: 8,
-                color: AppColors.hiccupRose.withOpacity(0.5),
+                color: shadowColor.withOpacity(0.5),
               ),
             ],
           ),
@@ -232,57 +261,31 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         Text(
           'Send a hiccup to remind them of you',
           style: AppTextStyles.brandSubtitle.copyWith(
-            color: AppColors.white.withOpacity(0.9),
+            color: textColor.withOpacity(0.9),
           ),
         ),
       ],
     );
   }
+}
 
-  /// ✨ Build feature highlights
-  Widget _buildFeatureHighlights() {
-    return Column(
-      children: [
-        _buildFeatureItem(
-          icon: Icons.card_giftcard_rounded,
-          text: 'Thoughtful Gift-Giving',
-        ),
-        const SizedBox(height: 16),
-        _buildFeatureItem(
-          icon: Icons.favorite_rounded,
-          text: 'Meaningful Connections',
-        ),
-        const SizedBox(height: 16),
-        _buildFeatureItem(
-          icon: Icons.security_rounded,
-          text: 'Secure & Premium',
-        ),
-      ],
-    );
+/// 🎨 Theme-Aware Splash Extensions - Helper methods for splash screen theming
+extension SplashThemeExtensions on ConsumerState<SplashScreen> {
+  /// Get theme-appropriate gradient
+  LinearGradient get currentGradient {
+    final brightness = ref.read(currentBrightnessProvider);
+    return AppColors.getThemeGradient(brightness);
   }
 
-  /// 🎯 Build individual feature item
-  Widget _buildFeatureItem({required IconData icon, required String text}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: AppColors.gold24k.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: AppColors.gold24k, size: 20),
-        ),
-        const SizedBox(width: 12),
-        Text(
-          text,
-          style: AppTextStyles.bodyMedium.copyWith(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
-    );
+  /// Get theme-appropriate text color
+  Color get currentTextColor {
+    final brightness = ref.read(currentBrightnessProvider);
+    return AppColors.getPrimaryTextColor(brightness);
+  }
+
+  /// Get theme-appropriate shadow color
+  Color get currentShadowColor {
+    final brightness = ref.read(currentBrightnessProvider);
+    return AppColors.getPrimaryColor(brightness);
   }
 }

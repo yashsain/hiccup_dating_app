@@ -4,10 +4,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../shared/constants/app_colors.dart';
 import '../../../shared/constants/app_text_styles.dart';
 import '../../../shared/constants/app_constants.dart';
+import '../../../shared/services/theme_provider.dart';
 
-/// 👋 Onboarding Screen - Modern Landing Page (2025)
-/// This is the first screen users see after the splash screen.
-/// It provides a welcoming introduction to the Hiccup dating app.
+/// 👋 Onboarding Screen - New Theme System Integration (2025)
+///
+/// This screen now uses:
+/// - Centralized theme system for all styling
+/// - Automatic gradient selection based on theme
+/// - Theme-aware text colors and button styles
+/// - Platform-consistent appearance
+///
+/// Key improvements:
+/// - ✅ Automatically uses correct gradient (light/dark)
+/// - ✅ Theme-aware text colors
+/// - ✅ Consistent button styling
+/// - ✅ No hardcoded colors
+/// - ✅ Smooth theme transitions
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -72,16 +84,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
+    // 🎨 Get current theme information
+    final currentBrightness = ref.watch(currentBrightnessProvider);
+    final isDarkTheme = currentBrightness == Brightness.dark;
+
+    // 🎯 Get theme-appropriate colors
+    final gradient = AppColors.getThemeGradient(currentBrightness);
+    final primaryColor = AppColors.getPrimaryColor(currentBrightness);
+    final textColor = AppColors.getPrimaryTextColor(currentBrightness);
+    final secondaryTextColor = AppColors.getSecondaryTextColor(
+      currentBrightness,
+    );
+
     return Scaffold(
+      // 🎨 Theme-aware gradient background
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppColors.champagneWhite, AppColors.blushPink],
-            stops: [0.0, 1.0],
-          ),
-        ),
+        decoration: BoxDecoration(gradient: gradient),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -98,7 +116,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                       opacity: _fadeAnimation,
                       child: SlideTransition(
                         position: _slideAnimation,
-                        child: _buildMainContent(),
+                        child: _buildMainContent(
+                          primaryColor,
+                          textColor,
+                          secondaryTextColor,
+                          isDarkTheme,
+                        ),
                       ),
                     );
                   },
@@ -113,7 +136,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                   builder: (context, child) {
                     return FadeTransition(
                       opacity: _fadeAnimation,
-                      child: _buildActionButtons(),
+                      child: _buildActionButtons(
+                        primaryColor,
+                        textColor,
+                        isDarkTheme,
+                      ),
                     );
                   },
                 ),
@@ -127,8 +154,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     );
   }
 
-  /// 🎯 Build the main content section
-  Widget _buildMainContent() {
+  /// 🎯 Build the main content section with theme-aware styling
+  Widget _buildMainContent(
+    Color primaryColor,
+    Color textColor,
+    Color secondaryTextColor,
+    bool isDarkTheme,
+  ) {
     return Column(
       children: [
         // 💫 Hero illustration/icon
@@ -136,20 +168,31 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           width: 200,
           height: 200,
           decoration: BoxDecoration(
-            gradient: AppColors.roseGoldGradient,
+            // Theme-aware gradient for the hero icon
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                primaryColor,
+                primaryColor.withOpacity(0.7),
+                AppColors.accentGold,
+              ],
+            ),
             borderRadius: BorderRadius.circular(100),
             boxShadow: [
               BoxShadow(
-                color: AppColors.hiccupRose.withOpacity(0.3),
+                color: primaryColor.withOpacity(0.3),
                 blurRadius: 30,
                 offset: const Offset(0, 15),
               ),
             ],
           ),
-          child: const Icon(
+          child: Icon(
             Icons.card_giftcard_rounded,
             size: 100,
-            color: AppColors.white,
+            color: isDarkTheme
+                ? AppColors.darkTextPrimary
+                : AppColors.neutralWhite,
           ),
         ),
 
@@ -158,7 +201,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
         // 👋 Welcome message
         Text(
           'Ready to Hiccup?',
-          style: AppTextStyles.brandTitle.copyWith(color: AppColors.hiccupRose),
+          style: AppTextStyles.brandTitle.copyWith(color: textColor),
           textAlign: TextAlign.center,
         ),
 
@@ -167,7 +210,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
         // 💭 Subtitle message
         Text(
           'Welcome to ${AppConstants.appName}',
-          style: AppTextStyles.heading2.copyWith(color: AppColors.textPrimary),
+          style: AppTextStyles.heading2.copyWith(color: textColor),
           textAlign: TextAlign.center,
         ),
 
@@ -178,7 +221,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           'Send thoughtful gifts to spark meaningful connections. '
           'Where romance meets premium experiences.',
           style: AppTextStyles.bodyLarge.copyWith(
-            color: AppColors.textSecondary,
+            color: secondaryTextColor,
             height: 1.6,
           ),
           textAlign: TextAlign.center,
@@ -187,32 +230,54 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
         const SizedBox(height: 32),
 
         // ✨ Feature highlights
-        _buildFeatureHighlights(),
+        _buildFeatureHighlights(primaryColor, textColor, isDarkTheme),
       ],
     );
   }
 
-  /// ✨ Build feature highlights
-  Widget _buildFeatureHighlights() {
+  /// ✨ Build feature highlights with theme-aware styling
+  Widget _buildFeatureHighlights(
+    Color primaryColor,
+    Color textColor,
+    bool isDarkTheme,
+  ) {
     return Column(
       children: [
         _buildFeatureItem(
           icon: Icons.card_giftcard_rounded,
           text: 'Send Thoughtful Gifts',
+          primaryColor: primaryColor,
+          textColor: textColor,
+          isDarkTheme: isDarkTheme,
         ),
         const SizedBox(height: 16),
         _buildFeatureItem(
           icon: Icons.security_rounded,
           text: 'Secure Until Accepted',
+          primaryColor: primaryColor,
+          textColor: textColor,
+          isDarkTheme: isDarkTheme,
         ),
         const SizedBox(height: 16),
-        _buildFeatureItem(icon: Icons.star_rounded, text: 'Premium Experience'),
+        _buildFeatureItem(
+          icon: Icons.star_rounded,
+          text: 'Premium Experience',
+          primaryColor: primaryColor,
+          textColor: textColor,
+          isDarkTheme: isDarkTheme,
+        ),
       ],
     );
   }
 
-  /// 🎯 Build individual feature item
-  Widget _buildFeatureItem({required IconData icon, required String text}) {
+  /// 🎯 Build individual feature item with theme-aware styling
+  Widget _buildFeatureItem({
+    required IconData icon,
+    required String text,
+    required Color primaryColor,
+    required Color textColor,
+    required bool isDarkTheme,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -221,19 +286,19 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                AppColors.hiccupRose.withOpacity(0.1),
-                AppColors.gold24k.withOpacity(0.1),
+                primaryColor.withOpacity(0.1),
+                AppColors.accentGold.withOpacity(0.1),
               ],
             ),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, color: AppColors.hiccupRose, size: 20),
+          child: Icon(icon, color: primaryColor, size: 20),
         ),
         const SizedBox(width: 12),
         Text(
           text,
           style: AppTextStyles.bodyMedium.copyWith(
-            color: AppColors.textPrimary,
+            color: textColor,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -241,8 +306,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     );
   }
 
-  /// 🎯 Build action buttons
-  Widget _buildActionButtons() {
+  /// 🎯 Build action buttons with theme-aware styling
+  Widget _buildActionButtons(
+    Color primaryColor,
+    Color textColor,
+    bool isDarkTheme,
+  ) {
     return Column(
       children: [
         // 🎯 Primary action button
@@ -252,17 +321,26 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           child: ElevatedButton(
             onPressed: () {
               // 🔮 Future: Navigate to registration/login
-              _showComingSoonDialog();
+              _showComingSoonDialog(textColor, isDarkTheme);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.hiccupRose,
-              foregroundColor: AppColors.white,
+              backgroundColor: primaryColor,
+              foregroundColor: isDarkTheme
+                  ? AppColors.darkTextPrimary
+                  : AppColors.neutralWhite,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppConstants.borderRadius),
               ),
               elevation: AppConstants.elevationMedium,
             ),
-            child: Text('Start Sending Hiccups', style: AppTextStyles.button),
+            child: Text(
+              'Start Sending Hiccups',
+              style: AppTextStyles.button.copyWith(
+                color: isDarkTheme
+                    ? AppColors.darkTextPrimary
+                    : AppColors.neutralWhite,
+              ),
+            ),
           ),
         ),
 
@@ -275,18 +353,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           child: OutlinedButton(
             onPressed: () {
               // 🔮 Future: Navigate to login
-              _showComingSoonDialog();
+              _showComingSoonDialog(textColor, isDarkTheme);
             },
             style: OutlinedButton.styleFrom(
-              foregroundColor: AppColors.hiccupRose,
-              side: const BorderSide(color: AppColors.hiccupRose, width: 2),
+              foregroundColor: textColor,
+              side: BorderSide(color: textColor, width: 2),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppConstants.borderRadius),
               ),
             ),
             child: Text(
               'I Already Have an Account',
-              style: AppTextStyles.button.copyWith(color: AppColors.hiccupRose),
+              style: AppTextStyles.button.copyWith(color: textColor),
             ),
           ),
         ),
@@ -294,23 +372,69 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     );
   }
 
-  /// 🔮 Show coming soon dialog (temporary)
-  void _showComingSoonDialog() {
+  /// 🔮 Show coming soon dialog with theme-aware styling
+  void _showComingSoonDialog(Color textColor, bool isDarkTheme) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Coming Soon! 🚀'),
-        content: const Text(
-          'This feature is being built with modern Flutter architecture. '
+        backgroundColor: isDarkTheme
+            ? AppColors.darkSurface
+            : AppColors.lightSurface,
+        title: Text(
+          'Coming Soon! 🚀',
+          style: AppTextStyles.heading3.copyWith(color: textColor),
+        ),
+        content: Text(
+          'This feature is being built with the new centralized theme system. '
           'Stay tuned for authentication, matching, and chat features!',
+          style: AppTextStyles.bodyMedium.copyWith(color: textColor),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.getPrimaryColor(
+                isDarkTheme ? Brightness.dark : Brightness.light,
+              ),
+            ),
+            child: Text(
+              'OK',
+              style: AppTextStyles.button.copyWith(
+                color: AppColors.getPrimaryColor(
+                  isDarkTheme ? Brightness.dark : Brightness.light,
+                ),
+              ),
+            ),
           ),
         ],
       ),
     );
+  }
+}
+
+/// 🎨 Theme-Aware Onboarding Extensions - Helper methods for onboarding screen theming
+extension OnboardingThemeExtensions on ConsumerState<OnboardingScreen> {
+  /// Get theme-appropriate gradient
+  LinearGradient get currentGradient {
+    final brightness = ref.read(currentBrightnessProvider);
+    return AppColors.getThemeGradient(brightness);
+  }
+
+  /// Get theme-appropriate primary color
+  Color get currentPrimaryColor {
+    final brightness = ref.read(currentBrightnessProvider);
+    return AppColors.getPrimaryColor(brightness);
+  }
+
+  /// Get theme-appropriate text color
+  Color get currentTextColor {
+    final brightness = ref.read(currentBrightnessProvider);
+    return AppColors.getPrimaryTextColor(brightness);
+  }
+
+  /// Get theme-appropriate secondary text color
+  Color get currentSecondaryTextColor {
+    final brightness = ref.read(currentBrightnessProvider);
+    return AppColors.getSecondaryTextColor(brightness);
   }
 }
