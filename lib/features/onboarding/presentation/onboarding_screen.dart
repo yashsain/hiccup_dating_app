@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart'; // ✅ FIXED: Added missing import
 
 import '../../../shared/constants/app_colors.dart';
 import '../../../shared/constants/app_text_styles.dart';
 import '../../../shared/constants/app_constants.dart';
 import '../../../shared/services/theme_provider.dart';
+import '../../../app/router/app_router.dart'; // ✅ FIXED: Added missing import
 
 /// 👋 Onboarding Screen - New Theme System Integration (2025)
 ///
@@ -13,6 +15,7 @@ import '../../../shared/services/theme_provider.dart';
 /// - Automatic gradient selection based on theme
 /// - Theme-aware text colors and button styles
 /// - Platform-consistent appearance
+/// - FIXED: Proper GoRouter imports and navigation
 ///
 /// Key improvements:
 /// - ✅ Automatically uses correct gradient (light/dark)
@@ -20,6 +23,7 @@ import '../../../shared/services/theme_provider.dart';
 /// - ✅ Consistent button styling
 /// - ✅ No hardcoded colors
 /// - ✅ Smooth theme transitions
+/// - ✅ Proper navigation imports
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -320,7 +324,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           height: 56,
           child: ElevatedButton(
             onPressed: () {
-              // 🔮 Future: Navigate to registration/login
+              // ✅ FIXED: Proper GoRouter navigation
               context.go(AppRouter.discovery);
             },
             style: ElevatedButton.styleFrom(
@@ -352,7 +356,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           height: 56,
           child: OutlinedButton(
             onPressed: () {
-              // 🔮 Future: Navigate to login
+              // ✅ FIXED: Proper GoRouter navigation for login
+              // For now, navigate to discovery - can be changed to login route later
               context.go(AppRouter.discovery);
             },
             style: OutlinedButton.styleFrom(

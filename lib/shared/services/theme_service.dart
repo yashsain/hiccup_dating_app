@@ -11,6 +11,7 @@ import '../constants/app_constants.dart';
 /// - Automatic light/dark theme generation
 /// - Platform-specific system UI styling
 /// - Consistent theming across the entire app
+/// - Material 3 compatibility (Fixed CardThemeData and DialogThemeData)
 ///
 /// Usage:
 /// ```dart
@@ -41,14 +42,14 @@ class ThemeService {
       textButtonTheme: _getTextButtonTheme(Brightness.light),
       outlinedButtonTheme: _getOutlinedButtonTheme(Brightness.light),
 
-      // 🔲 Card Theme
-      cardTheme: _getCardTheme(Brightness.light),
+      // 🔲 Card Theme - FIXED: Using CardThemeData instead of CardTheme
+      cardTheme: _getCardThemeData(Brightness.light),
 
       // 📝 Input Decoration Theme
       inputDecorationTheme: _getInputDecorationTheme(Brightness.light),
 
-      // 🎭 Other Component Themes
-      dialogTheme: _getDialogTheme(Brightness.light),
+      // 🎭 Other Component Themes - FIXED: Using DialogThemeData instead of DialogTheme
+      dialogTheme: _getDialogThemeData(Brightness.light),
       snackBarTheme: _getSnackBarTheme(Brightness.light),
       dividerTheme: _getDividerTheme(Brightness.light),
 
@@ -80,14 +81,14 @@ class ThemeService {
       textButtonTheme: _getTextButtonTheme(Brightness.dark),
       outlinedButtonTheme: _getOutlinedButtonTheme(Brightness.dark),
 
-      // 🔲 Card Theme
-      cardTheme: _getCardTheme(Brightness.dark),
+      // 🔲 Card Theme - FIXED: Using CardThemeData instead of CardTheme
+      cardTheme: _getCardThemeData(Brightness.dark),
 
       // 📝 Input Decoration Theme
       inputDecorationTheme: _getInputDecorationTheme(Brightness.dark),
 
-      // 🎭 Other Component Themes
-      dialogTheme: _getDialogTheme(Brightness.dark),
+      // 🎭 Other Component Themes - FIXED: Using DialogThemeData instead of DialogTheme
+      dialogTheme: _getDialogThemeData(Brightness.dark),
       snackBarTheme: _getSnackBarTheme(Brightness.dark),
       dividerTheme: _getDividerTheme(Brightness.dark),
 
@@ -243,9 +244,9 @@ class ThemeService {
     );
   }
 
-  /// Card Theme
-  static CardTheme _getCardTheme(Brightness brightness) {
-    return CardTheme(
+  /// Card Theme - FIXED: Returns CardThemeData instead of CardTheme
+  static CardThemeData _getCardThemeData(Brightness brightness) {
+    return CardThemeData(
       color: AppColors.getSurfaceColor(brightness),
       elevation: AppConstants.elevationLow,
       shape: RoundedRectangleBorder(
@@ -285,9 +286,9 @@ class ThemeService {
     );
   }
 
-  /// Dialog Theme
-  static DialogTheme _getDialogTheme(Brightness brightness) {
-    return DialogTheme(
+  /// Dialog Theme - FIXED: Returns DialogThemeData instead of DialogTheme
+  static DialogThemeData _getDialogThemeData(Brightness brightness) {
+    return DialogThemeData(
       backgroundColor: AppColors.getSurfaceColor(brightness),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppConstants.borderRadius),
