@@ -12,10 +12,15 @@ dependencies:
     sdk: flutter
   
   # 🎯 ROUTING - Modern Navigation (2025 Standard)
-  go_router: ^14.2.0
+  go_router: ^16.0.0
   
-  # 🔧 STATE MANAGEMENT - Riverpod (2025 Recommended)
-  flutter_riverpod: ^2.5.1
+  # 🔧 STATE MANAGEMENT - Riverpod with Code Generation (2025 Recommended)
+  flutter_riverpod: ^3.0.0-dev.16
+  riverpod_annotation: ^3.0.0-dev.16
+  
+  # 🗄️ DATABASE - SQLite for Local Storage (2025 Standard)
+  sqflite: ^2.3.0
+  path: ^1.8.3
   
   # 🎨 SPLASH SCREEN - Native Implementation (Best Practice)
   flutter_native_splash: ^2.4.1
@@ -31,7 +36,15 @@ dev_dependencies:
     sdk: flutter
   
   # 📏 LINTING - Flutter Team Recommended (2025)
-  flutter_lints: ^4.0.0
+  flutter_lints: ^6.0.0
+  
+  # 🔧 CODE GENERATION - Riverpod Generator (2025 Standard)
+  riverpod_generator: ^3.0.0-dev.16
+  build_runner: ^2.4.7
+  
+  # 🎯 RIVERPOD LINTING - Enhanced Development Experience (2025)
+  riverpod_lint: ^3.0.0-dev.16
+  custom_lint: ^0.7.5
 
 flutter:
   uses-material-design: true

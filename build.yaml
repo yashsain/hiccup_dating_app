@@ -1,0 +1,10 @@
+# Build configuration for Riverpod code generation
+# Simple, compatible configuration for build_runner
+
+targets:
+  $default:
+    builders:
+      riverpod_generator:
+        options:
+          provider_name_prefix: ""
+          provider_name_suffix: "Provider"
