@@ -321,7 +321,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           child: ElevatedButton(
             onPressed: () {
               // 🔮 Future: Navigate to registration/login
-              _showComingSoonDialog(textColor, isDarkTheme);
+              context.go(AppRouter.discovery);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: primaryColor,
@@ -353,7 +353,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           child: OutlinedButton(
             onPressed: () {
               // 🔮 Future: Navigate to login
-              _showComingSoonDialog(textColor, isDarkTheme);
+              context.go(AppRouter.discovery);
             },
             style: OutlinedButton.styleFrom(
               foregroundColor: textColor,
@@ -369,45 +369,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           ),
         ),
       ],
-    );
-  }
-
-  /// 🔮 Show coming soon dialog with theme-aware styling
-  void _showComingSoonDialog(Color textColor, bool isDarkTheme) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: isDarkTheme
-            ? AppColors.darkSurface
-            : AppColors.lightSurface,
-        title: Text(
-          'Coming Soon! 🚀',
-          style: AppTextStyles.heading3.copyWith(color: textColor),
-        ),
-        content: Text(
-          'This feature is being built with the new centralized theme system. '
-          'Stay tuned for authentication, matching, and chat features!',
-          style: AppTextStyles.bodyMedium.copyWith(color: textColor),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            style: TextButton.styleFrom(
-              foregroundColor: AppColors.getPrimaryColor(
-                isDarkTheme ? Brightness.dark : Brightness.light,
-              ),
-            ),
-            child: Text(
-              'OK',
-              style: AppTextStyles.button.copyWith(
-                color: AppColors.getPrimaryColor(
-                  isDarkTheme ? Brightness.dark : Brightness.light,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

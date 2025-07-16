@@ -74,7 +74,7 @@ class IOSThemeConfig {
       platform: TargetPlatform.iOS,
 
       // iOS-specific: Tab bar theme (similar to bottom navigation)
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: TabBarThemeData(
         labelColor: theme.colorScheme.primary,
         unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.6),
         indicator: UnderlineTabIndicator(
@@ -153,7 +153,7 @@ class IOSThemeConfig {
   }
 
   /// Calculate contrast ratio between two colors
-  static double _calculateContrastRatio(Color color1, Color2) {
+  static double _calculateContrastRatio(Color color1, Color color2) {
     final luminance1 = color1.computeLuminance();
     final luminance2 = color2.computeLuminance();
 
