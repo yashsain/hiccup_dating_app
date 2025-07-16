@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../features/splash/presentation/splash_screen.dart';
-import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/main_navigation/presentation/main_navigation_screen.dart';
 import '../../features/discovery/presentation/discovery_screen.dart';
 import '../../features/chat/presentation/chat_screen.dart';
@@ -20,7 +19,6 @@ class AppRouter {
 
   // 📍 Route Names - Type-safe navigation
   static const String splash = '/';
-  static const String onboarding = '/onboarding';
 
   // 🔮 Future routes (as you build features)
   static const String auth = '/auth';
@@ -52,13 +50,6 @@ class AppRouter {
           path: splash,
           name: 'splash',
           builder: (context, state) => const SplashScreen(),
-        ),
-
-        // 👋 Onboarding Route
-        GoRoute(
-          path: onboarding,
-          name: 'onboarding',
-          builder: (context, state) => const OnboardingScreen(),
         ),
 
         // 🏠 Main Navigation Shell
@@ -144,7 +135,7 @@ class AppRouter {
 extension AppRouterExtension on BuildContext {
   // 🚀 Navigation helpers - makes navigation cleaner throughout the app
   void goToSplash() => go(AppRouter.splash);
-  void goToOnboarding() => go(AppRouter.onboarding);
+
   // 🏠 Main navigation methods
   void goToDiscovery() => go(AppRouter.discovery);
   void goToChats() => go(AppRouter.chats);

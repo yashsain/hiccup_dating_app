@@ -105,7 +105,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     await Future.delayed(AppConstants.splashDuration);
 
     if (mounted) {
-      context.go(AppRouter.onboarding);
+      context.go(AppRouter.discovery);
     }
   }
 
