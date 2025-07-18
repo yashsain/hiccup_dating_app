@@ -55,7 +55,7 @@ final class UpdateProfileUseCaseProvider
 }
 
 String _$updateProfileUseCaseHash() =>
-    r'065b485fe1309408536fc97dc0a68a169f7f7ef3';
+    r'4d525ab88fbc7c195b90c2f76e955360dd1acd3b';
 
 /// 🔧 Riverpod Provider for Basic Info Update
 @ProviderFor(updateBasicInfo)

@@ -343,7 +343,24 @@ class GetProfileUseCase {
 
   /// Sort badges by priority and rarity
   List<BadgeEntity> _sortBadges(List<BadgeEntity> badges) {
-    return BadgeHelpers.sortBadges(badges);
+    final sorted = List<BadgeEntity>.from(badges)
+      ..sort((a, b) {
+        // Sort by priority first (lower number = higher priority)
+        final priorityComparison = a.type.priority.compareTo(b.type.priority);
+        if (priorityComparison != 0) return priorityComparison;
+
+        // Then by rarity (rare badges first)
+        if (a.isRare && !b.isRare) return -1;
+        if (!a.isRare && b.isRare) return 1;
+
+        // Then by visibility
+        if (a.isVisible && !b.isVisible) return -1;
+        if (!a.isVisible && b.isVisible) return 1;
+
+        // Finally by creation date (newest first)
+        return b.createdAt.compareTo(a.createdAt);
+      });
+    return sorted;
   }
 
   /// Filter out invalid media

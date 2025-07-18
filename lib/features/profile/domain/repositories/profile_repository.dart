@@ -56,6 +56,15 @@ abstract class ProfileRepository {
   /// Delete badges for a profile
   Future<bool> deleteBadges(String profileId, List<String> badgeIds);
 
+  /// Get profile statistics (completeness, last updated, etc.)
+  Future<Map<String, dynamic>> getProfileStatistics(String profileId);
+
+  /// Get active poll for a profile
+  Future<PollEntity?> getActivePoll(String profileId);
+
+  /// Get visible badges for a profile
+  Future<List<BadgeEntity>> getVisibleBadges(String profileId);
+
   // 📝 PROMPT OPERATIONS
 
   /// Create prompts for a profile

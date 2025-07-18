@@ -25,10 +25,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
   @override
   Future<List<PollEntity>> getPolls(String profileId) async => [];
 
-  @override
-  Future<Map<String, dynamic>> getProfileStatistics(String profileId) async =>
-      {};
-
   Future<List<PromptEntity>> getPromptSuggestions(String profileId) async => [];
 
   Future<List<BadgeEntity>> getBadgeSuggestions(String profileId) async => [];
@@ -378,11 +374,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<List<BadgeEntity>> getVisibleBadges(String profileId) async {
-    return [];
-  }
-
-  @override
   Future<List<BadgeEntity>> getBadgesByType(
     String profileId,
     BadgeType type,
@@ -608,6 +599,23 @@ class ProfileRepositoryImpl implements ProfileRepository {
     bool identityVerified,
   ) async {
     // Update implementation
+  }
+
+  @override
+  Future<Map<String, dynamic>> getProfileStatistics(String profileId) async {
+    // TODO: Implement with demo data
+    return {
+      'profile_views': 150,
+      'matches': 23,
+      'messages_sent': 45,
+      'last_active': DateTime.now().toIso8601String(),
+    };
+  }
+
+  @override
+  Future<List<BadgeEntity>> getVisibleBadges(String profileId) async {
+    // TODO: Implement with demo data - return sample badges for now
+    return BadgeEntity.sampleBadges().where((b) => b.isVisible).toList();
   }
 }
 

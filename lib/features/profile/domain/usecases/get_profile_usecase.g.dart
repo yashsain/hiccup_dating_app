@@ -54,7 +54,7 @@ final class GetProfileUseCaseProvider
   }
 }
 
-String _$getProfileUseCaseHash() => r'886601b22f30faeb978776f38b799785e804f96c';
+String _$getProfileUseCaseHash() => r'3dc53432c8b476e9520cb695693e9f15b1dd0bed';
 
 /// 🔍 Riverpod Provider for Profile Data
 @ProviderFor(profileData)
@@ -114,7 +114,7 @@ final class ProfileDataProvider
   }
 }
 
-String _$profileDataHash() => r'47d49dba8a62113f990fabcff3f01c0c545f42ae';
+String _$profileDataHash() => r'5b786122ae6e78d541cd11ecf454b11e3b967204';
 
 /// 🔍 Riverpod Provider for Profile Data
 final class ProfileDataFamily extends $Family
@@ -194,7 +194,7 @@ final class BasicProfileProvider
   }
 }
 
-String _$basicProfileHash() => r'4da6247e38a0d49d7f4cdb814a82dc83b05bfe03';
+String _$basicProfileHash() => r'2c3df1127c118ee83ab25ba386df480e9416de3e';
 
 /// 🔍 Riverpod Provider for Basic Profile
 final class BasicProfileFamily extends $Family
@@ -276,7 +276,7 @@ final class ProfileStatisticsProvider
   }
 }
 
-String _$profileStatisticsHash() => r'8a0e0747ce5fdc59cb177e16e0fc05de56db5c41';
+String _$profileStatisticsHash() => r'760794000c77158ff257d15ade997c82bff363b0';
 
 /// 🔍 Riverpod Provider for Profile Statistics
 final class ProfileStatisticsFamily extends $Family
@@ -350,7 +350,7 @@ final class ProfileExistsProvider
   }
 }
 
-String _$profileExistsHash() => r'dca687be1949e9dbbd15c02946cd47e448afcfc0';
+String _$profileExistsHash() => r'6091792d6eb6e9e47fc963c4cc8bbb553fc9c3b9';
 
 /// 🔍 Riverpod Provider for Profile Existence Check
 final class ProfileExistsFamily extends $Family
@@ -432,7 +432,7 @@ final class MultipleProfilesProvider
   }
 }
 
-String _$multipleProfilesHash() => r'184d91e31e0d45fa49167b65b0230b25f97d27cd';
+String _$multipleProfilesHash() => r'4f54302ff7bb5327e65311a7f47a32a46bbcb38a';
 
 /// 🔍 Riverpod Provider for Multiple Profiles
 final class MultipleProfilesFamily extends $Family
