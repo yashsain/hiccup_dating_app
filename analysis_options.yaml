@@ -124,7 +124,6 @@ linter:
     prefer_interpolation_to_compose_strings: true
     prefer_mixin: true
     prefer_null_aware_method_calls: true
-    prefer_single_quotes: true
     public_member_api_docs: false # Disable for now, enable later for production
     require_trailing_commas: true
     secure_pubspec_urls: true

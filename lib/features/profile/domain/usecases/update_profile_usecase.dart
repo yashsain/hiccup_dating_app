@@ -6,6 +6,7 @@ import '../entities/media_entity.dart';
 import '../entities/interest_entity.dart';
 import '../entities/badge_entity.dart';
 import '../repositories/profile_repository.dart';
+import '../../../../shared/database/database_provider.dart';
 
 // This line is required for code generation
 part 'update_profile_usecase.g.dart';
@@ -159,7 +160,7 @@ class UpdateProfileUseCase {
       }
 
       // 2. Delete existing prompts
-      await _repository.deleteAllPrompts(profileId);
+      await _repository.deletePrompts(profileId, []);
 
       // 3. Create new prompts
       final results = <PromptEntity>[];
@@ -301,7 +302,7 @@ class UpdateProfileUseCase {
       }
 
       // 2. Delete existing media
-      await _repository.deleteAllMedia(profileId);
+      await _repository.deleteMedia(profileId, []);
 
       // 3. Create new media
       final results = <MediaEntity>[];
@@ -387,7 +388,7 @@ class UpdateProfileUseCase {
       }
 
       // 2. Delete existing interests
-      await _repository.deleteAllInterests(profileId);
+      await _repository.deleteInterests(profileId, []);
 
       // 3. Create new interests
       final results = <InterestEntity>[];
@@ -449,7 +450,7 @@ class UpdateProfileUseCase {
       }
 
       // 2. Delete existing badges
-      await _repository.deleteAllBadges(profileId);
+      await _repository.deleteBadges(profileId, []);
 
       // 3. Create new badges
       final results = <BadgeEntity>[];
@@ -730,7 +731,7 @@ class UpdateProfileUseCase {
     return UpdateResult.success(prompts);
   }
 
-  UpdateResult<PromptEntity> _validatePrompt(PromptEntity prompt) {
+  UpdateResult<List<PromptEntity>> _validatePrompt(PromptEntity prompt) {
     return _validatePrompts([prompt]);
   }
 
@@ -815,7 +816,7 @@ class UpdateProfileUseCase {
     return UpdateResult.success(media);
   }
 
-  UpdateResult<MediaEntity> _validateMediaItem(MediaEntity media) {
+  UpdateResult<List<MediaEntity>> _validateMediaItem(MediaEntity media) {
     return _validateMedia([media]);
   }
 
@@ -858,7 +859,9 @@ class UpdateProfileUseCase {
     return UpdateResult.success(interests);
   }
 
-  UpdateResult<InterestEntity> _validateInterest(InterestEntity interest) {
+  UpdateResult<List<InterestEntity>> _validateInterest(
+    InterestEntity interest,
+  ) {
     return _validateInterests([interest]);
   }
 
@@ -891,7 +894,7 @@ class UpdateProfileUseCase {
     return UpdateResult.success(badges);
   }
 
-  UpdateResult<BadgeEntity> _validateBadge(BadgeEntity badge) {
+  UpdateResult<List<BadgeEntity>> _validateBadge(BadgeEntity badge) {
     return _validateBadges([badge]);
   }
 

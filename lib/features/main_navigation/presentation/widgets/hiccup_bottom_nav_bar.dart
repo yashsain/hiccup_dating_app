@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../shared/constants/app_colors.dart';
-import '../../../../shared/constants/app_constants.dart';
 
 /// 🏠 Hiccup Bottom Navigation Bar - Custom themed navigation (2025)
 ///

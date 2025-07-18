@@ -26,6 +26,8 @@ dependencies:
   # 🎨 SPLASH SCREEN - Native Implementation (Best Practice)
   flutter_native_splash: ^2.4.1
   
+  equatable: ^2.0.5
+  
   # 🎯 UI ICONS - Modern Icon Set
   cupertino_icons: ^1.0.6
   

@@ -6,6 +6,7 @@ import '../entities/media_entity.dart';
 import '../entities/interest_entity.dart';
 import '../entities/badge_entity.dart';
 import '../repositories/profile_repository.dart';
+import '../../../../shared/database/database_provider.dart';
 
 // This line is required for code generation
 part 'get_profile_usecase.g.dart';

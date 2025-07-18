@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:io' show Platform;
 
 import 'app/app.dart';
-import 'shared/constants/app_constants.dart';
 import 'platform/android/theme_config.dart';
 import 'platform/ios/theme_config.dart';
 
