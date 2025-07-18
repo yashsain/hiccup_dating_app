@@ -55,7 +55,7 @@ final class UpdateProfileUseCaseProvider
 }
 
 String _$updateProfileUseCaseHash() =>
-    r'4d525ab88fbc7c195b90c2f76e955360dd1acd3b';
+    r'23b9454718c5abd5c4c7aadf6c402a4285d2d94a';
 
 /// 🔧 Riverpod Provider for Basic Info Update
 @ProviderFor(updateBasicInfo)
@@ -117,7 +117,7 @@ final class UpdateBasicInfoProvider
   }
 }
 
-String _$updateBasicInfoHash() => r'6b62b24975d669adf6d500ac53ff9af4c29a4807';
+String _$updateBasicInfoHash() => r'300d2e6dc1564605fbad5a478a8d8326a3258d8e';
 
 /// 🔧 Riverpod Provider for Basic Info Update
 final class UpdateBasicInfoFamily extends $Family
@@ -203,7 +203,7 @@ final class UpdatePromptsProvider
   }
 }
 
-String _$updatePromptsHash() => r'bcfbb2825d55fc1deb13c8ea40d86d0f43d9edd3';
+String _$updatePromptsHash() => r'c524f96349bbecf7d9e8777b2f04b0dad1bf7ae2';
 
 /// 🔧 Riverpod Provider for Prompts Update
 final class UpdatePromptsFamily extends $Family
@@ -289,7 +289,7 @@ final class UpdatePollProvider
   }
 }
 
-String _$updatePollHash() => r'067ec266e1ade2a2d122c0fb6c2fb476f03e582a';
+String _$updatePollHash() => r'64672683645069a2e83189927444d9e55fd3d82b';
 
 /// 🔧 Riverpod Provider for Poll Update
 final class UpdatePollFamily extends $Family
@@ -375,7 +375,7 @@ final class UpdateMediaProvider
   }
 }
 
-String _$updateMediaHash() => r'5cd7251cee3f0d28bd90890d0c696830c707b855';
+String _$updateMediaHash() => r'45d2d2d1e9cc68b220ed7895d0225d64097481c2';
 
 /// 🔧 Riverpod Provider for Media Update
 final class UpdateMediaFamily extends $Family
@@ -461,7 +461,7 @@ final class UpdateInterestsProvider
   }
 }
 
-String _$updateInterestsHash() => r'ca683eda442c26f2883b4f1f4f5ed145d4f25cfc';
+String _$updateInterestsHash() => r'42f1058b814bab2349c772a319e3c06d244cd1a9';
 
 /// 🔧 Riverpod Provider for Interests Update
 final class UpdateInterestsFamily extends $Family
@@ -549,7 +549,7 @@ final class UpdateBadgesProvider
   }
 }
 
-String _$updateBadgesHash() => r'368d99113d0aa4e777e1e978ee814d81945101ed';
+String _$updateBadgesHash() => r'50ea1e93909560ff14e57c35e4fca76bf303b438';
 
 /// 🔧 Riverpod Provider for Badges Update
 final class UpdateBadgesFamily extends $Family
@@ -664,7 +664,7 @@ final class UpdateCompleteProfileProvider
 }
 
 String _$updateCompleteProfileHash() =>
-    r'e0898cb8390c50ab6bd49e82a04104f669ed01e5';
+    r'31a413ee6faf0ae110e3bff1bc4cb1af7983dcd5';
 
 /// 🔧 Riverpod Provider for Complete Profile Update
 final class UpdateCompleteProfileFamily extends $Family
@@ -769,7 +769,7 @@ final class ProfileCompletenessProvider
 }
 
 String _$profileCompletenessHash() =>
-    r'50d6e90a6f8c046e55ceb89927897b776fbb7a6b';
+    r'a4b56357150a56fe5bd587e7a710ea42f99277a8';
 
 /// 🔧 Riverpod Provider for Profile Completeness
 final class ProfileCompletenessFamily extends $Family
@@ -853,7 +853,7 @@ final class UpdateProfileStatisticsProvider
 }
 
 String _$updateProfileStatisticsHash() =>
-    r'b6155819a70621b7c47ffe6e0f1fe84a6fba621e';
+    r'419c27089ee787797dee28fabc847b8c516438ef';
 
 /// 🔧 Riverpod Provider for Profile Statistics
 final class UpdateProfileStatisticsFamily extends $Family

@@ -150,6 +150,9 @@ abstract class ProfileRepository {
   /// Get all prompts for a profile
   Future<List<PromptEntity>> getPrompts(String profileId);
 
+  /// Get prompts by display order
+  Future<List<PromptEntity>> getPromptsByOrder(String profileId);
+
   /// Get a specific prompt by ID
   Future<PromptEntity?> getPrompt(String id);
 
@@ -167,6 +170,15 @@ abstract class ProfileRepository {
 
   /// Reorder prompts (update display order)
   Future<void> reorderPrompts(String profileId, List<String> promptIds);
+
+  /// Get active poll for a profile
+  Future<PollEntity?> getActivePoll(String profileId);
+
+  /// Get visible badges for a profile
+  Future<List<BadgeEntity>> getVisibleBadges(String profileId);
+
+  /// Get profile statistics
+  Future<Map<String, dynamic>> getProfileStatistics(String profileId);
 
   // 📊 POLL OPERATIONS
 

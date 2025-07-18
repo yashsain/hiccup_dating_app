@@ -264,7 +264,7 @@ class UpdateProfileUseCase {
         createdAt: DateTime.now(),
       );
 
-      final result = await _repository.createPoll(pollToCreate);
+      final result = await _repository.createPoll(profileId, poll);
       return UpdateResult.success(result);
     } catch (e) {
       return UpdateResult.failure('Failed to update poll: $e');
@@ -312,7 +312,7 @@ class UpdateProfileUseCase {
           profileId: profileId,
           displayOrder: i + 1,
         );
-        final result = await _repository.createMedia(mediaItem);
+        final result = await _repository.createMedia(profileId, [mediaItem]);
         results.add(result);
       }
 
@@ -352,7 +352,7 @@ class UpdateProfileUseCase {
         displayOrder: existingMedia.length + 1,
       );
 
-      final result = await _repository.createMedia(mediaToAdd);
+      final result = await _repository.createMedia(profileId, [mediaToAdd]);
       return UpdateResult.success(result);
     } catch (e) {
       return UpdateResult.failure('Failed to add media: $e');

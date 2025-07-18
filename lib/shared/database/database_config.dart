@@ -486,20 +486,22 @@ extension DatabaseConfigExtensions on DatabaseConfig {
   /// Get validation error message for profile data
   static String? getProfileValidationError(Map<String, dynamic> profileData) {
     if (profileData['name'] == null ||
-        !isValidProfileName(profileData['name'])) {
+        !DatabaseConfig.isValidProfileName(profileData['name'] as String)) {
       return 'Invalid profile name';
     }
 
-    if (profileData['age'] == null || !isValidAge(profileData['age'])) {
-      return errorInvalidAge;
+    if (profileData['age'] == null ||
+        !DatabaseConfig.isValidAge(profileData['age'] as int)) {
+      return DatabaseConfig.errorInvalidAge;
     }
 
     if (profileData['location'] == null ||
-        !isValidLocation(profileData['location'])) {
+        !DatabaseConfig.isValidLocation(profileData['location'] as String)) {
       return 'Invalid location';
     }
 
-    if (profileData['bio'] != null && !isValidBio(profileData['bio'])) {
+    if (profileData['bio'] != null &&
+        !DatabaseConfig.isValidBio(profileData['bio'] as String)) {
       return 'Bio too long';
     }
 
