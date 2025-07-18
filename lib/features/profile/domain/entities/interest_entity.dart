@@ -282,7 +282,7 @@ enum InterestCategory {
 }
 
 @freezed
-class InterestEntity with _$InterestEntity {
+sealed class InterestEntity with _$InterestEntity {
   const factory InterestEntity({
     required String id,
     required String profileId,

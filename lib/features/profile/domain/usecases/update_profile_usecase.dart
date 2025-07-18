@@ -313,7 +313,7 @@ class UpdateProfileUseCase {
           displayOrder: i + 1,
         );
         final result = await _repository.createMedia(profileId, [mediaItem]);
-        results.add(result);
+        results.addAll(result);
       }
 
       return UpdateResult.success(results);
@@ -351,9 +351,8 @@ class UpdateProfileUseCase {
         profileId: profileId,
         displayOrder: existingMedia.length + 1,
       );
-
-      final result = await _repository.createMedia(profileId, [mediaToAdd]);
-      return UpdateResult.success(result);
+      final results = await _repository.createMedia(profileId, [mediaToAdd]);
+      return UpdateResult.success(results.first);
     } catch (e) {
       return UpdateResult.failure('Failed to add media: $e');
     }

@@ -117,10 +117,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _PromptEntity():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -179,10 +176,7 @@ return $default(_that.id,_that.profileId,_that.question,_that.response,_that.dis
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String profileId,  String question,  String response,  int displayOrder,  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _PromptEntity():
-return $default(_that.id,_that.profileId,_that.question,_that.response,_that.displayOrder,_that.createdAt);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.id,_that.profileId,_that.question,_that.response,_that.displayOrder,_that.createdAt);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///

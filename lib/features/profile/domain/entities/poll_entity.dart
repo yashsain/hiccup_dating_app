@@ -25,7 +25,7 @@ part 'poll_entity.freezed.dart';
 /// );
 /// ```
 @freezed
-class PollEntity with _$PollEntity {
+sealed class PollEntity with _$PollEntity {
   const factory PollEntity({
     required String id,
     required String profileId,

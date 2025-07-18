@@ -130,10 +130,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _MediaEntity():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -192,10 +189,7 @@ return $default(_that.id,_that.profileId,_that.filePath,_that.type,_that.display
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String profileId,  String filePath,  MediaType type,  int displayOrder,  String? caption,  int fileSizeBytes,  int? durationSeconds,  int? width,  int? height,  String? thumbnailPath,  bool isProcessing,  bool isVisible,  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _MediaEntity():
-return $default(_that.id,_that.profileId,_that.filePath,_that.type,_that.displayOrder,_that.caption,_that.fileSizeBytes,_that.durationSeconds,_that.width,_that.height,_that.thumbnailPath,_that.isProcessing,_that.isVisible,_that.createdAt);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.id,_that.profileId,_that.filePath,_that.type,_that.displayOrder,_that.caption,_that.fileSizeBytes,_that.durationSeconds,_that.width,_that.height,_that.thumbnailPath,_that.isProcessing,_that.isVisible,_that.createdAt);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///

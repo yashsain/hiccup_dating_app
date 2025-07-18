@@ -162,6 +162,17 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
+  Future<List<PromptEntity>> getPromptsByOrder(String profileId) async {
+    try {
+      final prompts = await getPrompts(profileId);
+      prompts.sort((a, b) => a.displayOrder.compareTo(b.displayOrder));
+      return prompts;
+    } catch (e) {
+      throw DatabaseException('getPromptsByOrder', e);
+    }
+  }
+
+  @override
   Future<List<PromptEntity>> getVisiblePrompts(String profileId) async {
     return [];
   }

@@ -124,10 +124,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _BadgeEntity():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -186,10 +183,7 @@ return $default(_that.id,_that.profileId,_that.badge,_that.type,_that.descriptio
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String profileId,  String badge,  BadgeType type,  String? description,  bool isVisible,  bool isRare,  DateTime? earnedAt,  DateTime? expiresAt,  String? iconUrl,  String? color,  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _BadgeEntity():
-return $default(_that.id,_that.profileId,_that.badge,_that.type,_that.description,_that.isVisible,_that.isRare,_that.earnedAt,_that.expiresAt,_that.iconUrl,_that.color,_that.createdAt);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.id,_that.profileId,_that.badge,_that.type,_that.description,_that.isVisible,_that.isRare,_that.earnedAt,_that.expiresAt,_that.iconUrl,_that.color,_that.createdAt);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///

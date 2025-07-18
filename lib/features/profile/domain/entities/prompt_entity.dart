@@ -25,7 +25,7 @@ part 'prompt_entity.freezed.dart';
 /// );
 /// ```
 @freezed
-class PromptEntity with _$PromptEntity {
+sealed class PromptEntity with _$PromptEntity {
   const factory PromptEntity({
     required String id,
     required String profileId,

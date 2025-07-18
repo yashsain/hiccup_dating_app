@@ -128,10 +128,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _ProfileEntity():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -190,10 +187,7 @@ return $default(_that.id,_that.name,_that.age,_that.location,_that.gender,_that.
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  int age,  String location,  String gender,  String? sexualOrientation,  String? bio,  String? datingGoals,  String? music,  bool photoVerification,  bool identityVerification,  String? premium,  String? instagramUrl,  String? spotifyUrl,  DateTime createdAt,  DateTime updatedAt,  List<String> promptIds,  String? activePollId,  List<String> mediaIds,  List<String> interestIds,  List<String> badgeIds)  $default,) {final _that = this;
 switch (_that) {
 case _ProfileEntity():
-return $default(_that.id,_that.name,_that.age,_that.location,_that.gender,_that.sexualOrientation,_that.bio,_that.datingGoals,_that.music,_that.photoVerification,_that.identityVerification,_that.premium,_that.instagramUrl,_that.spotifyUrl,_that.createdAt,_that.updatedAt,_that.promptIds,_that.activePollId,_that.mediaIds,_that.interestIds,_that.badgeIds);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.id,_that.name,_that.age,_that.location,_that.gender,_that.sexualOrientation,_that.bio,_that.datingGoals,_that.music,_that.photoVerification,_that.identityVerification,_that.premium,_that.instagramUrl,_that.spotifyUrl,_that.createdAt,_that.updatedAt,_that.promptIds,_that.activePollId,_that.mediaIds,_that.interestIds,_that.badgeIds);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///

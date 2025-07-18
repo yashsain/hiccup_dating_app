@@ -160,7 +160,7 @@ enum BadgeType {
 }
 
 @freezed
-class BadgeEntity with _$BadgeEntity {
+sealed class BadgeEntity with _$BadgeEntity {
   const factory BadgeEntity({
     required String id,
     required String profileId,

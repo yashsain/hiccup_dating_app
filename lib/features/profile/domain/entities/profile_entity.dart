@@ -24,7 +24,7 @@ part 'profile_entity.freezed.dart';
 /// );
 /// ```
 @freezed
-class ProfileEntity with _$ProfileEntity {
+sealed class ProfileEntity with _$ProfileEntity {
   const factory ProfileEntity({
     required String id,
     required String name,

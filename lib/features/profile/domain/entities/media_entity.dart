@@ -87,7 +87,7 @@ enum MediaType {
 }
 
 @freezed
-class MediaEntity with _$MediaEntity {
+sealed class MediaEntity with _$MediaEntity {
   const factory MediaEntity({
     required String id,
     required String profileId,

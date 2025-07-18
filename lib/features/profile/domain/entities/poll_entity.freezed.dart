@@ -119,10 +119,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _PollEntity():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -181,10 +178,7 @@ return $default(_that.id,_that.profileId,_that.question,_that.options,_that.isAc
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String profileId,  String question,  List<String> options,  bool isActive,  Map<String, int> votes,  int totalVotes,  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _PollEntity():
-return $default(_that.id,_that.profileId,_that.question,_that.options,_that.isActive,_that.votes,_that.totalVotes,_that.createdAt);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.id,_that.profileId,_that.question,_that.options,_that.isActive,_that.votes,_that.totalVotes,_that.createdAt);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
