@@ -42,19 +42,6 @@ class DatabaseConfig {
   static const String profilePhotoVerificationColumn = 'photo_verification';
   static const String profileIdentityVerificationColumn =
       'identity_verification';
-  static const String profilePremiumColumn = 'premium';
-  static const String profileInstagramUrlColumn = 'instagram_url';
-  static const String profileSpotifyUrlColumn = 'spotify_url';
-  static const String profileCreatedAtColumn = 'created_at';
-  static const String profileUpdatedAtColumn = 'updated_at';
-
-  // 💬 Prompts Table Columns
-  static const String promptIdColumn = 'id';
-  static const String promptProfileIdColumn = 'profile_id';
-  static const String promptQuestionColumn = 'question';
-  static const String promptResponseColumn = 'response';
-  static const String promptDisplayOrderColumn = 'display_order';
-  static const String promptCreatedAtColumn = 'created_at';
 
   // 📊 Polls Table Columns
   static const String pollIdColumn = 'id';
@@ -183,6 +170,166 @@ class DatabaseConfig {
   static const String errorDatabaseConnection = 'Database connection failed';
   static const String errorDatabaseOperation = 'Database operation failed';
 
+  // 👤 Additional Profile Table Columns
+  static const String profilePremiumColumn = 'premium';
+  static const String profileInstagramUrlColumn = 'instagram_url';
+  static const String profileSpotifyUrlColumn = 'spotify_url';
+  static const String profileActivePollidColumn = 'active_poll_id';
+  static const String profileCreatedAtColumn = 'created_at';
+  static const String profileUpdatedAtColumn = 'updated_at';
+
+  // 📝 Prompt Table Columns
+  static const String promptIdColumn = 'id';
+  static const String promptProfileIdColumn = 'profile_id';
+  static const String promptQuestionColumn = 'question';
+  static const String promptResponseColumn = 'response';
+  static const String promptDisplayOrderColumn = 'display_order';
+  static const String promptCreatedAtColumn = 'created_at';
+
+  // 📊 Poll Table Columns
+
+  static const String pollVotesColumn = 'votes';
+  static const String pollTotalVotesColumn = 'total_votes';
+
+  // 🎥 Media Table Columns
+  static const String mediaCaptionColumn = 'caption';
+  static const String mediaFileSizeBytesColumn = 'file_size_bytes';
+  static const String mediaDurationSecondsColumn = 'duration_seconds';
+  static const String mediaWidthColumn = 'width';
+  static const String mediaHeightColumn = 'height';
+  static const String mediaThumbnailPathColumn = 'thumbnail_path';
+  static const String mediaIsProcessingColumn = 'is_processing';
+  static const String mediaIsVisibleColumn = 'is_visible';
+
+  // 🎯 Interest Table Columns
+
+  static const String interestCategoryColumn = 'category';
+  static const String interestIsCustomColumn = 'is_custom';
+  static const String interestDisplayOrderColumn = 'display_order';
+
+  // 🏆 Additional Badge Table Columns
+  static const String badgeTypeColumn = 'type';
+  static const String badgeDescriptionColumn = 'description';
+  static const String badgeIsVisibleColumn = 'is_visible';
+  static const String badgeIsRareColumn = 'is_rare';
+  static const String badgeEarnedAtColumn = 'earned_at';
+  static const String badgeExpiresAtColumn = 'expires_at';
+  static const String badgeIconUrlColumn = 'icon_url';
+  static const String badgeColorColumn = 'color';
+  // 🏗️ SQL TABLE CREATION QUERIES
+
+  /// Create profiles table SQL
+  static const String createProfilesTableQuery =
+      '''
+    CREATE TABLE $profilesTable (
+      $profileIdColumn TEXT PRIMARY KEY,
+      $profileNameColumn TEXT NOT NULL,
+      $profileAgeColumn INTEGER NOT NULL,
+      $profileLocationColumn TEXT NOT NULL,
+      $profileGenderColumn TEXT NOT NULL,
+      $profileSexualOrientationColumn TEXT,
+      $profileBioColumn TEXT,
+      $profileDatingGoalsColumn TEXT,
+      $profileMusicColumn TEXT,
+      $profilePhotoVerificationColumn INTEGER DEFAULT 0,
+      $profileIdentityVerificationColumn INTEGER DEFAULT 0,
+      $profilePremiumColumn TEXT,
+      $profileInstagramUrlColumn TEXT,
+      $profileSpotifyUrlColumn TEXT,
+      $profileCreatedAtColumn TEXT NOT NULL,
+      $profileUpdatedAtColumn TEXT NOT NULL,
+      $profileActivePollidColumn TEXT,
+      FOREIGN KEY ($profileActivePollidColumn) REFERENCES $pollsTable($pollIdColumn)
+    );
+  ''';
+
+  /// Create prompts table SQL
+  static const String createPromptsTableQuery =
+      '''
+    CREATE TABLE $promptsTable (
+      $promptIdColumn TEXT PRIMARY KEY,
+      $promptProfileIdColumn TEXT NOT NULL,
+      $promptQuestionColumn TEXT NOT NULL,
+      $promptResponseColumn TEXT NOT NULL,
+      $promptDisplayOrderColumn INTEGER NOT NULL,
+      $promptCreatedAtColumn TEXT NOT NULL,
+      FOREIGN KEY ($promptProfileIdColumn) REFERENCES $profilesTable($profileIdColumn) ON DELETE CASCADE
+    );
+  ''';
+
+  /// Create polls table SQL
+  static const String createPollsTableQuery =
+      '''
+    CREATE TABLE $pollsTable (
+      $pollIdColumn TEXT PRIMARY KEY,
+      $pollProfileIdColumn TEXT NOT NULL,
+      $pollQuestionColumn TEXT NOT NULL,
+      $pollOptionsColumn TEXT NOT NULL,
+      $pollIsActiveColumn INTEGER DEFAULT 1,
+      $pollVotesColumn TEXT DEFAULT '{}',
+      $pollTotalVotesColumn INTEGER DEFAULT 0,
+      $pollCreatedAtColumn TEXT NOT NULL,
+      FOREIGN KEY ($pollProfileIdColumn) REFERENCES $profilesTable($profileIdColumn) ON DELETE CASCADE
+    );
+  ''';
+
+  /// Create media table SQL
+  static const String createMediaTableQuery =
+      '''
+    CREATE TABLE $mediaTable (
+      $mediaIdColumn TEXT PRIMARY KEY,
+      $mediaProfileIdColumn TEXT NOT NULL,
+      $mediaFilePathColumn TEXT NOT NULL,
+      $mediaTypeColumn TEXT NOT NULL,
+      $mediaDisplayOrderColumn INTEGER NOT NULL,
+      $mediaCaptionColumn TEXT,
+      $mediaFileSizeBytesColumn INTEGER DEFAULT 0,
+      $mediaDurationSecondsColumn INTEGER,
+      $mediaWidthColumn INTEGER,
+      $mediaHeightColumn INTEGER,
+      $mediaThumbnailPathColumn TEXT,
+      $mediaIsProcessingColumn INTEGER DEFAULT 0,
+      $mediaIsVisibleColumn INTEGER DEFAULT 1,
+      $mediaCreatedAtColumn TEXT NOT NULL,
+      FOREIGN KEY ($mediaProfileIdColumn) REFERENCES $profilesTable($profileIdColumn) ON DELETE CASCADE
+    );
+  ''';
+
+  /// Create interests table SQL
+  static const String createInterestsTableQuery =
+      '''
+    CREATE TABLE $interestsTable (
+      $interestIdColumn TEXT PRIMARY KEY,
+      $interestProfileIdColumn TEXT NOT NULL,
+      $interestColumn TEXT NOT NULL,
+      $interestCategoryColumn TEXT,
+      $interestIsCustomColumn INTEGER DEFAULT 0,
+      $interestDisplayOrderColumn INTEGER,
+      $interestCreatedAtColumn TEXT NOT NULL,
+      FOREIGN KEY ($interestProfileIdColumn) REFERENCES $profilesTable($profileIdColumn) ON DELETE CASCADE
+    );
+  ''';
+
+  /// Create badges table SQL
+  static const String createBadgesTableQuery =
+      '''
+    CREATE TABLE $badgesTable (
+      $badgeIdColumn TEXT PRIMARY KEY,
+      $badgeProfileIdColumn TEXT NOT NULL,
+      $badgeColumn TEXT NOT NULL,
+      $badgeTypeColumn TEXT NOT NULL,
+      $badgeDescriptionColumn TEXT,
+      $badgeIsVisibleColumn INTEGER DEFAULT 1,
+      $badgeIsRareColumn INTEGER DEFAULT 0,
+      $badgeEarnedAtColumn TEXT,
+      $badgeExpiresAtColumn TEXT,
+      $badgeIconUrlColumn TEXT,
+      $badgeColorColumn TEXT,
+      $badgeCreatedAtColumn TEXT NOT NULL,
+      FOREIGN KEY ($badgeProfileIdColumn) REFERENCES $profilesTable($profileIdColumn) ON DELETE CASCADE
+    );
+  ''';
+
   // 🎯 Validation Methods
 
   /// Validate profile name
@@ -308,6 +455,25 @@ class DatabaseConfig {
     interestsTable,
     badgesTable,
   ];
+
+  static String getTableQuery(String tableName) {
+    switch (tableName) {
+      case DatabaseConfig.profilesTable:
+        return DatabaseConfig.createProfilesTableQuery;
+      case DatabaseConfig.promptsTable:
+        return DatabaseConfig.createPromptsTableQuery;
+      case DatabaseConfig.pollsTable:
+        return DatabaseConfig.createPollsTableQuery;
+      case DatabaseConfig.mediaTable:
+        return DatabaseConfig.createMediaTableQuery;
+      case DatabaseConfig.interestsTable:
+        return DatabaseConfig.createInterestsTableQuery;
+      case DatabaseConfig.badgesTable:
+        return DatabaseConfig.createBadgesTableQuery;
+      default:
+        throw ArgumentError('Unknown table: $tableName');
+    }
+  }
 
   /// Get current timestamp
   static int getCurrentTimestamp() {

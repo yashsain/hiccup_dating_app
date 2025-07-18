@@ -18,7 +18,7 @@ import 'theme_service.dart';
 /// ```
 
 /// 🎯 Theme Notifier - Handles theme state changes
-class ThemeNotifier extends StateNotifier<ThemeMode> {
+class ThemeNotifier extends Notifier<ThemeMode> {
   ThemeNotifier() : super(ThemeMode.system) {
     _initializeTheme();
   }
@@ -97,7 +97,7 @@ class ThemeNotifier extends StateNotifier<ThemeMode> {
 }
 
 /// 🎭 Theme Provider - Main theme state provider
-final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeMode>((ref) {
+final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(() {
   return ThemeNotifier();
 });
 

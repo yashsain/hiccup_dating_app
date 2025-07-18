@@ -229,6 +229,8 @@ class ProfileEntity with _$ProfileEntity {
       badgeIds: ['badge_1', 'badge_2'],
     );
   }
+
+  static Future<ProfileEntity?> demoProfile() async {}
 }
 
 /// 🎯 Profile Entity Extensions - Additional functionality

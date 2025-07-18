@@ -59,7 +59,7 @@ class HiccupApp extends ConsumerWidget {
       // 🎨 Theme Configuration - NEW CENTRALIZED SYSTEM
       theme: adaptedLightTheme,
       darkTheme: adaptedDarkTheme,
-      themeMode: themeMode,
+      themeMode: themeMode ?? ThemeMode.system,
 
       // 🎯 Builder - Handle theme changes and system UI
       builder: (context, child) {

@@ -7,6 +7,7 @@ import '../entities/interest_entity.dart';
 import '../entities/badge_entity.dart';
 import '../repositories/profile_repository.dart';
 import '../../../../shared/database/database_provider.dart';
+import '../../data/repositories/profile_repository_impl.dart';
 
 // This line is required for code generation
 part 'get_profile_usecase.g.dart';
@@ -359,24 +360,21 @@ class GetProfileUseCase {
 
 /// 🔍 Riverpod Provider for GetProfileUseCase
 @riverpod
-GetProfileUseCase getProfileUseCase(GetProfileUseCaseRef ref) {
-  // Repository will be injected here once we create the data layer
-  throw UnimplementedError('ProfileRepository provider not implemented yet');
+GetProfileUseCase getProfileUseCase(Ref ref) {
+  final repository = ref.watch(profileRepositoryProvider);
+  return GetProfileUseCase(repository);
 }
 
 /// 🔍 Riverpod Provider for Profile Data
 @riverpod
-Future<ProfileData?> profileData(ProfileDataRef ref, String profileId) async {
+Future<ProfileData?> profileData(Ref ref, String profileId) async {
   final useCase = ref.watch(getProfileUseCaseProvider);
   return await useCase.execute(profileId);
 }
 
 /// 🔍 Riverpod Provider for Basic Profile
 @riverpod
-Future<ProfileEntity?> basicProfile(
-  BasicProfileRef ref,
-  String profileId,
-) async {
+Future<ProfileEntity?> basicProfile(Ref ref, String profileId) async {
   final useCase = ref.watch(getProfileUseCaseProvider);
   return await useCase.getBasicProfile(profileId);
 }
@@ -384,7 +382,7 @@ Future<ProfileEntity?> basicProfile(
 /// 🔍 Riverpod Provider for Profile Statistics
 @riverpod
 Future<Map<String, dynamic>> profileStatistics(
-  ProfileStatisticsRef ref,
+  Ref ref,
   String profileId,
 ) async {
   final useCase = ref.watch(getProfileUseCaseProvider);
@@ -393,7 +391,7 @@ Future<Map<String, dynamic>> profileStatistics(
 
 /// 🔍 Riverpod Provider for Profile Existence Check
 @riverpod
-Future<bool> profileExists(ProfileExistsRef ref, String profileId) async {
+Future<bool> profileExists(Ref ref, String profileId) async {
   final useCase = ref.watch(getProfileUseCaseProvider);
   return await useCase.profileExists(profileId);
 }
@@ -401,7 +399,7 @@ Future<bool> profileExists(ProfileExistsRef ref, String profileId) async {
 /// 🔍 Riverpod Provider for Multiple Profiles
 @riverpod
 Future<List<ProfileData>> multipleProfiles(
-  MultipleProfilesRef ref,
+  Ref ref,
   List<String> profileIds,
 ) async {
   final useCase = ref.watch(getProfileUseCaseProvider);

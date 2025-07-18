@@ -7,6 +7,7 @@ import '../entities/interest_entity.dart';
 import '../entities/badge_entity.dart';
 import '../repositories/profile_repository.dart';
 import '../../../../shared/database/database_provider.dart';
+import '../../data/repositories/profile_repository_impl.dart';
 
 // This line is required for code generation
 part 'update_profile_usecase.g.dart';
@@ -964,7 +965,8 @@ class UpdateProfileUseCase {
 @riverpod
 UpdateProfileUseCase updateProfileUseCase(UpdateProfileUseCaseRef ref) {
   // Repository will be injected here once we create the data layer
-  throw UnimplementedError('ProfileRepository provider not implemented yet');
+  final repository = ref.watch(profileRepositoryProvider);
+  return UpdateProfileUseCase(repository);
 }
 
 /// 🔧 Riverpod Provider for Basic Info Update

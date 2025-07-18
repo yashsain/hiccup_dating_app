@@ -1,9 +1,9 @@
+import '../entities/badge_entity.dart';
+import '../entities/interest_entity.dart';
+import '../entities/media_entity.dart';
+import '../entities/poll_entity.dart';
 import '../entities/profile_entity.dart';
 import '../entities/prompt_entity.dart';
-import '../entities/poll_entity.dart';
-import '../entities/media_entity.dart';
-import '../entities/interest_entity.dart';
-import '../entities/badge_entity.dart';
 
 /// 🔄 Profile Repository Interface - Clean Architecture Contract (2025)
 ///
@@ -47,6 +47,97 @@ abstract class ProfileRepository {
   /// Throws exception if profile doesn't exist or validation fails
   Future<ProfileEntity> updateProfile(ProfileEntity profile);
 
+  /// Delete prompts for a profile
+  Future<bool> deletePrompts(String profileId, List<String> promptIds);
+
+  /// Delete interests for a profile
+  Future<bool> deleteInterests(String profileId, List<String> interestIds);
+
+  /// Delete badges for a profile
+  Future<bool> deleteBadges(String profileId, List<String> badgeIds);
+
+  // 📝 PROMPT OPERATIONS
+
+  /// Create prompts for a profile
+  Future<List<PromptEntity>> createPrompts(
+    String profileId,
+    List<PromptEntity> prompts,
+  );
+
+  /// Update prompts for a profile
+  Future<List<PromptEntity>> updatePrompts(
+    String profileId,
+    List<PromptEntity> prompts,
+  );
+
+  // 📊 POLL OPERATIONS
+
+  /// Get poll for a profile
+  Future<PollEntity?> getPoll(String profileId);
+
+  /// Create poll for a profile
+  Future<PollEntity> createPoll(String profileId, PollEntity poll);
+
+  /// Update poll for a profile
+  Future<PollEntity> updatePoll(String profileId, PollEntity poll);
+
+  /// Delete poll for a profile
+  Future<bool> deletePoll(String profileId, String pollId);
+
+  // 🎥 MEDIA OPERATIONS
+
+  /// Get media for a profile
+  Future<List<MediaEntity>> getMedia(String profileId);
+
+  /// Create media for a profile
+  Future<List<MediaEntity>> createMedia(
+    String profileId,
+    List<MediaEntity> media,
+  );
+
+  /// Update media for a profile
+  Future<List<MediaEntity>> updateMedia(
+    String profileId,
+    List<MediaEntity> media,
+  );
+
+  /// Delete media for a profile
+  Future<bool> deleteMedia(String profileId, List<String> mediaIds);
+
+  // 🎯 INTEREST OPERATIONS
+
+  /// Get interests for a profile
+  Future<List<InterestEntity>> getInterests(String profileId);
+
+  /// Create interests for a profile
+  Future<List<InterestEntity>> createInterests(
+    String profileId,
+    List<InterestEntity> interests,
+  );
+
+  /// Update interests for a profile
+  Future<List<InterestEntity>> updateInterests(
+    String profileId,
+    List<InterestEntity> interests,
+  );
+
+  // 🏆 BADGE OPERATIONS
+
+  /// Get badges for a profile
+  Future<List<BadgeEntity>> getBadges(String profileId);
+
+  /// Create badges for a profile
+  Future<List<BadgeEntity>> createBadges(
+    String profileId,
+    List<BadgeEntity> badges,
+  );
+
+  /// Update badges for a profile
+  Future<List<BadgeEntity>> updateBadges(
+    String profileId,
+    List<BadgeEntity> badges,
+  );
+
   /// Delete a profile and all associated data
   /// Returns true if successful, false if profile doesn't exist
   Future<bool> deleteProfile(String id);
@@ -89,21 +180,6 @@ abstract class ProfileRepository {
   /// Get all polls for a profile (active and inactive)
   Future<List<PollEntity>> getPolls(String profileId);
 
-  /// Get a specific poll by ID
-  Future<PollEntity?> getPoll(String id);
-
-  /// Create a new poll
-  /// Automatically deactivates any existing active poll
-  Future<PollEntity> createPoll(PollEntity poll);
-
-  /// Update an existing poll
-  /// Throws exception if poll doesn't exist or validation fails
-  Future<PollEntity> updatePoll(PollEntity poll);
-
-  /// Delete a poll
-  /// Returns true if successful, false if poll doesn't exist
-  Future<bool> deletePoll(String id);
-
   /// Vote on a poll (increment vote count)
   Future<PollEntity> voteOnPoll(String pollId, String option);
 
@@ -115,26 +191,11 @@ abstract class ProfileRepository {
 
   // 📸 MEDIA OPERATIONS
 
-  /// Get all media for a profile
-  Future<List<MediaEntity>> getMedia(String profileId);
-
   /// Get media by type for a profile
   Future<List<MediaEntity>> getMediaByType(String profileId, MediaType type);
 
   /// Get a specific media item by ID
   Future<MediaEntity?> getMediaItem(String id);
-
-  /// Create a new media item
-  /// Throws exception if maximum media reached for type or validation fails
-  Future<MediaEntity> createMedia(MediaEntity media);
-
-  /// Update an existing media item
-  /// Throws exception if media doesn't exist or validation fails
-  Future<MediaEntity> updateMedia(MediaEntity media);
-
-  /// Delete a media item
-  /// Returns true if successful, false if media doesn't exist
-  Future<bool> deleteMedia(String id);
 
   /// Reorder media items (update display order)
   Future<void> reorderMedia(String profileId, List<String> mediaIds);
@@ -143,9 +204,6 @@ abstract class ProfileRepository {
   Future<Map<MediaType, int>> getMediaCounts(String profileId);
 
   // 🎯 INTEREST OPERATIONS
-
-  /// Get all interests for a profile
-  Future<List<InterestEntity>> getInterests(String profileId);
 
   /// Get interests by category for a profile
   Future<List<InterestEntity>> getInterestsByCategory(
@@ -176,9 +234,6 @@ abstract class ProfileRepository {
 
   // 🏆 BADGE OPERATIONS
 
-  /// Get all badges for a profile
-  Future<List<BadgeEntity>> getBadges(String profileId);
-
   /// Get visible badges for a profile
   Future<List<BadgeEntity>> getVisibleBadges(String profileId);
 
@@ -201,7 +256,11 @@ abstract class ProfileRepository {
   Future<bool> deleteBadge(String id);
 
   /// Award a badge to a profile
-  Future<BadgeEntity> awardBadge(String profileId, String badgeName, BadgeType type);
+  Future<BadgeEntity> awardBadge(
+    String profileId,
+    String badgeName,
+    BadgeType type,
+  );
 
   /// Toggle badge visibility
   Future<BadgeEntity> toggleBadgeVisibility(String badgeId);
@@ -237,9 +296,7 @@ abstract class ProfileRepository {
   });
 
   /// Get trending profiles
-  Future<List<ProfileEntity>> getTrendingProfiles({
-    int limit = 10,
-  });
+  Future<List<ProfileEntity>> getTrendingProfiles({int limit = 10});
 
   // 📊 ANALYTICS & STATISTICS
 
@@ -278,10 +335,14 @@ abstract class ProfileRepository {
   // 🔄 BULK OPERATIONS
 
   /// Create multiple profiles (for testing/seeding)
-  Future<List<ProfileEntity>> createMultipleProfiles(List<ProfileEntity> profiles);
+  Future<List<ProfileEntity>> createMultipleProfiles(
+    List<ProfileEntity> profiles,
+  );
 
   /// Update multiple profiles
-  Future<List<ProfileEntity>> updateMultipleProfiles(List<ProfileEntity> profiles);
+  Future<List<ProfileEntity>> updateMultipleProfiles(
+    List<ProfileEntity> profiles,
+  );
 
   /// Delete multiple profiles
   Future<void> deleteMultipleProfiles(List<String> profileIds);
@@ -341,27 +402,31 @@ class ProfileRepositoryException implements Exception {
 /// 🎯 Repository Exception Types - Common exception types
 class ProfileNotFoundException extends ProfileRepositoryException {
   const ProfileNotFoundException(String profileId)
-      : super('Profile not found: $profileId', code: 'PROFILE_NOT_FOUND');
+    : super('Profile not found: $profileId', code: 'PROFILE_NOT_FOUND');
 }
 
 class ProfileAlreadyExistsException extends ProfileRepositoryException {
   const ProfileAlreadyExistsException(String profileId)
-      : super('Profile already exists: $profileId', code: 'PROFILE_EXISTS');
+    : super('Profile already exists: $profileId', code: 'PROFILE_EXISTS');
 }
 
 class MaximumLimitExceededException extends ProfileRepositoryException {
   const MaximumLimitExceededException(String type, int limit)
-      : super('Maximum $type limit exceeded: $limit', code: 'MAX_LIMIT_EXCEEDED');
+    : super('Maximum $type limit exceeded: $limit', code: 'MAX_LIMIT_EXCEEDED');
 }
 
 class ValidationException extends ProfileRepositoryException {
   const ValidationException(String field, String reason)
-      : super('Validation failed for $field: $reason', code: 'VALIDATION_ERROR');
+    : super('Validation failed for $field: $reason', code: 'VALIDATION_ERROR');
 }
 
 class DatabaseException extends ProfileRepositoryException {
   const DatabaseException(String operation, dynamic error)
-      : super('Database error during $operation', code: 'DATABASE_ERROR', originalError: error);
+    : super(
+        'Database error during $operation',
+        code: 'DATABASE_ERROR',
+        originalError: error,
+      );
 }
 
 /// 🎯 Repository Result - Wrapper for repository operations with error handling
@@ -370,11 +435,7 @@ class RepositoryResult<T> {
   final ProfileRepositoryException? error;
   final bool isSuccess;
 
-  const RepositoryResult._({
-    this.data,
-    this.error,
-    required this.isSuccess,
-  });
+  const RepositoryResult._({this.data, this.error, required this.isSuccess});
 
   /// Create a successful result
   factory RepositoryResult.success(T data) {

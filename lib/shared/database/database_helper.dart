@@ -317,12 +317,12 @@ extension DatabaseHelperExtensions on DatabaseHelper {
       final db = await database;
 
       return {
-        'profiles': await getTableRowCount(profilesTable),
-        'prompts': await getTableRowCount(promptsTable),
-        'polls': await getTableRowCount(pollsTable),
-        'media': await getTableRowCount(mediaTable),
-        'interests': await getTableRowCount(interestsTable),
-        'badges': await getTableRowCount(badgesTable),
+        'profiles': await getTableRowCount(DatabaseHelper.profilesTable),
+        'prompts': await getTableRowCount(DatabaseHelper.promptsTable),
+        'polls': await getTableRowCount(DatabaseHelper.pollsTable),
+        'media': await getTableRowCount(DatabaseHelper.mediaTable),
+        'interests': await getTableRowCount(DatabaseHelper.interestsTable),
+        'badges': await getTableRowCount(DatabaseHelper.badgesTable),
         'database_info': await getDatabaseInfo(),
       };
     } catch (e) {
