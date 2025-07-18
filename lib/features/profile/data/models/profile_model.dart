@@ -224,7 +224,8 @@ class ProfileModel {
     }
 
     // Validate data types for critical fields
-    if (map['age'] is! int || map['age'] < 18) {
+    final age = map['age'];
+    if (age is! int || age < 18) {
       throw ProfileModelException(
         'Invalid age: must be integer >= 18',
         map['id']?.toString(),

@@ -502,7 +502,7 @@ class InterestModelUtils {
     InterestCategory? category,
     bool isVerified = false,
   }) {
-    final selectedCategory = category ?? InterestCategory.lifestyle;
+    final selectedCategory = category ?? InterestCategory.social;
     final selectedInterest =
         interest ?? popularInterestsByCategory[selectedCategory]!.first;
 
