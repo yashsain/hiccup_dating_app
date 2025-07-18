@@ -56,15 +56,6 @@ abstract class ProfileRepository {
   /// Delete badges for a profile
   Future<bool> deleteBadges(String profileId, List<String> badgeIds);
 
-  /// Get profile statistics (completeness, last updated, etc.)
-  Future<Map<String, dynamic>> getProfileStatistics(String profileId);
-
-  /// Get active poll for a profile
-  Future<PollEntity?> getActivePoll(String profileId);
-
-  /// Get visible badges for a profile
-  Future<List<BadgeEntity>> getVisibleBadges(String profileId);
-
   // 📝 PROMPT OPERATIONS
 
   /// Create prompts for a profile
@@ -154,9 +145,6 @@ abstract class ProfileRepository {
   /// Check if a profile exists
   Future<bool> profileExists(String id);
 
-  /// Get profile statistics (completeness, last updated, etc.)
-  Future<Map<String, dynamic>> getProfileStatistics(String id);
-
   // 💬 PROMPT OPERATIONS
 
   /// Get all prompts for a profile
@@ -181,10 +169,6 @@ abstract class ProfileRepository {
   Future<void> reorderPrompts(String profileId, List<String> promptIds);
 
   // 📊 POLL OPERATIONS
-
-  /// Get the active poll for a profile
-  /// Returns null if no active poll exists
-  Future<PollEntity?> getActivePoll(String profileId);
 
   /// Get all polls for a profile (active and inactive)
   Future<List<PollEntity>> getPolls(String profileId);
@@ -242,9 +226,6 @@ abstract class ProfileRepository {
   Future<List<String>> getSuggestedInterests(String profileId);
 
   // 🏆 BADGE OPERATIONS
-
-  /// Get visible badges for a profile
-  Future<List<BadgeEntity>> getVisibleBadges(String profileId);
 
   /// Get badges by type for a profile
   Future<List<BadgeEntity>> getBadgesByType(String profileId, BadgeType type);

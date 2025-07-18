@@ -15,29 +15,27 @@ part 'database_provider.g.dart';
 /// final db = ref.watch(databaseProvider);
 /// ```
 @riverpod
-Future<Database> database(DatabaseRef ref) async {
+Future<Database> database(Ref ref) async {
   final dbHelper = DatabaseHelper();
   return await dbHelper.database;
 }
 
 /// 🔍 Database Helper Provider - Access to DatabaseHelper instance
 @riverpod
-DatabaseHelper databaseHelper(DatabaseHelperRef ref) {
+DatabaseHelper databaseHelper(Ref ref) {
   return DatabaseHelper();
 }
 
 /// 📊 Database Statistics Provider - For debugging and monitoring
 @riverpod
-Future<Map<String, dynamic>> databaseStatistics(
-  DatabaseStatisticsRef ref,
-) async {
+Future<Map<String, dynamic>> databaseStatistics(Ref ref) async {
   final dbHelper = ref.watch(databaseHelperProvider);
   return await dbHelper.getStatistics();
 }
 
 /// 🔍 Database Health Provider - Check database health
 @riverpod
-Future<bool> databaseHealth(DatabaseHealthRef ref) async {
+Future<bool> databaseHealth(Ref ref) async {
   final dbHelper = ref.watch(databaseHelperProvider);
   return await dbHelper.isHealthy();
 }

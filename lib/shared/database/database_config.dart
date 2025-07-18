@@ -428,12 +428,12 @@ class DatabaseConfig {
   /// Get media type limits
   static int getMediaTypeLimit(String mediaType) {
     switch (mediaType) {
-      case mediaTypePhoto:
-        return maxPhotos;
-      case mediaTypeVideo:
-        return maxVideos;
-      case mediaTypeVoiceNote:
-        return maxVoiceNotes;
+      case DatabaseConfig.mediaTypePhoto:
+        return DatabaseConfig.maxPhotos;
+      case DatabaseConfig.mediaTypeVideo:
+        return DatabaseConfig.maxVideos;
+      case DatabaseConfig.mediaTypeVoiceNote:
+        return DatabaseConfig.maxVoiceNotes;
       default:
         return 0;
     }

@@ -19,7 +19,10 @@ import 'theme_service.dart';
 
 /// 🎯 Theme Notifier - Handles theme state changes
 class ThemeNotifier extends Notifier<ThemeMode> {
-  ThemeNotifier() : super(ThemeMode.system) {
+  @override
+  ThemeMode build() => ThemeMode.system;
+
+  ThemeNotifier() {
     _initializeTheme();
   }
 
@@ -97,9 +100,9 @@ class ThemeNotifier extends Notifier<ThemeMode> {
 }
 
 /// 🎭 Theme Provider - Main theme state provider
-final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(() {
-  return ThemeNotifier();
-});
+final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(
+  ThemeNotifier.new,
+);
 
 /// 🌟 Current Brightness Provider - Tracks actual brightness being used
 final currentBrightnessProvider = Provider<Brightness>((ref) {

@@ -131,8 +131,8 @@ class UpdateProfileUseCase {
       }
 
       final updatedProfile = profile.copyWith(
-        photoVerification: photoVerification,
-        identityVerification: identityVerification,
+        photoVerification: photoVerification ?? false,
+        identityVerification: identityVerification ?? false,
         premium: premium,
         updatedAt: DateTime.now(),
       );
@@ -963,7 +963,7 @@ class UpdateProfileUseCase {
 
 /// 🔧 Riverpod Provider for UpdateProfileUseCase
 @riverpod
-UpdateProfileUseCase updateProfileUseCase(UpdateProfileUseCaseRef ref) {
+UpdateProfileUseCase updateProfileUseCase(Ref ref) {
   // Repository will be injected here once we create the data layer
   final repository = ref.watch(profileRepositoryProvider);
   return UpdateProfileUseCase(repository);
@@ -972,7 +972,7 @@ UpdateProfileUseCase updateProfileUseCase(UpdateProfileUseCaseRef ref) {
 /// 🔧 Riverpod Provider for Basic Info Update
 @riverpod
 Future<UpdateResult<ProfileEntity>> updateBasicInfo(
-  UpdateBasicInfoRef ref,
+  Ref ref,
   String profileId,
   ProfileEntity profile,
 ) async {
@@ -983,7 +983,7 @@ Future<UpdateResult<ProfileEntity>> updateBasicInfo(
 /// 🔧 Riverpod Provider for Prompts Update
 @riverpod
 Future<UpdateResult<List<PromptEntity>>> updatePrompts(
-  UpdatePromptsRef ref,
+  Ref ref,
   String profileId,
   List<PromptEntity> prompts,
 ) async {
@@ -994,7 +994,7 @@ Future<UpdateResult<List<PromptEntity>>> updatePrompts(
 /// 🔧 Riverpod Provider for Poll Update
 @riverpod
 Future<UpdateResult<PollEntity>> updatePoll(
-  UpdatePollRef ref,
+  Ref ref,
   String profileId,
   PollEntity poll,
 ) async {
@@ -1005,7 +1005,7 @@ Future<UpdateResult<PollEntity>> updatePoll(
 /// 🔧 Riverpod Provider for Media Update
 @riverpod
 Future<UpdateResult<List<MediaEntity>>> updateMedia(
-  UpdateMediaRef ref,
+  Ref ref,
   String profileId,
   List<MediaEntity> media,
 ) async {
@@ -1016,7 +1016,7 @@ Future<UpdateResult<List<MediaEntity>>> updateMedia(
 /// 🔧 Riverpod Provider for Interests Update
 @riverpod
 Future<UpdateResult<List<InterestEntity>>> updateInterests(
-  UpdateInterestsRef ref,
+  Ref ref,
   String profileId,
   List<InterestEntity> interests,
 ) async {
@@ -1027,7 +1027,7 @@ Future<UpdateResult<List<InterestEntity>>> updateInterests(
 /// 🔧 Riverpod Provider for Badges Update
 @riverpod
 Future<UpdateResult<List<BadgeEntity>>> updateBadges(
-  UpdateBadgesRef ref,
+  Ref ref,
   String profileId,
   List<BadgeEntity> badges,
 ) async {
@@ -1038,7 +1038,7 @@ Future<UpdateResult<List<BadgeEntity>>> updateBadges(
 /// 🔧 Riverpod Provider for Complete Profile Update
 @riverpod
 Future<UpdateResult<ProfileEntity>> updateCompleteProfile(
-  UpdateCompleteProfileRef ref,
+  Ref ref,
   String profileId, {
   ProfileEntity? profile,
   List<PromptEntity>? prompts,
@@ -1061,10 +1061,7 @@ Future<UpdateResult<ProfileEntity>> updateCompleteProfile(
 
 /// 🔧 Riverpod Provider for Profile Completeness
 @riverpod
-Future<double> profileCompleteness(
-  ProfileCompletenessRef ref,
-  String profileId,
-) async {
+Future<double> profileCompleteness(Ref ref, String profileId) async {
   final useCase = ref.watch(updateProfileUseCaseProvider);
   return await useCase.calculateProfileCompleteness(profileId);
 }
@@ -1072,7 +1069,7 @@ Future<double> profileCompleteness(
 /// 🔧 Riverpod Provider for Profile Statistics
 @riverpod
 Future<Map<String, dynamic>> updateProfileStatistics(
-  UpdateProfileStatisticsRef ref,
+  Ref ref,
   String profileId,
 ) async {
   final useCase = ref.watch(updateProfileUseCaseProvider);

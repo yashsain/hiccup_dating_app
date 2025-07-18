@@ -65,7 +65,7 @@ final class DatabaseProvider
   }
 }
 
-String _$databaseHash() => r'3edd1988d1eb4a1c8a83a03eff574fbde66ce58c';
+String _$databaseHash() => r'f5be0ec457fa712b5121aaf2668aef4a62d53461';
 
 /// 🔍 Database Helper Provider - Access to DatabaseHelper instance
 @ProviderFor(databaseHelper)
@@ -109,7 +109,7 @@ final class DatabaseHelperProvider
   }
 }
 
-String _$databaseHelperHash() => r'8756a78fed012308a421b0f2a0f1b586cae71baf';
+String _$databaseHelperHash() => r'd9a91b257d3ed9a4f2d87bd829e17dc900678685';
 
 /// 📊 Database Statistics Provider - For debugging and monitoring
 @ProviderFor(databaseStatistics)
@@ -154,7 +154,7 @@ final class DatabaseStatisticsProvider
 }
 
 String _$databaseStatisticsHash() =>
-    r'40d2464844c0c60033da6a68b58f9856495dec7c';
+    r'cfce065a7a5f8325df101093fbe9c8ba07e23946';
 
 /// 🔍 Database Health Provider - Check database health
 @ProviderFor(databaseHealth)
@@ -190,7 +190,7 @@ final class DatabaseHealthProvider
   }
 }
 
-String _$databaseHealthHash() => r'0e382542b7942832eef99d2a634ec076effe2304';
+String _$databaseHealthHash() => r'226a48d575780ad69ed2219c85ebadbd9491774f';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
