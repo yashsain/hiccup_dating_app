@@ -100,7 +100,7 @@ class AndroidThemeConfig {
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: theme.colorScheme.surface,
         selectedItemColor: theme.colorScheme.primary,
-        unselectedItemColor: theme.colorScheme.onSurface.withOpacity(0.6),
+        unselectedItemColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
         type: BottomNavigationBarType.fixed,
       ),
     );

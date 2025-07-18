@@ -76,7 +76,9 @@ class IOSThemeConfig {
       // iOS-specific: Tab bar theme (similar to bottom navigation)
       tabBarTheme: TabBarThemeData(
         labelColor: theme.colorScheme.primary,
-        unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.6),
+        unselectedLabelColor: theme.colorScheme.onSurface.withValues(
+          alpha: 0.6,
+        ),
         indicator: UnderlineTabIndicator(
           borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
         ),
@@ -102,7 +104,7 @@ class IOSThemeConfig {
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: theme.colorScheme.surface,
         selectedItemColor: theme.colorScheme.primary,
-        unselectedItemColor: theme.colorScheme.onSurface.withOpacity(0.6),
+        unselectedItemColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
         type: BottomNavigationBarType.fixed,
       ),
     );

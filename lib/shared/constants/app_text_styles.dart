@@ -199,7 +199,7 @@ class AppTextStyles {
   /// Get bodySmall style with theme-appropriate color
   static TextStyle getBodySmall(BuildContext context) {
     return bodySmall.copyWith(
-      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
     );
   }
 
@@ -216,7 +216,7 @@ class AppTextStyles {
   /// Get brand subtitle style with theme-appropriate color
   static TextStyle getBrandSubtitle(BuildContext context) {
     return brandSubtitle.copyWith(
-      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
     );
   }
 

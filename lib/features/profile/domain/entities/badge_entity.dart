@@ -1,4 +1,6 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'badge_entity.freezed.dart';
 
 /// 🏆 Badge Entity - Clean Domain Model for User Achievements (2025)
 ///
@@ -10,7 +12,7 @@ import 'package:equatable/equatable.dart';
 /// - Built-in validation (50 char limit)
 /// - Type-safe properties
 /// - Badge type classification
-/// - Equatable for easy comparison
+/// - Freezed for equality and copyWith
 ///
 /// Usage:
 /// ```dart
@@ -71,334 +73,221 @@ enum BadgeType {
         return 1; // Highest priority
       case BadgeType.premium:
         return 2;
-      case BadgeType.achievement:
-        return 3;
-      case BadgeType.personality:
-        return 4;
-      case BadgeType.interest:
-        return 5;
       case BadgeType.special:
+        return 3;
+      case BadgeType.achievement:
+        return 4;
+      case BadgeType.personality:
+        return 5;
+      case BadgeType.interest:
         return 6; // Lowest priority
     }
   }
 
-  // Common badges for each type
+  String get description {
+    switch (this) {
+      case BadgeType.verification:
+        return 'Identity and photo verification badges';
+      case BadgeType.achievement:
+        return 'Milestones and accomplishments';
+      case BadgeType.personality:
+        return 'Personality traits and characteristics';
+      case BadgeType.interest:
+        return 'Hobbies and interest-based badges';
+      case BadgeType.premium:
+        return 'Premium membership benefits';
+      case BadgeType.special:
+        return 'Limited edition and special event badges';
+    }
+  }
+
   List<String> get commonBadges {
     switch (this) {
       case BadgeType.verification:
         return [
-          'Verified',
           'Photo Verified',
-          'Identity Verified',
+          'ID Verified',
           'Phone Verified',
+          'Email Verified',
         ];
       case BadgeType.achievement:
         return [
           'Early Adopter',
-          'Active User',
-          'Match Maker',
           'Conversation Starter',
-          'Profile Complete',
+          'Great Reviewer',
+          'Popular Profile',
+          'Match Maker',
         ];
       case BadgeType.personality:
         return [
           'Adventurous',
-          'Foodie',
+          'Creative Soul',
           'Bookworm',
           'Fitness Enthusiast',
-          'Creative Soul',
-          'Tech Savvy',
+          'Foodie',
+          'Music Lover',
+          'Pet Parent',
+          'Travel Bug',
         ];
       case BadgeType.interest:
         return [
-          'Dog Lover',
-          'Cat Person',
-          'Travel Junkie',
-          'Music Lover',
-          'Art Enthusiast',
-          'Sports Fan',
+          'Photographer',
+          'Hiker',
+          'Chef',
+          'Gamer',
+          'Artist',
+          'Athlete',
+          'Reader',
+          'Musician',
         ];
       case BadgeType.premium:
-        return ['Premium Member', 'VIP', 'Supporter', 'Exclusive Access'];
+        return [
+          'Premium Member',
+          'VIP Access',
+          'Priority Support',
+          'Advanced Features',
+        ];
       case BadgeType.special:
         return [
           'Beta Tester',
-          'Community Leader',
-          'Influencer',
-          'Brand Ambassador',
-          'Featured User',
+          'Community Champion',
+          'Feature Contributor',
+          'Anniversary Member',
+          'Holiday Special',
         ];
     }
   }
 }
 
-enum BadgeRarity {
-  common,
-  uncommon,
-  rare,
-  epic,
-  legendary;
-
-  String get displayName {
-    switch (this) {
-      case BadgeRarity.common:
-        return 'Common';
-      case BadgeRarity.uncommon:
-        return 'Uncommon';
-      case BadgeRarity.rare:
-        return 'Rare';
-      case BadgeRarity.epic:
-        return 'Epic';
-      case BadgeRarity.legendary:
-        return 'Legendary';
-    }
-  }
-
-  String get color {
-    switch (this) {
-      case BadgeRarity.common:
-        return '#6B7280'; // Gray
-      case BadgeRarity.uncommon:
-        return '#10B981'; // Green
-      case BadgeRarity.rare:
-        return '#3B82F6'; // Blue
-      case BadgeRarity.epic:
-        return '#8B5CF6'; // Purple
-      case BadgeRarity.legendary:
-        return '#F59E0B'; // Gold
-    }
-  }
-
-  double get dropRate {
-    switch (this) {
-      case BadgeRarity.common:
-        return 0.60; // 60%
-      case BadgeRarity.uncommon:
-        return 0.25; // 25%
-      case BadgeRarity.rare:
-        return 0.10; // 10%
-      case BadgeRarity.epic:
-        return 0.04; // 4%
-      case BadgeRarity.legendary:
-        return 0.01; // 1%
-    }
-  }
-}
-
-class BadgeEntity extends Equatable {
-  // 🔑 Core Identity
-  final String id;
-  final String profileId;
-
-  // 💭 Content
-  final String badge;
-  final BadgeType type;
-  final BadgeRarity rarity;
-
-  // 🎯 Properties
-  final bool isVisible;
-  final bool isAutoAwarded; // System-awarded vs manually added
-  final String? description;
-  final String? iconPath;
-
-  // 📊 Metadata
-  final int displayOrder;
-  final DateTime? expiresAt; // For time-limited badges
-
-  // ⏰ Timestamps
-  final DateTime createdAt;
-  final DateTime? awardedAt;
-
-  const BadgeEntity({
-    required this.id,
-    required this.profileId,
-    required this.badge,
-    required this.type,
-    this.rarity = BadgeRarity.common,
-    this.isVisible = true,
-    this.isAutoAwarded = false,
-    this.description,
-    this.iconPath,
-    this.displayOrder = 0,
-    this.expiresAt,
-    required this.createdAt,
-    this.awardedAt,
-  });
-
-  // 🔄 Copy with method for immutable updates
-  BadgeEntity copyWith({
-    String? id,
-    String? profileId,
-    String? badge,
-    BadgeType? type,
-    BadgeRarity? rarity,
-    bool? isVisible,
-    bool? isAutoAwarded,
+@freezed
+class BadgeEntity with _$BadgeEntity {
+  const factory BadgeEntity({
+    required String id,
+    required String profileId,
+    required String badge,
+    required BadgeType type,
     String? description,
-    String? iconPath,
-    int? displayOrder,
+    @Default(true) bool isVisible,
+    @Default(false) bool isRare,
+    DateTime? earnedAt,
     DateTime? expiresAt,
-    DateTime? createdAt,
-    DateTime? awardedAt,
-  }) {
-    return BadgeEntity(
-      id: id ?? this.id,
-      profileId: profileId ?? this.profileId,
-      badge: badge ?? this.badge,
-      type: type ?? this.type,
-      rarity: rarity ?? this.rarity,
-      isVisible: isVisible ?? this.isVisible,
-      isAutoAwarded: isAutoAwarded ?? this.isAutoAwarded,
-      description: description ?? this.description,
-      iconPath: iconPath ?? this.iconPath,
-      displayOrder: displayOrder ?? this.displayOrder,
-      expiresAt: expiresAt ?? this.expiresAt,
-      createdAt: createdAt ?? this.createdAt,
-      awardedAt: awardedAt ?? this.awardedAt,
-    );
-  }
+    String? iconUrl,
+    String? color, // Hex color for badge display
+    required DateTime createdAt,
+  }) = _BadgeEntity;
+
+  const BadgeEntity._();
 
   // ✅ Validation Methods
   bool get isValid {
-    return _validateBadge() && _validateDisplayOrder();
+    return _validateBadge() && _validateDescription() && _validateDates();
   }
 
   bool _validateBadge() {
     return badge.trim().isNotEmpty && badge.length <= 50;
   }
 
-  bool _validateDisplayOrder() {
-    return displayOrder >= 0 && displayOrder <= 100;
+  bool _validateDescription() {
+    return description == null || description!.length <= 200;
+  }
+
+  bool _validateDates() {
+    if (earnedAt != null && expiresAt != null) {
+      return earnedAt!.isBefore(expiresAt!);
+    }
+    return true;
   }
 
   // 📊 Computed Properties
   String get displayBadge => badge.trim();
 
-  String get displayType => type.displayName;
+  String get displayWithEmoji => '${type.emoji} $displayBadge';
 
-  String get displayRarity => rarity.displayName;
+  bool get isActive {
+    if (expiresAt == null) return true;
+    return DateTime.now().isBefore(expiresAt!);
+  }
 
-  String get typeEmoji => type.emoji;
+  bool get isExpired => !isActive;
 
-  bool get isExpired => expiresAt != null && DateTime.now().isAfter(expiresAt!);
+  bool get isNew {
+    if (earnedAt == null) return false;
+    return DateTime.now().difference(earnedAt!).inDays <= 7;
+  }
 
-  bool get isActive => isVisible && !isExpired;
+  bool get isExpiringSoon {
+    if (expiresAt == null) return false;
+    return DateTime.now().add(const Duration(days: 30)).isAfter(expiresAt!);
+  }
 
-  bool get isPermanent => expiresAt == null;
+  String? get expirationStatus {
+    if (expiresAt == null) return null;
 
-  bool get isVerificationBadge => type == BadgeType.verification;
+    final now = DateTime.now();
+    final difference = expiresAt!.difference(now);
 
-  bool get isPremiumBadge => type == BadgeType.premium;
-
-  bool get isRare =>
-      rarity == BadgeRarity.rare ||
-      rarity == BadgeRarity.epic ||
-      rarity == BadgeRarity.legendary;
-
-  // 🎯 Display Helpers
-  String get displayWithEmoji => '$typeEmoji $displayBadge';
-
-  String get displayWithRarity => '$displayBadge (${rarity.displayName})';
-
-  String get fullDisplay => '$typeEmoji $displayBadge • ${rarity.displayName}';
-
-  String get shortDescription => description ?? 'No description available';
-
-  // ⏰ Time Helpers
-  String get expirationDisplay {
-    if (expiresAt == null) return 'Permanent';
-    if (isExpired) return 'Expired';
-
-    final difference = expiresAt!.difference(DateTime.now());
-
-    if (difference.inDays > 0) {
-      return 'Expires in ${difference.inDays} day${difference.inDays > 1 ? 's' : ''}';
-    } else if (difference.inHours > 0) {
-      return 'Expires in ${difference.inHours} hour${difference.inHours > 1 ? 's' : ''}';
-    } else if (difference.inMinutes > 0) {
-      return 'Expires in ${difference.inMinutes} minute${difference.inMinutes > 1 ? 's' : ''}';
+    if (difference.isNegative) {
+      return 'Expired';
+    } else if (difference.inDays <= 7) {
+      return 'Expires in ${difference.inDays} days';
+    } else if (difference.inDays <= 30) {
+      return 'Expires this month';
     } else {
-      return 'Expires soon';
+      return 'Active';
     }
   }
 
-  String get awardedTimeAgo {
-    final awardTime = awardedAt ?? createdAt;
-    final difference = DateTime.now().difference(awardTime);
+  // 🎯 Business Logic Helpers
+  bool get canBeDisplayed => isVisible && isActive;
 
-    if (difference.inDays > 0) {
-      return '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
-    } else if (difference.inHours > 0) {
-      return '${difference.inHours} hour${difference.inHours > 1 ? 's' : ''} ago';
-    } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes} minute${difference.inMinutes > 1 ? 's' : ''} ago';
-    } else {
-      return 'Just now';
-    }
+  bool get isPermanent => expiresAt == null;
+
+  bool get isTemporary => expiresAt != null;
+
+  bool get isPredefined {
+    return type.commonBadges
+        .map((e) => e.toLowerCase())
+        .contains(badge.toLowerCase());
+  }
+
+  bool get isCustom => !isPredefined;
+
+  // 🎨 Display Helpers
+  String get typeDisplay => '${type.emoji} ${type.displayName}';
+
+  String get fullDisplay {
+    final buffer = StringBuffer();
+    buffer.write(displayBadge);
+
+    if (isRare) buffer.write(' 💎');
+    if (isNew) buffer.write(' 🆕');
+    if (isExpiringSoon) buffer.write(' ⏰');
+
+    return buffer.toString();
+  }
+
+  String get statusDisplay {
+    if (isExpired) return 'Expired';
+    if (isExpiringSoon) return 'Expiring Soon';
+    if (isNew) return 'New';
+    if (isRare) return 'Rare';
+    return 'Active';
   }
 
   // 🔍 Search Helpers
   List<String> get searchKeywords {
     final keywords = <String>[];
-
     keywords.add(badge.toLowerCase());
     keywords.add(type.displayName.toLowerCase());
-    keywords.add(rarity.displayName.toLowerCase());
     keywords.addAll(badge.toLowerCase().split(' '));
 
     if (description != null) {
       keywords.addAll(description!.toLowerCase().split(' '));
     }
 
-    return keywords.where((keyword) => keyword.isNotEmpty).toList();
-  }
-
-  // 🎨 UI Helpers
-  String get rarityColor => rarity.color;
-
-  int get sortPriority => type.priority * 100 + (100 - displayOrder);
-
-  double get rarityScore => 1.0 - rarity.dropRate;
-
-  // 🏆 Achievement Helpers
-  bool get isNewlyAwarded {
-    final awardTime = awardedAt ?? createdAt;
-    return DateTime.now().difference(awardTime).inDays <= 3;
-  }
-
-  bool get isSpecialBadge =>
-      type == BadgeType.special || rarity == BadgeRarity.legendary;
-
-  // 📋 Equatable implementation
-  @override
-  List<Object?> get props => [
-    id,
-    profileId,
-    badge,
-    type,
-    rarity,
-    isVisible,
-    isAutoAwarded,
-    description,
-    iconPath,
-    displayOrder,
-    expiresAt,
-    createdAt,
-    awardedAt,
-  ];
-
-  // 🔍 Debug representation
-  @override
-  String toString() {
-    return 'BadgeEntity('
-        'id: $id, '
-        'profileId: $profileId, '
-        'badge: "$displayBadge", '
-        'type: ${type.displayName}, '
-        'rarity: ${rarity.displayName}, '
-        'visible: $isVisible, '
-        'order: $displayOrder'
-        ')';
+    return keywords
+        .where((keyword) => keyword.isNotEmpty && keyword.length > 2)
+        .toList();
   }
 
   // 🧪 Factory constructors for testing
@@ -415,278 +304,171 @@ class BadgeEntity extends Equatable {
   factory BadgeEntity.verified() {
     return BadgeEntity(
       id: 'badge_verified',
-      profileId: 'user_123',
-      badge: 'Verified',
+      profileId: 'sample_profile',
+      badge: 'Photo Verified',
       type: BadgeType.verification,
-      rarity: BadgeRarity.uncommon,
+      description: 'Profile photo has been verified by our team',
       isVisible: true,
-      isAutoAwarded: true,
-      description: 'Profile has been verified by Hiccup',
-      displayOrder: 1,
-      createdAt: DateTime.now().subtract(const Duration(days: 30)),
-      awardedAt: DateTime.now().subtract(const Duration(days: 30)),
+      isRare: false,
+      earnedAt: DateTime.now().subtract(const Duration(days: 5)),
+      iconUrl: '/icons/verified.png',
+      color: '#4CAF50',
+      createdAt: DateTime.now().subtract(const Duration(days: 5)),
     );
   }
 
   factory BadgeEntity.premium() {
     return BadgeEntity(
       id: 'badge_premium',
-      profileId: 'user_123',
+      profileId: 'sample_profile',
       badge: 'Premium Member',
       type: BadgeType.premium,
-      rarity: BadgeRarity.rare,
+      description: 'Enjoy exclusive premium features and benefits',
       isVisible: true,
-      isAutoAwarded: true,
-      description: 'Active Premium subscriber',
-      displayOrder: 2,
-      createdAt: DateTime.now().subtract(const Duration(days: 15)),
-      awardedAt: DateTime.now().subtract(const Duration(days: 15)),
+      isRare: false,
+      earnedAt: DateTime.now().subtract(const Duration(days: 30)),
       expiresAt: DateTime.now().add(
-        const Duration(days: 15),
-      ), // 30-day subscription
-    );
-  }
-
-  factory BadgeEntity.dogLover() {
-    return BadgeEntity(
-      id: 'badge_dog_lover',
-      profileId: 'user_123',
-      badge: 'Dog Lover',
-      type: BadgeType.interest,
-      rarity: BadgeRarity.common,
-      isVisible: true,
-      isAutoAwarded: false,
-      description: 'Loves spending time with dogs',
-      displayOrder: 3,
-      createdAt: DateTime.now().subtract(const Duration(days: 10)),
-      awardedAt: DateTime.now().subtract(const Duration(days: 10)),
+        const Duration(days: 335),
+      ), // 1 year subscription
+      iconUrl: '/icons/premium.png',
+      color: '#FFD700',
+      createdAt: DateTime.now().subtract(const Duration(days: 30)),
     );
   }
 
   factory BadgeEntity.earlyAdopter() {
     return BadgeEntity(
       id: 'badge_early_adopter',
-      profileId: 'user_123',
+      profileId: 'sample_profile',
       badge: 'Early Adopter',
-      type: BadgeType.achievement,
-      rarity: BadgeRarity.epic,
+      type: BadgeType.special,
+      description: 'One of the first users to join Hiccup',
       isVisible: true,
-      isAutoAwarded: true,
-      description: 'One of the first 1000 users on Hiccup',
-      displayOrder: 4,
-      createdAt: DateTime.now().subtract(const Duration(days: 60)),
-      awardedAt: DateTime.now().subtract(const Duration(days: 60)),
+      isRare: true,
+      earnedAt: DateTime.now().subtract(const Duration(days: 100)),
+      iconUrl: '/icons/early_adopter.png',
+      color: '#9C27B0',
+      createdAt: DateTime.now().subtract(const Duration(days: 100)),
     );
   }
 
   factory BadgeEntity.adventurous() {
     return BadgeEntity(
       id: 'badge_adventurous',
-      profileId: 'user_123',
+      profileId: 'sample_profile',
       badge: 'Adventurous',
       type: BadgeType.personality,
-      rarity: BadgeRarity.uncommon,
+      description: 'Loves exploring new places and trying new experiences',
       isVisible: true,
-      isAutoAwarded: false,
-      description: 'Always up for new experiences',
-      displayOrder: 5,
-      createdAt: DateTime.now().subtract(const Duration(days: 5)),
-      awardedAt: DateTime.now().subtract(const Duration(days: 5)),
+      isRare: false,
+      earnedAt: DateTime.now().subtract(const Duration(days: 15)),
+      iconUrl: '/icons/adventurous.png',
+      color: '#FF5722',
+      createdAt: DateTime.now().subtract(const Duration(days: 15)),
     );
+  }
+
+  // Sample badge sets
+  static List<BadgeEntity> sampleBadges() {
+    return [
+      BadgeEntity.verified(),
+      BadgeEntity.premium(),
+      BadgeEntity.earlyAdopter(),
+      BadgeEntity.adventurous(),
+    ];
   }
 }
 
 /// 🎯 Badge Entity Extensions - Additional functionality
 extension BadgeEntityExtensions on BadgeEntity {
-  /// Check if badge was recently awarded (within last 7 days)
-  bool get isRecentlyAwarded {
-    final awardTime = awardedAt ?? createdAt;
-    return DateTime.now().difference(awardTime).inDays <= 7;
+  /// Check if badge is recently earned (within last 7 days)
+  bool get isRecentlyEarned {
+    if (earnedAt == null) return false;
+    return DateTime.now().difference(earnedAt!).inDays <= 7;
   }
 
-  /// Get badge value score for sorting/ranking
-  double get valueScore {
-    double score = 0.0;
+  /// Get badge age in days since earned
+  int? get badgeAgeInDays {
+    if (earnedAt == null) return null;
+    return DateTime.now().difference(earnedAt!).inDays;
+  }
 
-    // Type priority (0.4 weight)
-    score += (7 - type.priority) / 6.0 * 0.4;
+  /// Get days until expiration
+  int? get daysUntilExpiration {
+    if (expiresAt == null) return null;
+    final difference = expiresAt!.difference(DateTime.now());
+    return difference.isNegative ? 0 : difference.inDays;
+  }
 
-    // Rarity score (0.4 weight)
-    score += rarityScore * 0.4;
+  /// Check if badge has high display priority
+  bool get hasHighPriority {
+    return type.priority <= 3 && isVisible && isActive;
+  }
 
-    // Visibility bonus (0.1 weight)
-    if (isVisible) score += 0.1;
-
-    // Auto-awarded bonus (0.1 weight)
-    if (isAutoAwarded) score += 0.1;
-
-    return score.clamp(0.0, 1.0);
+  /// Get badge rarity level
+  String get rarityLevel {
+    if (isRare) return 'Rare';
+    if (type == BadgeType.special) return 'Special';
+    if (type == BadgeType.verification) return 'Standard';
+    if (isPermanent) return 'Permanent';
+    return 'Common';
   }
 
   /// Generate badge summary for display
   String get badgeSummary {
     final buffer = StringBuffer();
-    buffer.write('$typeEmoji $displayBadge');
+    buffer.write(displayBadge);
 
-    if (rarity != BadgeRarity.common) {
-      buffer.write(' (${rarity.displayName})');
-    }
-
-    if (!isPermanent) {
-      buffer.write(' • $expirationDisplay');
-    }
+    if (isRare) buffer.write(' (Rare)');
+    if (isNew) buffer.write(' (New)');
+    if (isExpiringSoon) buffer.write(' (Expiring)');
 
     return buffer.toString();
   }
 
-  /// Check if badge should be highlighted in UI
-  bool get shouldHighlight {
-    return isNewlyAwarded || isSpecialBadge || isRare;
+  /// Check if badge is worth highlighting
+  bool get isWorthHighlighting {
+    return isRare || isNew || type.priority <= 2;
   }
 
-  /// Get badge congratulations message
-  String get congratulationsMessage {
+  /// Get badge color for UI display
+  String get displayColor {
+    if (color != null) return color!;
+
+    // Default colors based on type
     switch (type) {
       case BadgeType.verification:
-        return 'Congratulations! Your profile has been verified.';
+        return '#4CAF50'; // Green
       case BadgeType.achievement:
-        return 'Achievement unlocked! You earned the $displayBadge badge.';
+        return '#FF9800'; // Orange
       case BadgeType.personality:
-        return 'Your personality shines! You got the $displayBadge badge.';
+        return '#E91E63'; // Pink
       case BadgeType.interest:
-        return 'Great interests! You earned the $displayBadge badge.';
+        return '#2196F3'; // Blue
       case BadgeType.premium:
-        return 'Welcome to Premium! Enjoy exclusive features.';
+        return '#FFD700'; // Gold
       case BadgeType.special:
-        return 'Something special! You received the $displayBadge badge.';
-    }
-  }
-}
-
-/// 🎯 Badge Helpers - Static utility methods
-class BadgeHelpers {
-  /// Get all available badges
-  static List<String> getAllBadges() {
-    final badges = <String>[];
-
-    for (final type in BadgeType.values) {
-      badges.addAll(type.commonBadges);
-    }
-
-    return badges;
-  }
-
-  /// Get badges by type
-  static List<String> getBadgesByType(BadgeType type) {
-    return type.commonBadges;
-  }
-
-  /// Get badge suggestions for a profile
-  static List<String> getSuggestions(
-    List<BadgeEntity> existingBadges,
-    List<String> interests,
-  ) {
-    final suggestions = <String>[];
-    final existingNames = existingBadges
-        .map((b) => b.badge.toLowerCase())
-        .toSet();
-
-    // Suggest interest-based badges
-    for (final interest in interests) {
-      final interestBadges = _getInterestBadges(interest);
-      for (final badge in interestBadges) {
-        if (!existingNames.contains(badge.toLowerCase())) {
-          suggestions.add(badge);
-        }
-      }
-    }
-
-    // Suggest personality badges
-    final personalityBadges = BadgeType.personality.commonBadges;
-    for (final badge in personalityBadges) {
-      if (!existingNames.contains(badge.toLowerCase())) {
-        suggestions.add(badge);
-      }
-    }
-
-    return suggestions.take(10).toList();
-  }
-
-  /// Get interest-based badge suggestions
-  static List<String> _getInterestBadges(String interest) {
-    final badges = <String>[];
-    final lowerInterest = interest.toLowerCase();
-
-    // Simple mapping - in real app, this would be more sophisticated
-    if (lowerInterest.contains('dog')) badges.add('Dog Lover');
-    if (lowerInterest.contains('cat')) badges.add('Cat Person');
-    if (lowerInterest.contains('travel')) badges.add('Travel Junkie');
-    if (lowerInterest.contains('music')) badges.add('Music Lover');
-    if (lowerInterest.contains('food') || lowerInterest.contains('cooking'))
-      badges.add('Foodie');
-    if (lowerInterest.contains('book') || lowerInterest.contains('reading'))
-      badges.add('Bookworm');
-    if (lowerInterest.contains('fitness') || lowerInterest.contains('gym'))
-      badges.add('Fitness Enthusiast');
-    if (lowerInterest.contains('art') || lowerInterest.contains('creative'))
-      badges.add('Creative Soul');
-    if (lowerInterest.contains('tech') || lowerInterest.contains('programming'))
-      badges.add('Tech Savvy');
-    if (lowerInterest.contains('sport')) badges.add('Sports Fan');
-
-    return badges;
-  }
-
-  /// Validate badge name
-  static bool isValidBadgeName(String badge) {
-    return badge.trim().isNotEmpty &&
-        badge.length >= 2 &&
-        badge.length <= 50 &&
-        !badge.contains(RegExp(r'[<>{}[\]\\|`~!@#$%^&*()+=]'));
-  }
-
-  /// Get badge rarity based on criteria
-  static BadgeRarity getBadgeRarity(BadgeType type, bool isAutoAwarded) {
-    switch (type) {
-      case BadgeType.verification:
-        return BadgeRarity.uncommon;
-      case BadgeType.premium:
-        return BadgeRarity.rare;
-      case BadgeType.achievement:
-        return isAutoAwarded ? BadgeRarity.uncommon : BadgeRarity.common;
-      case BadgeType.personality:
-        return BadgeRarity.common;
-      case BadgeType.interest:
-        return BadgeRarity.common;
-      case BadgeType.special:
-        return BadgeRarity.epic;
+        return '#9C27B0'; // Purple
     }
   }
 
-  /// Sort badges by priority and rarity
-  static List<BadgeEntity> sortBadges(List<BadgeEntity> badges) {
-    final sorted = List<BadgeEntity>.from(badges);
+  /// Format earned date for display
+  String? get earnedDateDisplay {
+    if (earnedAt == null) return null;
 
-    sorted.sort((a, b) {
-      // First by visibility (visible first)
-      if (a.isVisible != b.isVisible) {
-        return a.isVisible ? -1 : 1;
-      }
+    final now = DateTime.now();
+    final difference = now.difference(earnedAt!);
 
-      // Then by type priority
-      if (a.type.priority != b.type.priority) {
-        return a.type.priority.compareTo(b.type.priority);
-      }
-
-      // Then by rarity (rare first)
-      if (a.rarity != b.rarity) {
-        return a.rarity.dropRate.compareTo(b.rarity.dropRate);
-      }
-
-      // Finally by display order
-      return a.displayOrder.compareTo(b.displayOrder);
-    });
-
-    return sorted;
+    if (difference.inDays == 0) {
+      return 'Earned today';
+    } else if (difference.inDays == 1) {
+      return 'Earned yesterday';
+    } else if (difference.inDays <= 7) {
+      return 'Earned ${difference.inDays} days ago';
+    } else if (difference.inDays <= 30) {
+      return 'Earned ${(difference.inDays / 7).round()} weeks ago';
+    } else {
+      return 'Earned ${(difference.inDays / 30).round()} months ago';
+    }
   }
 }

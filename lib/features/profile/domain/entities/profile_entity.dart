@@ -1,4 +1,6 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'profile_entity.freezed.dart';
 
 /// 👤 Profile Entity - Clean Domain Model (2025)
 ///
@@ -9,7 +11,7 @@ import 'package:equatable/equatable.dart';
 /// - Immutable data structure
 /// - Built-in validation
 /// - Type-safe properties
-/// - Equatable for easy comparison
+/// - Freezed for equality and copyWith
 /// - Comprehensive toString for debugging
 ///
 /// Usage:
@@ -21,112 +23,33 @@ import 'package:equatable/equatable.dart';
 ///   // ... other properties
 /// );
 /// ```
-class ProfileEntity extends Equatable {
-  // 🔑 Core Identity
-  final String id;
-  final String name;
-  final int age;
-  final String location;
-  final String gender;
-  final String? sexualOrientation;
-
-  // 💭 Personal Expression
-  final String? bio;
-  final String? datingGoals;
-  final String? music;
-
-  // 🔒 Verification & Safety
-  final bool photoVerification;
-  final bool identityVerification;
-
-  // 💎 Premium Features
-  final String? premium;
-  final String? instagramUrl;
-  final String? spotifyUrl;
-
-  // ⏰ Timestamps
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
-  // 🎯 Related Entities (will be loaded separately)
-  final List<String> promptIds;
-  final String? activePollId;
-  final List<String> mediaIds;
-  final List<String> interestIds;
-  final List<String> badgeIds;
-
-  const ProfileEntity({
-    required this.id,
-    required this.name,
-    required this.age,
-    required this.location,
-    required this.gender,
-    this.sexualOrientation,
-    this.bio,
-    this.datingGoals,
-    this.music,
-    this.photoVerification = false,
-    this.identityVerification = false,
-    this.premium,
-    this.instagramUrl,
-    this.spotifyUrl,
-    required this.createdAt,
-    required this.updatedAt,
-    this.promptIds = const [],
-    this.activePollId,
-    this.mediaIds = const [],
-    this.interestIds = const [],
-    this.badgeIds = const [],
-  });
-
-  // 🔄 Copy with method for immutable updates
-  ProfileEntity copyWith({
-    String? id,
-    String? name,
-    int? age,
-    String? location,
-    String? gender,
+@freezed
+class ProfileEntity with _$ProfileEntity {
+  const factory ProfileEntity({
+    required String id,
+    required String name,
+    required int age,
+    required String location,
+    required String gender,
     String? sexualOrientation,
     String? bio,
     String? datingGoals,
     String? music,
-    bool? photoVerification,
-    bool? identityVerification,
+    @Default(false) bool photoVerification,
+    @Default(false) bool identityVerification,
     String? premium,
     String? instagramUrl,
     String? spotifyUrl,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    List<String>? promptIds,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    @Default([]) List<String> promptIds,
     String? activePollId,
-    List<String>? mediaIds,
-    List<String>? interestIds,
-    List<String>? badgeIds,
-  }) {
-    return ProfileEntity(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      age: age ?? this.age,
-      location: location ?? this.location,
-      gender: gender ?? this.gender,
-      sexualOrientation: sexualOrientation ?? this.sexualOrientation,
-      bio: bio ?? this.bio,
-      datingGoals: datingGoals ?? this.datingGoals,
-      music: music ?? this.music,
-      photoVerification: photoVerification ?? this.photoVerification,
-      identityVerification: identityVerification ?? this.identityVerification,
-      premium: premium ?? this.premium,
-      instagramUrl: instagramUrl ?? this.instagramUrl,
-      spotifyUrl: spotifyUrl ?? this.spotifyUrl,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      promptIds: promptIds ?? this.promptIds,
-      activePollId: activePollId ?? this.activePollId,
-      mediaIds: mediaIds ?? this.mediaIds,
-      interestIds: interestIds ?? this.interestIds,
-      badgeIds: badgeIds ?? this.badgeIds,
-    );
-  }
+    @Default([]) List<String> mediaIds,
+    @Default([]) List<String> interestIds,
+    @Default([]) List<String> badgeIds,
+  }) = _ProfileEntity;
+
+  const ProfileEntity._(); // ✅ ADDED: Private constructor for custom getters
 
   // ✅ Validation Methods
   bool get isValid {
@@ -252,32 +175,6 @@ class ProfileEntity extends Equatable {
     }
     return name.isNotEmpty ? name[0].toUpperCase() : '?';
   }
-
-  // 📋 Equatable implementation
-  @override
-  List<Object?> get props => [
-    id,
-    name,
-    age,
-    location,
-    gender,
-    sexualOrientation,
-    bio,
-    datingGoals,
-    music,
-    photoVerification,
-    identityVerification,
-    premium,
-    instagramUrl,
-    spotifyUrl,
-    createdAt,
-    updatedAt,
-    promptIds,
-    activePollId,
-    mediaIds,
-    interestIds,
-    badgeIds,
-  ];
 
   // 🔍 Debug representation
   @override

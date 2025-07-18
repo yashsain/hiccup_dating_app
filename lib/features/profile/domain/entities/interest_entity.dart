@@ -1,4 +1,6 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'interest_entity.freezed.dart';
 
 /// 🎯 Interest Entity - Clean Domain Model for User Interests (2025)
 ///
@@ -10,7 +12,7 @@ import 'package:equatable/equatable.dart';
 /// - Built-in validation (50 char limit)
 /// - Type-safe properties
 /// - Category classification
-/// - Equatable for easy comparison
+/// - Freezed for equality and copyWith
 ///
 /// Usage:
 /// ```dart
@@ -79,7 +81,7 @@ enum InterestCategory {
       case InterestCategory.technology:
         return '💻';
       case InterestCategory.food:
-        return '🍽️';
+        return '🍕';
       case InterestCategory.music:
         return '🎵';
       case InterestCategory.travel:
@@ -95,11 +97,41 @@ enum InterestCategory {
       case InterestCategory.professional:
         return '💼';
       case InterestCategory.other:
-        return '🔍';
+        return '🌟';
     }
   }
 
-  // Common interests for each category
+  int get priority {
+    switch (this) {
+      case InterestCategory.sports:
+        return 1;
+      case InterestCategory.creative:
+        return 2;
+      case InterestCategory.outdoor:
+        return 3;
+      case InterestCategory.technology:
+        return 4;
+      case InterestCategory.food:
+        return 5;
+      case InterestCategory.music:
+        return 6;
+      case InterestCategory.travel:
+        return 7;
+      case InterestCategory.fitness:
+        return 8;
+      case InterestCategory.gaming:
+        return 9;
+      case InterestCategory.reading:
+        return 10;
+      case InterestCategory.social:
+        return 11;
+      case InterestCategory.professional:
+        return 12;
+      case InterestCategory.other:
+        return 13;
+    }
+  }
+
   List<String> get commonInterests {
     switch (this) {
       case InterestCategory.sports:
@@ -108,10 +140,10 @@ enum InterestCategory {
           'Basketball',
           'Tennis',
           'Soccer',
-          'Swimming',
-          'Running',
           'Baseball',
+          'Hockey',
           'Golf',
+          'Swimming',
         ];
       case InterestCategory.creative:
         return [
@@ -119,87 +151,87 @@ enum InterestCategory {
           'Painting',
           'Drawing',
           'Writing',
+          'Sculpting',
+          'Crafting',
           'Design',
-          'Crafts',
-          'Pottery',
-          'Singing',
+          'Music Production',
         ];
       case InterestCategory.outdoor:
         return [
           'Hiking',
           'Camping',
           'Rock Climbing',
-          'Biking',
+          'Skiing',
+          'Surfing',
           'Fishing',
-          'Gardening',
-          'Beach',
-          'Nature',
+          'Kayaking',
+          'Cycling',
         ];
       case InterestCategory.technology:
         return [
           'Programming',
+          'AI/ML',
+          'Robotics',
+          'Web Development',
+          'Mobile Apps',
           'Gaming',
-          'AI',
-          'Gadgets',
-          'Coding',
-          'Tech News',
-          'Apps',
-          'Innovation',
+          'VR/AR',
+          'Blockchain',
         ];
       case InterestCategory.food:
         return [
           'Cooking',
           'Baking',
-          'Wine',
+          'Wine Tasting',
           'Coffee',
-          'Restaurants',
-          'Food Trucks',
-          'Cocktails',
-          'Vegan',
+          'Food Photography',
+          'Restaurant Hopping',
+          'Grilling',
+          'Vegetarian',
         ];
       case InterestCategory.music:
         return [
+          'Live Concerts',
+          'Playing Guitar',
+          'Singing',
+          'DJing',
+          'Classical Music',
           'Jazz',
           'Rock',
-          'Pop',
-          'Classical',
-          'Hip Hop',
-          'Country',
           'Electronic',
-          'Concerts',
         ];
       case InterestCategory.travel:
         return [
           'Backpacking',
           'Road Trips',
-          'International',
+          'Cultural Tours',
+          'Adventure Travel',
+          'Beach Vacations',
+          'City Breaks',
           'Solo Travel',
-          'Adventure',
-          'Culture',
-          'Hotels',
-          'Flights',
+          'Food Tourism',
         ];
       case InterestCategory.fitness:
         return [
           'Yoga',
-          'Gym',
-          'Pilates',
           'CrossFit',
-          'Cycling',
+          'Running',
+          'Weightlifting',
+          'Pilates',
           'Martial Arts',
-          'Dance',
-          'Meditation',
+          'Dancing',
+          'Rock Climbing',
         ];
       case InterestCategory.gaming:
         return [
           'Video Games',
           'Board Games',
-          'PC Gaming',
-          'Console',
-          'Mobile Games',
-          'VR',
+          'Card Games',
           'Esports',
-          'Streaming',
+          'RPGs',
+          'Strategy Games',
+          'Mobile Gaming',
+          'VR Gaming',
         ];
       case InterestCategory.reading:
         return [
@@ -249,52 +281,19 @@ enum InterestCategory {
   }
 }
 
-class InterestEntity extends Equatable {
-  // 🔑 Core Identity
-  final String id;
-  final String profileId;
+@freezed
+class InterestEntity with _$InterestEntity {
+  const factory InterestEntity({
+    required String id,
+    required String profileId,
+    required String interest,
+    required InterestCategory category,
+    @Default(0) int popularity,
+    @Default(false) bool isCustom,
+    required DateTime createdAt,
+  }) = _InterestEntity;
 
-  // 💭 Content
-  final String interest;
-  final InterestCategory category;
-
-  // 🎯 Metadata
-  final int popularity; // How many people share this interest (0-100)
-  final bool isCustom; // User-created vs predefined
-
-  // ⏰ Timestamps
-  final DateTime createdAt;
-
-  const InterestEntity({
-    required this.id,
-    required this.profileId,
-    required this.interest,
-    required this.category,
-    this.popularity = 0,
-    this.isCustom = false,
-    required this.createdAt,
-  });
-
-  // 🔄 Copy with method for immutable updates
-  InterestEntity copyWith({
-    String? id,
-    String? profileId,
-    String? interest,
-    InterestCategory? category,
-    int? popularity,
-    bool? isCustom,
-    DateTime? createdAt,
-  }) {
-    return InterestEntity(
-      id: id ?? this.id,
-      profileId: profileId ?? this.profileId,
-      interest: interest ?? this.interest,
-      category: category ?? this.category,
-      popularity: popularity ?? this.popularity,
-      isCustom: isCustom ?? this.isCustom,
-      createdAt: createdAt ?? this.createdAt,
-    );
-  }
+  const InterestEntity._();
 
   // ✅ Validation Methods
   bool get isValid {
@@ -314,88 +313,46 @@ class InterestEntity extends Equatable {
   // 📊 Computed Properties
   String get displayInterest => interest.trim();
 
-  String get displayCategory => category.displayName;
-
-  String get categoryEmoji => category.emoji;
+  String get displayWithEmoji => '${category.emoji} $displayInterest';
 
   bool get isPopular => popularity >= 70;
 
   bool get isNiche => popularity <= 20;
 
-  // 🎯 Display Helpers
-  String get displayWithEmoji => '$categoryEmoji $displayInterest';
-
-  String get displayWithCategory =>
-      '$displayInterest • ${category.displayName}';
-
-  String get popularityDisplay {
+  String get popularityLevel {
     if (popularity >= 80) return 'Very Popular';
     if (popularity >= 60) return 'Popular';
-    if (popularity >= 40) return 'Common';
+    if (popularity >= 40) return 'Moderate';
     if (popularity >= 20) return 'Niche';
-    return 'Unique';
+    return 'Very Niche';
+  }
+
+  // 🎯 Business Logic Helpers
+  bool get canEdit => isCustom; // Only custom interests can be edited
+
+  bool get isPredefined => !isCustom;
+
+  bool get isCommonInterest {
+    return category.commonInterests
+        .map((e) => e.toLowerCase())
+        .contains(interest.toLowerCase());
   }
 
   // 🔍 Search Helpers
   List<String> get searchKeywords {
     final keywords = <String>[];
-
     keywords.add(interest.toLowerCase());
     keywords.add(category.displayName.toLowerCase());
     keywords.addAll(interest.toLowerCase().split(' '));
-
-    return keywords.where((keyword) => keyword.isNotEmpty).toList();
+    return keywords
+        .where((keyword) => keyword.isNotEmpty && keyword.length > 1)
+        .toList();
   }
 
-  // 🎨 Matching Helpers
-  bool matchesInterest(String otherInterest) {
-    return interest.toLowerCase() == otherInterest.toLowerCase();
-  }
+  // 🎨 Display Helpers
+  String get categoryDisplay => '${category.emoji} ${category.displayName}';
 
-  bool matchesCategory(InterestCategory otherCategory) {
-    return category == otherCategory;
-  }
-
-  double similarityScore(InterestEntity other) {
-    // Same interest = 1.0
-    if (matchesInterest(other.interest)) return 1.0;
-
-    // Same category = 0.3
-    if (matchesCategory(other.category)) return 0.3;
-
-    // Check for keyword overlap
-    final myKeywords = searchKeywords.toSet();
-    final otherKeywords = other.searchKeywords.toSet();
-    final overlap = myKeywords.intersection(otherKeywords).length;
-    final total = myKeywords.union(otherKeywords).length;
-
-    return overlap / total * 0.5;
-  }
-
-  // 📋 Equatable implementation
-  @override
-  List<Object?> get props => [
-    id,
-    profileId,
-    interest,
-    category,
-    popularity,
-    isCustom,
-    createdAt,
-  ];
-
-  // 🔍 Debug representation
-  @override
-  String toString() {
-    return 'InterestEntity('
-        'id: $id, '
-        'profileId: $profileId, '
-        'interest: "$displayInterest", '
-        'category: ${category.displayName}, '
-        'popularity: $popularity, '
-        'custom: $isCustom'
-        ')';
-  }
+  String get fullDisplay => '$displayInterest (${category.displayName})';
 
   // 🧪 Factory constructors for testing
   factory InterestEntity.empty() {
@@ -408,192 +365,146 @@ class InterestEntity extends Equatable {
     );
   }
 
-  factory InterestEntity.sample1() {
+  factory InterestEntity.sample(String interestName, InterestCategory cat) {
+    final popularity = _getPopularityForInterest(interestName);
+
     return InterestEntity(
-      id: 'interest_1',
-      profileId: 'user_123',
-      interest: 'Photography',
-      category: InterestCategory.creative,
-      popularity: 75,
-      isCustom: false,
-      createdAt: DateTime.now().subtract(const Duration(days: 20)),
+      id: 'interest_${interestName.toLowerCase().replaceAll(' ', '_')}',
+      profileId: 'sample_profile',
+      interest: interestName,
+      category: cat,
+      popularity: popularity,
+      isCustom: !cat.commonInterests.contains(interestName),
+      createdAt: DateTime.now().subtract(Duration(days: popularity ~/ 10)),
     );
   }
 
-  factory InterestEntity.sample2() {
-    return InterestEntity(
-      id: 'interest_2',
-      profileId: 'user_123',
-      interest: 'Hiking',
-      category: InterestCategory.outdoor,
-      popularity: 85,
-      isCustom: false,
-      createdAt: DateTime.now().subtract(const Duration(days: 15)),
-    );
+  static int _getPopularityForInterest(String interest) {
+    // Simulate popularity based on interest type
+    final popularInterests = [
+      'Photography',
+      'Hiking',
+      'Cooking',
+      'Travel',
+      'Music',
+      'Reading',
+    ];
+
+    if (popularInterests.contains(interest)) {
+      return 75 + (interest.hashCode % 25); // 75-99 range
+    } else {
+      return 25 + (interest.hashCode % 50); // 25-74 range
+    }
   }
 
-  factory InterestEntity.sample3() {
-    return InterestEntity(
-      id: 'interest_3',
-      profileId: 'user_123',
-      interest: 'Coffee Brewing',
-      category: InterestCategory.food,
-      popularity: 45,
-      isCustom: true,
-      createdAt: DateTime.now().subtract(const Duration(days: 10)),
-    );
+  // Sample interest sets
+  static List<InterestEntity> sampleInterests() {
+    return [
+      InterestEntity.sample('Photography', InterestCategory.creative),
+      InterestEntity.sample('Hiking', InterestCategory.outdoor),
+      InterestEntity.sample('Cooking', InterestCategory.food),
+      InterestEntity.sample('Travel', InterestCategory.travel),
+      InterestEntity.sample('Reading', InterestCategory.reading),
+      InterestEntity.sample('Yoga', InterestCategory.fitness),
+      InterestEntity.sample('Gaming', InterestCategory.gaming),
+    ];
   }
 }
 
 /// 🎯 Interest Entity Extensions - Additional functionality
 extension InterestEntityExtensions on InterestEntity {
-  /// Check if interest was recently created (within last 7 days)
-  bool get isRecentlyCreated {
+  /// Check if interest is recently added (within last 7 days)
+  bool get isRecentlyAdded {
     return DateTime.now().difference(createdAt).inDays <= 7;
   }
 
-  /// Get creation time in human readable format
-  String get createdTimeAgo {
-    final difference = DateTime.now().difference(createdAt);
+  /// Get interest age in days
+  int get interestAgeInDays {
+    return DateTime.now().difference(createdAt).inDays;
+  }
 
-    if (difference.inDays > 0) {
-      return '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
-    } else if (difference.inHours > 0) {
-      return '${difference.inHours} hour${difference.inHours > 1 ? 's' : ''} ago';
-    } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes} minute${difference.inMinutes > 1 ? 's' : ''} ago';
-    } else {
-      return 'Just now';
+  /// Check if interest matches another interest (fuzzy matching)
+  bool matchesInterest(String otherInterest) {
+    final thisLower = interest.toLowerCase().trim();
+    final otherLower = otherInterest.toLowerCase().trim();
+
+    // Exact match
+    if (thisLower == otherLower) return true;
+
+    // Contains match
+    if (thisLower.contains(otherLower) || otherLower.contains(thisLower)) {
+      return true;
+    }
+
+    // Word overlap
+    final thisWords = thisLower.split(' ');
+    final otherWords = otherLower.split(' ');
+    final overlap = thisWords.toSet().intersection(otherWords.toSet());
+
+    return overlap.isNotEmpty;
+  }
+
+  /// Get compatibility score with another interest (0-100)
+  int getCompatibilityScore(InterestEntity other) {
+    // Same interest = 100% compatibility
+    if (matchesInterest(other.interest)) return 100;
+
+    // Same category = 60% compatibility
+    if (category == other.category) return 60;
+
+    // Related categories get partial compatibility
+    final relatedCategories = _getRelatedCategories();
+    if (relatedCategories.contains(other.category)) return 30;
+
+    return 0;
+  }
+
+  List<InterestCategory> _getRelatedCategories() {
+    switch (category) {
+      case InterestCategory.sports:
+        return [InterestCategory.fitness, InterestCategory.outdoor];
+      case InterestCategory.creative:
+        return [InterestCategory.music, InterestCategory.reading];
+      case InterestCategory.outdoor:
+        return [
+          InterestCategory.sports,
+          InterestCategory.fitness,
+          InterestCategory.travel,
+        ];
+      case InterestCategory.technology:
+        return [InterestCategory.gaming, InterestCategory.professional];
+      case InterestCategory.food:
+        return [InterestCategory.travel, InterestCategory.social];
+      case InterestCategory.music:
+        return [InterestCategory.creative, InterestCategory.social];
+      case InterestCategory.travel:
+        return [InterestCategory.outdoor, InterestCategory.food];
+      case InterestCategory.fitness:
+        return [InterestCategory.sports, InterestCategory.outdoor];
+      case InterestCategory.gaming:
+        return [InterestCategory.technology, InterestCategory.social];
+      case InterestCategory.reading:
+        return [InterestCategory.creative, InterestCategory.professional];
+      case InterestCategory.social:
+        return [InterestCategory.music, InterestCategory.gaming];
+      case InterestCategory.professional:
+        return [InterestCategory.technology, InterestCategory.reading];
+      case InterestCategory.other:
+        return [];
     }
   }
 
-  /// Get suggested related interests
-  List<String> get relatedInterests {
-    final related = <String>[];
+  /// Generate interest summary for profile display
+  String get interestSummary {
+    final buffer = StringBuffer();
+    buffer.write(displayInterest);
 
-    // Add 3-5 related interests from the same category
-    final categoryInterests = category.commonInterests;
-    categoryInterests.shuffle();
-
-    for (final relatedInterest in categoryInterests) {
-      if (relatedInterest.toLowerCase() != interest.toLowerCase()) {
-        related.add(relatedInterest);
-        if (related.length >= 5) break;
-      }
-    }
-
-    return related;
-  }
-
-  /// Generate interest hashtags
-  List<String> get hashtags {
-    final hashtags = <String>[];
-
-    // Add main hashtag
-    hashtags.add('#${interest.replaceAll(' ', '').toLowerCase()}');
-
-    // Add category hashtag
-    hashtags.add('#${category.displayName.replaceAll(' ', '').toLowerCase()}');
-
-    // Add popular hashtag if popular
     if (isPopular) {
-      hashtags.add('#popular');
+      buffer.write(' 🔥');
+    } else if (isNiche) {
+      buffer.write(' 💎');
     }
 
-    return hashtags;
-  }
-
-  /// Check if interest is suitable for matching
-  bool get isSuitableForMatching {
-    return interest.length >= 3 && !isCustom || (isCustom && popularity >= 10);
-  }
-}
-
-/// 🎯 Interest Helpers - Static utility methods
-class InterestHelpers {
-  /// Categorize an interest automatically
-  static InterestCategory categorizeInterest(String interest) {
-    final lowerInterest = interest.toLowerCase();
-
-    for (final category in InterestCategory.values) {
-      if (category.commonInterests.any(
-        (common) =>
-            common.toLowerCase().contains(lowerInterest) ||
-            lowerInterest.contains(common.toLowerCase()),
-      )) {
-        return category;
-      }
-    }
-
-    return InterestCategory.other;
-  }
-
-  /// Get popular interests across all categories
-  static List<String> getPopularInterests() {
-    final popular = <String>[];
-
-    for (final category in InterestCategory.values) {
-      popular.addAll(category.commonInterests.take(3));
-    }
-
-    return popular;
-  }
-
-  /// Get trending interests (mock data for now)
-  static List<String> getTrendingInterests() {
-    return [
-      'Sustainable Living',
-      'Mindfulness',
-      'Plant-Based Cooking',
-      'Digital Detox',
-      'Urban Gardening',
-      'Cryptocurrency',
-      'NFTs',
-      'Podcasting',
-      'Home Brewing',
-      'Vintage Shopping',
-    ];
-  }
-
-  /// Validate interest name
-  static bool isValidInterestName(String interest) {
-    return interest.trim().isNotEmpty &&
-        interest.length >= 2 &&
-        interest.length <= 50 &&
-        !interest.contains(RegExp(r'[<>{}[\]\\|`~!@#$%^&*()+=]'));
-  }
-
-  /// Generate interest suggestions based on existing interests
-  static List<String> getSuggestions(List<InterestEntity> existingInterests) {
-    final suggestions = <String>[];
-    final existingNames = existingInterests
-        .map((i) => i.interest.toLowerCase())
-        .toSet();
-
-    // Group by category
-    final categoryCounts = <InterestCategory, int>{};
-    for (final interest in existingInterests) {
-      categoryCounts[interest.category] =
-          (categoryCounts[interest.category] ?? 0) + 1;
-    }
-
-    // Suggest from most popular categories
-    final sortedCategories = categoryCounts.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
-
-    for (final entry in sortedCategories) {
-      final categoryInterests = entry.key.commonInterests;
-
-      for (final interest in categoryInterests) {
-        if (!existingNames.contains(interest.toLowerCase())) {
-          suggestions.add(interest);
-          if (suggestions.length >= 10) break;
-        }
-      }
-
-      if (suggestions.length >= 10) break;
-    }
-
-    return suggestions;
+    return buffer.toString();
   }
 }

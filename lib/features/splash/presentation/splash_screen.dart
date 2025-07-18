@@ -200,8 +200,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         boxShadow: [
           BoxShadow(
             color: isDarkTheme
-                ? AppColors.darkPrimary.withOpacity(0.3)
-                : AppColors.lightPrimary.withOpacity(0.3),
+                ? AppColors.darkPrimary.withValues(alpha: 0.3)
+                : AppColors.lightPrimary.withValues(alpha: 0.3),
             blurRadius: 30,
             offset: const Offset(0, 15),
           ),
@@ -223,8 +223,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     //     boxShadow: [
     //       BoxShadow(
     //         color: isDarkTheme
-    //             ? AppColors.darkPrimary.withOpacity(0.3)
-    //             : AppColors.lightPrimary.withOpacity(0.3),
+    //             ? AppColors.darkPrimary.withValues(alpha: 0.3)
+    //             : AppColors.lightPrimary.withValues(alpha: 0.3),
     //         blurRadius: 30,
     //         offset: const Offset(0, 15),
     //       ),
@@ -252,7 +252,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               Shadow(
                 offset: const Offset(0, 2),
                 blurRadius: 8,
-                color: shadowColor.withOpacity(0.5),
+                color: shadowColor.withValues(alpha: 0.5),
               ),
             ],
           ),
@@ -261,7 +261,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         Text(
           'Send a hiccup to remind them of you',
           style: AppTextStyles.brandSubtitle.copyWith(
-            color: textColor.withOpacity(0.9),
+            color: textColor.withValues(alpha: 0.9),
           ),
         ),
       ],

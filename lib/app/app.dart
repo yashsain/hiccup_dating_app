@@ -164,5 +164,5 @@ extension ThemeContextExtensions on BuildContext {
 
   /// Get secondary text color from current theme
   Color get secondaryTextColor =>
-      Theme.of(this).colorScheme.onSurface.withOpacity(0.6);
+      Theme.of(this).colorScheme.onSurface.withValues(alpha: 0.6);
 }
