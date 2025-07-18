@@ -42,11 +42,10 @@ class PromptModel {
         'response': entity.response,
 
         // 📊 Display order (for consistent prompt sequence)
-        'order_index': entity.order,
+        'display_order': entity.displayOrder,
 
         // ⏰ Timestamps
         'created_at': entity.createdAt.toIso8601String(),
-        'updated_at': entity.updatedAt.toIso8601String(),
       };
     } catch (e) {
       throw PromptModelException(
@@ -75,11 +74,10 @@ class PromptModel {
         response: map['response'] as String,
 
         // 📊 Display order
-        order: map['order_index'] as int,
+        displayOrder: map['display_order'] as int,
 
         // ⏰ Timestamps
         createdAt: DateTime.parse(map['created_at'] as String),
-        updatedAt: DateTime.parse(map['updated_at'] as String),
       );
     } catch (e) {
       throw PromptModelException(
@@ -136,8 +134,7 @@ class PromptModel {
 
       return {
         'id': prompt.id,
-        'order_index': index + 1, // 1-based ordering
-        'updated_at': DateTime.now().toIso8601String(),
+        'display_order': index + 1, // 1-based ordering
       };
     }).toList();
   }
@@ -164,9 +161,8 @@ class PromptModel {
       'profile_id',
       'question',
       'response',
-      'order_index',
+      'display_order',
       'created_at',
-      'updated_at',
     ];
     final missingFields = <String>[];
 
@@ -208,11 +204,11 @@ class PromptModel {
     }
 
     // Validate order (must be positive)
-    final order = map['order_index'] as int;
+    final order = map['display_order'] as int;
     if (order < 1 || order > 3) {
       // Max 3 prompts per profile
       throw PromptModelException(
-        'Order must be 1-3 (max 3 prompts per profile)',
+        'Display order must be 1-3 (max 3 prompts per profile)',
         map['id']?.toString(),
       );
     }
@@ -262,19 +258,18 @@ class PromptModelUtils {
   static Map<String, dynamic> createSampleMap({
     String? id,
     String? profileId,
-    int order = 1,
+    int displayOrder = 1,
   }) {
     return {
       'id': id ?? 'test_prompt_1',
       'profile_id': profileId ?? 'test_profile_1',
-      'question': sampleQuestions[order - 1],
+      'question': sampleQuestions[displayOrder - 1],
       'response':
           'This is a sample response that showcases personality and interests.',
-      'order_index': order,
+      'display_order': displayOrder,
       'created_at': DateTime.now()
-          .subtract(Duration(days: order))
+          .subtract(Duration(days: displayOrder))
           .toIso8601String(),
-      'updated_at': DateTime.now().toIso8601String(),
     };
   }
 
@@ -285,7 +280,7 @@ class PromptModelUtils {
       (index) => createSampleMap(
         id: 'prompt_${profileId}_${index + 1}',
         profileId: profileId,
-        order: index + 1,
+        displayOrder: index + 1,
       ),
     );
   }
@@ -300,7 +295,7 @@ class PromptModelUtils {
           entity.profileId == restored.profileId &&
           entity.question == restored.question &&
           entity.response == restored.response &&
-          entity.order == restored.order;
+          entity.displayOrder == restored.displayOrder;
     } catch (e) {
       return false;
     }
@@ -311,10 +306,11 @@ class PromptModelUtils {
     if (prompts.isEmpty) return true;
 
     // Sort by order and check sequence
-    final sorted = [...prompts]..sort((a, b) => a.order.compareTo(b.order));
+    final sorted = [...prompts]
+      ..sort((a, b) => a.displayOrder.compareTo(b.displayOrder));
 
     for (int i = 0; i < sorted.length; i++) {
-      if (sorted[i].order != i + 1) {
+      if (sorted[i].displayOrder != i + 1) {
         return false; // Order should be 1, 2, 3...
       }
     }
@@ -327,7 +323,7 @@ class PromptModelUtils {
     if (existingPrompts.isEmpty) return 1;
 
     final maxOrder = existingPrompts
-        .map((p) => p.order)
+        .map((p) => p.displayOrder)
         .reduce((max, current) => current > max ? current : max);
 
     return maxOrder + 1;

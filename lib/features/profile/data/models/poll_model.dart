@@ -46,7 +46,6 @@ class PollModel {
         'is_active': entity.isActive ? 1 : 0, // SQLite boolean
         // ⏰ Timestamps
         'created_at': entity.createdAt.toIso8601String(),
-        'updated_at': entity.updatedAt.toIso8601String(),
       };
     } catch (e) {
       throw PollModelException(
@@ -79,7 +78,6 @@ class PollModel {
 
         // ⏰ Timestamps
         createdAt: DateTime.parse(map['created_at'] as String),
-        updatedAt: DateTime.parse(map['updated_at'] as String),
       );
     } catch (e) {
       throw PollModelException(
@@ -126,22 +124,14 @@ class PollModel {
   /// Creates update map to activate a poll (and deactivate others
   /// for the same profile, since only 1 can be active).
   static Map<String, dynamic> createActivationMap(String pollId) {
-    return {
-      'id': pollId,
-      'is_active': 1,
-      'updated_at': DateTime.now().toIso8601String(),
-    };
+    return {'id': pollId, 'is_active': 1};
   }
 
   /// 💤 Create deactivation map for poll state changes
   ///
   /// Creates update map to deactivate a poll.
   static Map<String, dynamic> createDeactivationMap(String pollId) {
-    return {
-      'id': pollId,
-      'is_active': 0,
-      'updated_at': DateTime.now().toIso8601String(),
-    };
+    return {'id': pollId, 'is_active': 0};
   }
 
   /// 🔄 Create update map for poll content changes
@@ -153,7 +143,6 @@ class PollModel {
       'id': entity.id,
       'question': entity.question,
       'options': _encodeOptions(entity.options),
-      'updated_at': DateTime.now().toIso8601String(),
     };
   }
 
@@ -217,7 +206,6 @@ class PollModel {
       'options',
       'is_active',
       'created_at',
-      'updated_at',
     ];
     final missingFields = <String>[];
 

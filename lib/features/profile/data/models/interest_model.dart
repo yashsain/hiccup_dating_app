@@ -45,8 +45,8 @@ class InterestModel {
         'display_name': entity.interest, // Keep original formatting for display
         'category': entity.category.name, // enum to string
         // 📊 Metadata
-        'is_verified': entity.isVerified ? 1 : 0, // SQLite boolean
-        'popularity_score': entity.popularityScore ?? 0,
+        'is_custom': entity.isCustom ? 1 : 0, // SQLite boolean
+        'popularity': entity.popularity,
 
         // ⏰ Timestamps
         'created_at': entity.createdAt.toIso8601String(),
@@ -81,8 +81,8 @@ class InterestModel {
         ),
 
         // 📊 Metadata
-        isVerified: (map['is_verified'] as int? ?? 0) == 1,
-        popularityScore: map['popularity_score'] as int?,
+        isCustom: (map['is_custom'] as int? ?? 0) == 1,
+        popularity: map['popularity'] as int? ?? 0,
 
         // ⏰ Timestamps
         createdAt: DateTime.parse(map['created_at'] as String),
@@ -190,7 +190,7 @@ class InterestModel {
         .map((interest) {
           final adjustment =
               popularityAdjustments[interest.interest.toLowerCase()]!;
-          final newScore = (interest.popularityScore ?? 0) + adjustment;
+          final newScore = interest.popularity + adjustment;
 
           return {
             'id': interest.id,
@@ -287,42 +287,42 @@ class InterestModel {
     if (RegExp(
       r'\b(gym|fitness|running|soccer|basketball|tennis|yoga|hiking|cycling|swimming|football|baseball|volleyball|boxing|martial arts|crossfit)\b',
     ).hasMatch(lowerInterest)) {
-      return InterestCategory.sportsAndFitness;
+      return InterestCategory.sports;
     }
 
     // Arts and creativity
     if (RegExp(
       r'\b(painting|drawing|photography|music|singing|dancing|writing|poetry|theater|art|crafts|design|sculpture)\b',
     ).hasMatch(lowerInterest)) {
-      return InterestCategory.artsAndCreativity;
+      return InterestCategory.creative;
     }
 
     // Entertainment
     if (RegExp(
       r'\b(movies|tv|netflix|gaming|games|comedy|standup|concerts|festivals|nightlife)\b',
     ).hasMatch(lowerInterest)) {
-      return InterestCategory.entertainment;
+      return InterestCategory.gaming;
     }
 
     // Food and drink
     if (RegExp(
       r'\b(cooking|baking|wine|beer|coffee|restaurants|food|cuisine|chef|cocktails|dining)\b',
     ).hasMatch(lowerInterest)) {
-      return InterestCategory.foodAndDrink;
+      return InterestCategory.food;
     }
 
     // Travel and adventure
     if (RegExp(
       r'\b(travel|traveling|backpacking|adventure|exploring|camping|beach|mountains|road trips|vacation)\b',
     ).hasMatch(lowerInterest)) {
-      return InterestCategory.travelAndAdventure;
+      return InterestCategory.travel;
     }
 
     // Learning and education
     if (RegExp(
       r'\b(reading|books|learning|education|study|science|history|philosophy|languages|courses)\b',
     ).hasMatch(lowerInterest)) {
-      return InterestCategory.learningAndEducation;
+      return InterestCategory.reading;
     }
 
     // Technology
@@ -336,11 +336,11 @@ class InterestModel {
     if (RegExp(
       r'\b(nature|outdoors|gardening|plants|animals|pets|environment|sustainability|wildlife)\b',
     ).hasMatch(lowerInterest)) {
-      return InterestCategory.natureAndOutdoors;
+      return InterestCategory.outdoor;
     }
 
-    // Default to lifestyle
-    return InterestCategory.lifestyle;
+    // Default to other
+    return InterestCategory.other;
   }
 }
 
@@ -370,9 +370,9 @@ class InterestModelUtils {
   InterestModelUtils._();
 
   /// Popular interests by category (for suggestions)
-  static const Map<InterestCategory, List<String>> popularInterestsByCategory =
+  static final Map<InterestCategory, List<String>> popularInterestsByCategory =
       {
-        InterestCategory.sportsAndFitness: [
+        InterestCategory.sports: [
           'Gym',
           'Running',
           'Yoga',
@@ -384,7 +384,7 @@ class InterestModelUtils {
           'Tennis',
           'Boxing',
         ],
-        InterestCategory.artsAndCreativity: [
+        InterestCategory.creative: [
           'Photography',
           'Music',
           'Painting',
@@ -396,7 +396,7 @@ class InterestModelUtils {
           'Crafts',
           'Design',
         ],
-        InterestCategory.entertainment: [
+        InterestCategory.gaming: [
           'Movies',
           'Gaming',
           'TV Shows',
@@ -408,7 +408,7 @@ class InterestModelUtils {
           'Netflix',
           'Anime',
         ],
-        InterestCategory.foodAndDrink: [
+        InterestCategory.food: [
           'Cooking',
           'Wine',
           'Coffee',
@@ -420,7 +420,7 @@ class InterestModelUtils {
           'Cuisine',
           'Dining',
         ],
-        InterestCategory.travelAndAdventure: [
+        InterestCategory.travel: [
           'Travel',
           'Backpacking',
           'Road Trips',
@@ -432,7 +432,7 @@ class InterestModelUtils {
           'Vacation',
           'Culture',
         ],
-        InterestCategory.learningAndEducation: [
+        InterestCategory.reading: [
           'Reading',
           'Learning',
           'Science',
@@ -456,7 +456,7 @@ class InterestModelUtils {
           'Coding',
           'Robotics',
         ],
-        InterestCategory.natureAndOutdoors: [
+        InterestCategory.outdoor: [
           'Nature',
           'Gardening',
           'Animals',
@@ -468,7 +468,7 @@ class InterestModelUtils {
           'Conservation',
           'Outdoors',
         ],
-        InterestCategory.lifestyle: [
+        InterestCategory.social: [
           'Fashion',
           'Shopping',
           'Self-care',

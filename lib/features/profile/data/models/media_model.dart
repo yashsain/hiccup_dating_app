@@ -41,17 +41,19 @@ class MediaModel {
         // 🎭 Media type and content
         'type': entity.type.name, // enum to string
         'file_path': entity.filePath,
-        'file_name': entity.fileName,
+        'caption': entity.caption,
 
         // 📊 File metadata
-        'file_size': entity.fileSize,
-        'duration': entity.duration, // nullable for photos
-        'mime_type': entity.mimeType,
+        'file_size_bytes': entity.fileSizeBytes,
+        'duration_seconds': entity.durationSeconds, // nullable for photos
+        'width': entity.width,
+        'height': entity.height,
         'thumbnail_path': entity.thumbnailPath,
 
         // 📱 Display properties
-        'order_index': entity.order,
-        'is_primary': entity.isPrimary ? 1 : 0, // SQLite boolean
+        'display_order': entity.displayOrder,
+        'is_processing': entity.isProcessing ? 1 : 0, // SQLite boolean
+        'is_visible': entity.isVisible ? 1 : 0, // SQLite boolean
         // ⏰ Timestamps
         'created_at': entity.createdAt.toIso8601String(),
       };
@@ -86,17 +88,19 @@ class MediaModel {
           ),
         ),
         filePath: map['file_path'] as String,
-        fileName: map['file_name'] as String,
+        caption: map['caption'] as String?,
 
         // 📊 File metadata
-        fileSize: map['file_size'] as int,
-        duration: map['duration'] as int?, // nullable for photos
-        mimeType: map['mime_type'] as String?,
+        fileSizeBytes: map['file_size_bytes'] as int,
+        durationSeconds: map['duration_seconds'] as int?, // nullable for photos
+        width: map['width'] as int?,
+        height: map['height'] as int?,
         thumbnailPath: map['thumbnail_path'] as String?,
 
         // 📱 Display properties
-        order: map['order_index'] as int,
-        isPrimary: (map['is_primary'] as int? ?? 0) == 1,
+        displayOrder: map['display_order'] as int,
+        isProcessing: (map['is_processing'] as int? ?? 0) == 1,
+        isVisible: (map['is_visible'] as int? ?? 1) == 1,
 
         // ⏰ Timestamps
         createdAt: DateTime.parse(map['created_at'] as String),
@@ -156,24 +160,19 @@ class MediaModel {
 
       return {
         'id': media.id,
-        'order_index': index + 1, // 1-based ordering
+        'display_order': index + 1, // 1-based ordering
       };
     }).toList();
   }
 
-  /// 🌟 Create primary photo update map
+  /// 🌟 Create visibility update map
   ///
-  /// Creates update map to set a photo as primary
-  /// (and unset others as primary for the same profile).
-  static Map<String, dynamic> createSetPrimaryMap(String mediaId) {
-    return {'id': mediaId, 'is_primary': 1};
-  }
-
-  /// 💫 Create unset primary map
-  ///
-  /// Creates update map to unset media as primary.
-  static Map<String, dynamic> createUnsetPrimaryMap(String mediaId) {
-    return {'id': mediaId, 'is_primary': 0};
+  /// Creates update map to set media visibility.
+  static Map<String, dynamic> createSetVisibilityMap(
+    String mediaId,
+    bool isVisible,
+  ) {
+    return {'id': mediaId, 'is_visible': isVisible ? 1 : 0};
   }
 
   /// 🎯 Create map for new media with auto-order
@@ -185,7 +184,7 @@ class MediaModel {
     int existingMediaCount,
   ) {
     final map = toMap(entity);
-    map['order_index'] = existingMediaCount + 1;
+    map['display_order'] = existingMediaCount + 1;
     return map;
   }
 
@@ -227,10 +226,9 @@ class MediaModel {
       'profile_id',
       'type',
       'file_path',
-      'file_name',
-      'file_size',
-      'order_index',
-      'is_primary',
+      'file_size_bytes',
+      'display_order',
+      'is_visible',
       'created_at',
     ];
     final missingFields = <String>[];
@@ -273,7 +271,7 @@ class MediaModel {
     }
 
     // Validate file size (reasonable limits)
-    final fileSize = map['file_size'] as int;
+    final fileSize = map['file_size_bytes'] as int;
     if (fileSize <= 0) {
       throw MediaModelException(
         'File size must be positive',
@@ -302,7 +300,7 @@ class MediaModel {
           );
         }
         // Validate duration for videos
-        final duration = map['duration'] as int?;
+        final duration = map['duration_seconds'] as int?;
         if (duration != null && (duration <= 0 || duration > 60)) {
           throw MediaModelException(
             'Video duration must be 1-60 seconds',
@@ -319,7 +317,7 @@ class MediaModel {
           );
         }
         // Validate duration for voice notes
-        final duration = map['duration'] as int?;
+        final duration = map['duration_seconds'] as int?;
         if (duration != null && (duration <= 0 || duration > 30)) {
           throw MediaModelException(
             'Voice note duration must be 1-30 seconds',
@@ -330,10 +328,10 @@ class MediaModel {
     }
 
     // Validate order (must be positive)
-    final order = map['order_index'] as int;
+    final order = map['display_order'] as int;
     if (order < 1) {
       throw MediaModelException(
-        'Order must be positive',
+        'Display order must be positive',
         map['id']?.toString(),
       );
     }
@@ -377,8 +375,8 @@ class MediaModelUtils {
     String? id,
     String? profileId,
     MediaType type = MediaType.photo,
-    int order = 1,
-    bool isPrimary = false,
+    int displayOrder = 1,
+    bool isVisible = true,
   }) {
     final now = DateTime.now();
 
@@ -387,16 +385,22 @@ class MediaModelUtils {
       'profile_id': profileId ?? 'test_profile_1',
       'type': type.name,
       'file_path': _getSampleFilePath(type),
-      'file_name': _getSampleFileName(type),
-      'file_size': _getSampleFileSize(type),
-      'duration': type != MediaType.photo ? _getSampleDuration(type) : null,
-      'mime_type': allowedMimeTypes[type]!.first,
+      'caption': 'Sample ${type.displayName.toLowerCase()}',
+      'file_size_bytes': _getSampleFileSize(type),
+      'duration_seconds': type != MediaType.photo
+          ? _getSampleDuration(type)
+          : null,
+      'width': type != MediaType.voiceNote ? 1920 : null,
+      'height': type != MediaType.voiceNote ? 1080 : null,
       'thumbnail_path': type != MediaType.photo
           ? _getSampleThumbnailPath(type)
           : null,
-      'order_index': order,
-      'is_primary': isPrimary ? 1 : 0,
-      'created_at': now.subtract(Duration(days: order)).toIso8601String(),
+      'display_order': displayOrder,
+      'is_processing': 0,
+      'is_visible': isVisible ? 1 : 0,
+      'created_at': now
+          .subtract(Duration(days: displayOrder))
+          .toIso8601String(),
     };
   }
 
@@ -407,26 +411,26 @@ class MediaModelUtils {
         id: 'photo_${profileId}_1',
         profileId: profileId,
         type: MediaType.photo,
-        order: 1,
-        isPrimary: true,
+        displayOrder: 1,
+        isVisible: true,
       ),
       createSampleMap(
         id: 'photo_${profileId}_2',
         profileId: profileId,
         type: MediaType.photo,
-        order: 2,
+        displayOrder: 2,
       ),
       createSampleMap(
         id: 'video_${profileId}_1',
         profileId: profileId,
         type: MediaType.video,
-        order: 3,
+        displayOrder: 3,
       ),
       createSampleMap(
         id: 'voice_${profileId}_1',
         profileId: profileId,
         type: MediaType.voiceNote,
-        order: 4,
+        displayOrder: 4,
       ),
     ];
   }
@@ -441,7 +445,7 @@ class MediaModelUtils {
           entity.profileId == restored.profileId &&
           entity.type == restored.type &&
           entity.filePath == restored.filePath &&
-          entity.order == restored.order;
+          entity.displayOrder == restored.displayOrder;
     } catch (e) {
       return false;
     }
@@ -451,10 +455,11 @@ class MediaModelUtils {
   static bool validateMediaOrder(List<MediaEntity> mediaItems) {
     if (mediaItems.isEmpty) return true;
 
-    final sorted = [...mediaItems]..sort((a, b) => a.order.compareTo(b.order));
+    final sorted = [...mediaItems]
+      ..sort((a, b) => a.displayOrder.compareTo(b.displayOrder));
 
     for (int i = 0; i < sorted.length; i++) {
-      if (sorted[i].order != i + 1) {
+      if (sorted[i].displayOrder != i + 1) {
         return false; // Order should be 1, 2, 3...
       }
     }
@@ -467,24 +472,24 @@ class MediaModelUtils {
     if (existingMedia.isEmpty) return 1;
 
     final maxOrder = existingMedia
-        .map((m) => m.order)
+        .map((m) => m.displayOrder)
         .reduce((max, current) => current > max ? current : max);
 
     return maxOrder + 1;
   }
 
-  /// Check if profile has primary photo
-  static bool hasPrimaryPhoto(List<MediaEntity> mediaItems) {
+  /// Check if profile has visible photos
+  static bool hasVisiblePhotos(List<MediaEntity> mediaItems) {
     return mediaItems.any(
-      (media) => media.type == MediaType.photo && media.isPrimary,
+      (media) => media.type == MediaType.photo && media.isVisible,
     );
   }
 
-  /// Get primary photo from media list
-  static MediaEntity? getPrimaryPhoto(List<MediaEntity> mediaItems) {
+  /// Get first visible photo from media list
+  static MediaEntity? getFirstVisiblePhoto(List<MediaEntity> mediaItems) {
     try {
       return mediaItems.firstWhere(
-        (media) => media.type == MediaType.photo && media.isPrimary,
+        (media) => media.type == MediaType.photo && media.isVisible,
       );
     } catch (e) {
       return null;
