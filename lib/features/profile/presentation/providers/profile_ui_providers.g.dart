@@ -16,7 +16,7 @@ const profileUIStateProvider = ProfileUIStateProvider._();
 ///
 /// Main UI state management for profile screen
 final class ProfileUIStateProvider
-    extends $NotifierProvider<ProfileUIState, ProfileUIState> {
+    extends $NotifierProvider<ProfileUIState, ProfileUIStateModel> {
   /// 🎯 Profile UI State Provider
   ///
   /// Main UI state management for profile screen
@@ -39,28 +39,28 @@ final class ProfileUIStateProvider
   ProfileUIState create() => ProfileUIState();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ProfileUIState value) {
+  Override overrideWithValue(ProfileUIStateModel value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ProfileUIState>(value),
+      providerOverride: $SyncValueProvider<ProfileUIStateModel>(value),
     );
   }
 }
 
-String _$profileUIStateHash() => r'25d37b2b6826c69a5e1a7d1f7ecff68f4cecfe2e';
+String _$profileUIStateHash() => r'27631d9a41fe105c22b6b6b218fad802e89b0541';
 
-abstract class _$ProfileUIState extends $Notifier<ProfileUIState> {
-  ProfileUIState build();
+abstract class _$ProfileUIState extends $Notifier<ProfileUIStateModel> {
+  ProfileUIStateModel build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<ProfileUIState, ProfileUIState>;
+    final ref = this.ref as $Ref<ProfileUIStateModel, ProfileUIStateModel>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<ProfileUIState, ProfileUIState>,
-              ProfileUIState,
+              AnyNotifier<ProfileUIStateModel, ProfileUIStateModel>,
+              ProfileUIStateModel,
               Object?,
               Object?
             >;
@@ -78,7 +78,7 @@ const photoGalleryStateProvider = PhotoGalleryStateProvider._();
 ///
 /// Manages photo gallery specific UI state
 final class PhotoGalleryStateProvider
-    extends $NotifierProvider<PhotoGalleryState, PhotoGalleryState> {
+    extends $NotifierProvider<PhotoGalleryState, PhotoGalleryStateModel> {
   /// 📸 Photo Gallery State Provider
   ///
   /// Manages photo gallery specific UI state
@@ -101,28 +101,29 @@ final class PhotoGalleryStateProvider
   PhotoGalleryState create() => PhotoGalleryState();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PhotoGalleryState value) {
+  Override overrideWithValue(PhotoGalleryStateModel value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<PhotoGalleryState>(value),
+      providerOverride: $SyncValueProvider<PhotoGalleryStateModel>(value),
     );
   }
 }
 
-String _$photoGalleryStateHash() => r'2085c31cb2dbfb90a75a7f660d243fe7b78453ad';
+String _$photoGalleryStateHash() => r'd9e271f2412f8889a60466260944cbd6234c6489';
 
-abstract class _$PhotoGalleryState extends $Notifier<PhotoGalleryState> {
-  PhotoGalleryState build();
+abstract class _$PhotoGalleryState extends $Notifier<PhotoGalleryStateModel> {
+  PhotoGalleryStateModel build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<PhotoGalleryState, PhotoGalleryState>;
+    final ref =
+        this.ref as $Ref<PhotoGalleryStateModel, PhotoGalleryStateModel>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<PhotoGalleryState, PhotoGalleryState>,
-              PhotoGalleryState,
+              AnyNotifier<PhotoGalleryStateModel, PhotoGalleryStateModel>,
+              PhotoGalleryStateModel,
               Object?,
               Object?
             >;
@@ -140,7 +141,7 @@ const editFormStateProvider = EditFormStateProvider._();
 ///
 /// Manages profile editing form state
 final class EditFormStateProvider
-    extends $NotifierProvider<EditFormState, EditFormState> {
+    extends $NotifierProvider<EditFormState, EditFormStateModel> {
   /// ✏️ Edit Form State Provider
   ///
   /// Manages profile editing form state
@@ -163,28 +164,28 @@ final class EditFormStateProvider
   EditFormState create() => EditFormState();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(EditFormState value) {
+  Override overrideWithValue(EditFormStateModel value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<EditFormState>(value),
+      providerOverride: $SyncValueProvider<EditFormStateModel>(value),
     );
   }
 }
 
-String _$editFormStateHash() => r'920a76dede898b98d090589c758dec3908b7aef8';
+String _$editFormStateHash() => r'33ec34a18a5a960c11f6df6c5b38dd423c9a5f17';
 
-abstract class _$EditFormState extends $Notifier<EditFormState> {
-  EditFormState build();
+abstract class _$EditFormState extends $Notifier<EditFormStateModel> {
+  EditFormStateModel build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<EditFormState, EditFormState>;
+    final ref = this.ref as $Ref<EditFormStateModel, EditFormStateModel>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<EditFormState, EditFormState>,
-              EditFormState,
+              AnyNotifier<EditFormStateModel, EditFormStateModel>,
+              EditFormStateModel,
               Object?,
               Object?
             >;

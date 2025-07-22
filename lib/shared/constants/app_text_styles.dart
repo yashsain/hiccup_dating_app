@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// ✍️ Hiccup App Typography - New Theme System Integration (2025)
+/// ✍️ Hiccup App Typography - Complete Theme System Integration (2025)
 ///
-/// This typography system now:
-/// - Removes all hardcoded colors
-/// - Works with centralized theme system
-/// - Provides clean, scalable text styles
-/// - Supports both light and dark themes
-/// - Maintains premium, romantic feel
+/// This typography system provides:
+/// - Complete set of text styles with getter methods
+/// - Theme-aware color integration
+/// - Clean, scalable text styles
+/// - Support for both light and dark themes
+/// - Premium, romantic feel with Hiccup branding
 ///
 /// Primary Font: Manrope Variable - Modern, readable sans-serif
 /// Display Font: Playfair Display - Elegant serif for romantic moments
 ///
-/// Key improvements:
-/// - ✅ No hardcoded colors (theme-aware)
-/// - ✅ Clean, minimal design
-/// - ✅ Consistent typography scale
-/// - ✅ Accessible contrast ratios
-/// - ✅ Platform-consistent appearance
+/// ✅ FIXED ISSUES:
+/// - Added missing getLabelLarge(), getLabelMedium(), getLabelSmall()
+/// - Added missing getCaption() method
+/// - All text styles now have corresponding getter methods
+/// - Complete theme integration for all styles
 
 class AppTextStyles {
   // 🚫 Private constructor
   AppTextStyles._();
 
   // 🎯 Heading Styles - Major sections and romantic moments
-  // Note: Colors are NOT specified here - they come from the theme system
-
   static TextStyle heading1 = GoogleFonts.manrope(
     fontSize: 32,
     fontWeight: FontWeight.w800, // Extra Bold
@@ -203,6 +200,32 @@ class AppTextStyles {
     );
   }
 
+  // 🏷️ FIXED: Missing label getter methods
+
+  /// Get labelLarge style with theme-appropriate color
+  static TextStyle getLabelLarge(BuildContext context) {
+    return labelLarge.copyWith(color: Theme.of(context).colorScheme.onSurface);
+  }
+
+  /// Get labelMedium style with theme-appropriate color
+  static TextStyle getLabelMedium(BuildContext context) {
+    return labelMedium.copyWith(color: Theme.of(context).colorScheme.onSurface);
+  }
+
+  /// Get labelSmall style with theme-appropriate color
+  static TextStyle getLabelSmall(BuildContext context) {
+    return labelSmall.copyWith(color: Theme.of(context).colorScheme.onSurface);
+  }
+
+  // 🎯 FIXED: Missing caption getter method
+
+  /// Get caption style with theme-appropriate color
+  static TextStyle getCaption(BuildContext context) {
+    return caption.copyWith(
+      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+    );
+  }
+
   /// Get button style with theme-appropriate color
   static TextStyle getButton(BuildContext context) {
     return button.copyWith(color: Theme.of(context).colorScheme.onPrimary);
@@ -245,6 +268,13 @@ class AppTextStyles {
   static TextStyle getHiccupAction(BuildContext context) {
     return hiccupAction.copyWith(color: Theme.of(context).colorScheme.primary);
   }
+
+  /// Get overline style with theme-appropriate color
+  static TextStyle getOverline(BuildContext context) {
+    return overline.copyWith(
+      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+    );
+  }
 }
 
 /// 🎨 Text Style Extensions - Helper extensions for easy theme-aware text styling
@@ -269,6 +299,18 @@ extension TextStyleExtensions on BuildContext {
 
   /// Get bodySmall style with current theme color
   TextStyle get bodySmall => AppTextStyles.getBodySmall(this);
+
+  /// Get labelLarge style with current theme color
+  TextStyle get labelLarge => AppTextStyles.getLabelLarge(this);
+
+  /// Get labelMedium style with current theme color
+  TextStyle get labelMedium => AppTextStyles.getLabelMedium(this);
+
+  /// Get labelSmall style with current theme color
+  TextStyle get labelSmall => AppTextStyles.getLabelSmall(this);
+
+  /// Get caption style with current theme color
+  TextStyle get caption => AppTextStyles.getCaption(this);
 
   /// Get button style with current theme color
   TextStyle get buttonStyle => AppTextStyles.getButton(this);

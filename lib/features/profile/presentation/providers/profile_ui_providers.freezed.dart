@@ -12,7 +12,7 @@ part of 'profile_ui_providers.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$ProfileUIState {
+mixin _$ProfileUIStateModel {
 
 /// Whether the profile is in edit mode
  bool get isEditMode;/// Currently selected photo index in gallery
@@ -27,17 +27,17 @@ mixin _$ProfileUIState {
  List<String> get selectedInterests;/// Photo upload progress (0.0 to 1.0)
  double get photoUploadProgress;/// Whether the profile action sheet is visible
  bool get showActionSheet;
-/// Create a copy of ProfileUIState
+/// Create a copy of ProfileUIStateModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ProfileUIStateCopyWith<ProfileUIState> get copyWith => _$ProfileUIStateCopyWithImpl<ProfileUIState>(this as ProfileUIState, _$identity);
+$ProfileUIStateModelCopyWith<ProfileUIStateModel> get copyWith => _$ProfileUIStateModelCopyWithImpl<ProfileUIStateModel>(this as ProfileUIStateModel, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileUIState&&(identical(other.isEditMode, isEditMode) || other.isEditMode == isEditMode)&&(identical(other.selectedPhotoIndex, selectedPhotoIndex) || other.selectedPhotoIndex == selectedPhotoIndex)&&(identical(other.isPhotoGalleryExpanded, isPhotoGalleryExpanded) || other.isPhotoGalleryExpanded == isPhotoGalleryExpanded)&&(identical(other.activePromptId, activePromptId) || other.activePromptId == activePromptId)&&(identical(other.isEditingInterests, isEditingInterests) || other.isEditingInterests == isEditingInterests)&&(identical(other.isBioExpanded, isBioExpanded) || other.isBioExpanded == isBioExpanded)&&const DeepCollectionEquality().equals(other.validationErrors, validationErrors)&&const DeepCollectionEquality().equals(other.loadingStates, loadingStates)&&(identical(other.showVerificationPrompt, showVerificationPrompt) || other.showVerificationPrompt == showVerificationPrompt)&&const DeepCollectionEquality().equals(other.selectedInterests, selectedInterests)&&(identical(other.photoUploadProgress, photoUploadProgress) || other.photoUploadProgress == photoUploadProgress)&&(identical(other.showActionSheet, showActionSheet) || other.showActionSheet == showActionSheet));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileUIStateModel&&(identical(other.isEditMode, isEditMode) || other.isEditMode == isEditMode)&&(identical(other.selectedPhotoIndex, selectedPhotoIndex) || other.selectedPhotoIndex == selectedPhotoIndex)&&(identical(other.isPhotoGalleryExpanded, isPhotoGalleryExpanded) || other.isPhotoGalleryExpanded == isPhotoGalleryExpanded)&&(identical(other.activePromptId, activePromptId) || other.activePromptId == activePromptId)&&(identical(other.isEditingInterests, isEditingInterests) || other.isEditingInterests == isEditingInterests)&&(identical(other.isBioExpanded, isBioExpanded) || other.isBioExpanded == isBioExpanded)&&const DeepCollectionEquality().equals(other.validationErrors, validationErrors)&&const DeepCollectionEquality().equals(other.loadingStates, loadingStates)&&(identical(other.showVerificationPrompt, showVerificationPrompt) || other.showVerificationPrompt == showVerificationPrompt)&&const DeepCollectionEquality().equals(other.selectedInterests, selectedInterests)&&(identical(other.photoUploadProgress, photoUploadProgress) || other.photoUploadProgress == photoUploadProgress)&&(identical(other.showActionSheet, showActionSheet) || other.showActionSheet == showActionSheet));
 }
 
 
@@ -46,15 +46,15 @@ int get hashCode => Object.hash(runtimeType,isEditMode,selectedPhotoIndex,isPhot
 
 @override
 String toString() {
-  return 'ProfileUIState(isEditMode: $isEditMode, selectedPhotoIndex: $selectedPhotoIndex, isPhotoGalleryExpanded: $isPhotoGalleryExpanded, activePromptId: $activePromptId, isEditingInterests: $isEditingInterests, isBioExpanded: $isBioExpanded, validationErrors: $validationErrors, loadingStates: $loadingStates, showVerificationPrompt: $showVerificationPrompt, selectedInterests: $selectedInterests, photoUploadProgress: $photoUploadProgress, showActionSheet: $showActionSheet)';
+  return 'ProfileUIStateModel(isEditMode: $isEditMode, selectedPhotoIndex: $selectedPhotoIndex, isPhotoGalleryExpanded: $isPhotoGalleryExpanded, activePromptId: $activePromptId, isEditingInterests: $isEditingInterests, isBioExpanded: $isBioExpanded, validationErrors: $validationErrors, loadingStates: $loadingStates, showVerificationPrompt: $showVerificationPrompt, selectedInterests: $selectedInterests, photoUploadProgress: $photoUploadProgress, showActionSheet: $showActionSheet)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ProfileUIStateCopyWith<$Res>  {
-  factory $ProfileUIStateCopyWith(ProfileUIState value, $Res Function(ProfileUIState) _then) = _$ProfileUIStateCopyWithImpl;
+abstract mixin class $ProfileUIStateModelCopyWith<$Res>  {
+  factory $ProfileUIStateModelCopyWith(ProfileUIStateModel value, $Res Function(ProfileUIStateModel) _then) = _$ProfileUIStateModelCopyWithImpl;
 @useResult
 $Res call({
  bool isEditMode, int selectedPhotoIndex, bool isPhotoGalleryExpanded, String? activePromptId, bool isEditingInterests, bool isBioExpanded, Map<String, String> validationErrors, Map<String, bool> loadingStates, bool showVerificationPrompt, List<String> selectedInterests, double photoUploadProgress, bool showActionSheet
@@ -65,14 +65,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$ProfileUIStateCopyWithImpl<$Res>
-    implements $ProfileUIStateCopyWith<$Res> {
-  _$ProfileUIStateCopyWithImpl(this._self, this._then);
+class _$ProfileUIStateModelCopyWithImpl<$Res>
+    implements $ProfileUIStateModelCopyWith<$Res> {
+  _$ProfileUIStateModelCopyWithImpl(this._self, this._then);
 
-  final ProfileUIState _self;
-  final $Res Function(ProfileUIState) _then;
+  final ProfileUIStateModel _self;
+  final $Res Function(ProfileUIStateModel) _then;
 
-/// Create a copy of ProfileUIState
+/// Create a copy of ProfileUIStateModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? isEditMode = null,Object? selectedPhotoIndex = null,Object? isPhotoGalleryExpanded = null,Object? activePromptId = freezed,Object? isEditingInterests = null,Object? isBioExpanded = null,Object? validationErrors = null,Object? loadingStates = null,Object? showVerificationPrompt = null,Object? selectedInterests = null,Object? photoUploadProgress = null,Object? showActionSheet = null,}) {
   return _then(_self.copyWith(
@@ -95,8 +95,8 @@ as bool,
 }
 
 
-/// Adds pattern-matching-related methods to [ProfileUIState].
-extension ProfileUIStatePatterns on ProfileUIState {
+/// Adds pattern-matching-related methods to [ProfileUIStateModel].
+extension ProfileUIStateModelPatterns on ProfileUIStateModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -109,10 +109,10 @@ extension ProfileUIStatePatterns on ProfileUIState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ProfileUIState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ProfileUIStateModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _ProfileUIState() when $default != null:
+case _ProfileUIStateModel() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -131,10 +131,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ProfileUIState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ProfileUIStateModel value)  $default,){
 final _that = this;
 switch (_that) {
-case _ProfileUIState():
+case _ProfileUIStateModel():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -152,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ProfileUIState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ProfileUIStateModel value)?  $default,){
 final _that = this;
 switch (_that) {
-case _ProfileUIState() when $default != null:
+case _ProfileUIStateModel() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -175,7 +175,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isEditMode,  int selectedPhotoIndex,  bool isPhotoGalleryExpanded,  String? activePromptId,  bool isEditingInterests,  bool isBioExpanded,  Map<String, String> validationErrors,  Map<String, bool> loadingStates,  bool showVerificationPrompt,  List<String> selectedInterests,  double photoUploadProgress,  bool showActionSheet)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _ProfileUIState() when $default != null:
+case _ProfileUIStateModel() when $default != null:
 return $default(_that.isEditMode,_that.selectedPhotoIndex,_that.isPhotoGalleryExpanded,_that.activePromptId,_that.isEditingInterests,_that.isBioExpanded,_that.validationErrors,_that.loadingStates,_that.showVerificationPrompt,_that.selectedInterests,_that.photoUploadProgress,_that.showActionSheet);case _:
   return orElse();
 
@@ -196,7 +196,7 @@ return $default(_that.isEditMode,_that.selectedPhotoIndex,_that.isPhotoGalleryEx
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isEditMode,  int selectedPhotoIndex,  bool isPhotoGalleryExpanded,  String? activePromptId,  bool isEditingInterests,  bool isBioExpanded,  Map<String, String> validationErrors,  Map<String, bool> loadingStates,  bool showVerificationPrompt,  List<String> selectedInterests,  double photoUploadProgress,  bool showActionSheet)  $default,) {final _that = this;
 switch (_that) {
-case _ProfileUIState():
+case _ProfileUIStateModel():
 return $default(_that.isEditMode,_that.selectedPhotoIndex,_that.isPhotoGalleryExpanded,_that.activePromptId,_that.isEditingInterests,_that.isBioExpanded,_that.validationErrors,_that.loadingStates,_that.showVerificationPrompt,_that.selectedInterests,_that.photoUploadProgress,_that.showActionSheet);case _:
   throw StateError('Unexpected subclass');
 
@@ -216,7 +216,7 @@ return $default(_that.isEditMode,_that.selectedPhotoIndex,_that.isPhotoGalleryEx
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isEditMode,  int selectedPhotoIndex,  bool isPhotoGalleryExpanded,  String? activePromptId,  bool isEditingInterests,  bool isBioExpanded,  Map<String, String> validationErrors,  Map<String, bool> loadingStates,  bool showVerificationPrompt,  List<String> selectedInterests,  double photoUploadProgress,  bool showActionSheet)?  $default,) {final _that = this;
 switch (_that) {
-case _ProfileUIState() when $default != null:
+case _ProfileUIStateModel() when $default != null:
 return $default(_that.isEditMode,_that.selectedPhotoIndex,_that.isPhotoGalleryExpanded,_that.activePromptId,_that.isEditingInterests,_that.isBioExpanded,_that.validationErrors,_that.loadingStates,_that.showVerificationPrompt,_that.selectedInterests,_that.photoUploadProgress,_that.showActionSheet);case _:
   return null;
 
@@ -228,8 +228,8 @@ return $default(_that.isEditMode,_that.selectedPhotoIndex,_that.isPhotoGalleryEx
 /// @nodoc
 
 
-class _ProfileUIState implements ProfileUIState {
-  const _ProfileUIState({this.isEditMode = false, this.selectedPhotoIndex = 0, this.isPhotoGalleryExpanded = false, this.activePromptId, this.isEditingInterests = false, this.isBioExpanded = false, final  Map<String, String> validationErrors = const {}, final  Map<String, bool> loadingStates = const {}, this.showVerificationPrompt = false, final  List<String> selectedInterests = const [], this.photoUploadProgress = 0.0, this.showActionSheet = false}): _validationErrors = validationErrors,_loadingStates = loadingStates,_selectedInterests = selectedInterests;
+class _ProfileUIStateModel implements ProfileUIStateModel {
+  const _ProfileUIStateModel({this.isEditMode = false, this.selectedPhotoIndex = 0, this.isPhotoGalleryExpanded = false, this.activePromptId, this.isEditingInterests = false, this.isBioExpanded = false, final  Map<String, String> validationErrors = const {}, final  Map<String, bool> loadingStates = const {}, this.showVerificationPrompt = false, final  List<String> selectedInterests = const [], this.photoUploadProgress = 0.0, this.showActionSheet = false}): _validationErrors = validationErrors,_loadingStates = loadingStates,_selectedInterests = selectedInterests;
   
 
 /// Whether the profile is in edit mode
@@ -278,17 +278,17 @@ class _ProfileUIState implements ProfileUIState {
 /// Whether the profile action sheet is visible
 @override@JsonKey() final  bool showActionSheet;
 
-/// Create a copy of ProfileUIState
+/// Create a copy of ProfileUIStateModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ProfileUIStateCopyWith<_ProfileUIState> get copyWith => __$ProfileUIStateCopyWithImpl<_ProfileUIState>(this, _$identity);
+_$ProfileUIStateModelCopyWith<_ProfileUIStateModel> get copyWith => __$ProfileUIStateModelCopyWithImpl<_ProfileUIStateModel>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileUIState&&(identical(other.isEditMode, isEditMode) || other.isEditMode == isEditMode)&&(identical(other.selectedPhotoIndex, selectedPhotoIndex) || other.selectedPhotoIndex == selectedPhotoIndex)&&(identical(other.isPhotoGalleryExpanded, isPhotoGalleryExpanded) || other.isPhotoGalleryExpanded == isPhotoGalleryExpanded)&&(identical(other.activePromptId, activePromptId) || other.activePromptId == activePromptId)&&(identical(other.isEditingInterests, isEditingInterests) || other.isEditingInterests == isEditingInterests)&&(identical(other.isBioExpanded, isBioExpanded) || other.isBioExpanded == isBioExpanded)&&const DeepCollectionEquality().equals(other._validationErrors, _validationErrors)&&const DeepCollectionEquality().equals(other._loadingStates, _loadingStates)&&(identical(other.showVerificationPrompt, showVerificationPrompt) || other.showVerificationPrompt == showVerificationPrompt)&&const DeepCollectionEquality().equals(other._selectedInterests, _selectedInterests)&&(identical(other.photoUploadProgress, photoUploadProgress) || other.photoUploadProgress == photoUploadProgress)&&(identical(other.showActionSheet, showActionSheet) || other.showActionSheet == showActionSheet));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileUIStateModel&&(identical(other.isEditMode, isEditMode) || other.isEditMode == isEditMode)&&(identical(other.selectedPhotoIndex, selectedPhotoIndex) || other.selectedPhotoIndex == selectedPhotoIndex)&&(identical(other.isPhotoGalleryExpanded, isPhotoGalleryExpanded) || other.isPhotoGalleryExpanded == isPhotoGalleryExpanded)&&(identical(other.activePromptId, activePromptId) || other.activePromptId == activePromptId)&&(identical(other.isEditingInterests, isEditingInterests) || other.isEditingInterests == isEditingInterests)&&(identical(other.isBioExpanded, isBioExpanded) || other.isBioExpanded == isBioExpanded)&&const DeepCollectionEquality().equals(other._validationErrors, _validationErrors)&&const DeepCollectionEquality().equals(other._loadingStates, _loadingStates)&&(identical(other.showVerificationPrompt, showVerificationPrompt) || other.showVerificationPrompt == showVerificationPrompt)&&const DeepCollectionEquality().equals(other._selectedInterests, _selectedInterests)&&(identical(other.photoUploadProgress, photoUploadProgress) || other.photoUploadProgress == photoUploadProgress)&&(identical(other.showActionSheet, showActionSheet) || other.showActionSheet == showActionSheet));
 }
 
 
@@ -297,15 +297,15 @@ int get hashCode => Object.hash(runtimeType,isEditMode,selectedPhotoIndex,isPhot
 
 @override
 String toString() {
-  return 'ProfileUIState(isEditMode: $isEditMode, selectedPhotoIndex: $selectedPhotoIndex, isPhotoGalleryExpanded: $isPhotoGalleryExpanded, activePromptId: $activePromptId, isEditingInterests: $isEditingInterests, isBioExpanded: $isBioExpanded, validationErrors: $validationErrors, loadingStates: $loadingStates, showVerificationPrompt: $showVerificationPrompt, selectedInterests: $selectedInterests, photoUploadProgress: $photoUploadProgress, showActionSheet: $showActionSheet)';
+  return 'ProfileUIStateModel(isEditMode: $isEditMode, selectedPhotoIndex: $selectedPhotoIndex, isPhotoGalleryExpanded: $isPhotoGalleryExpanded, activePromptId: $activePromptId, isEditingInterests: $isEditingInterests, isBioExpanded: $isBioExpanded, validationErrors: $validationErrors, loadingStates: $loadingStates, showVerificationPrompt: $showVerificationPrompt, selectedInterests: $selectedInterests, photoUploadProgress: $photoUploadProgress, showActionSheet: $showActionSheet)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ProfileUIStateCopyWith<$Res> implements $ProfileUIStateCopyWith<$Res> {
-  factory _$ProfileUIStateCopyWith(_ProfileUIState value, $Res Function(_ProfileUIState) _then) = __$ProfileUIStateCopyWithImpl;
+abstract mixin class _$ProfileUIStateModelCopyWith<$Res> implements $ProfileUIStateModelCopyWith<$Res> {
+  factory _$ProfileUIStateModelCopyWith(_ProfileUIStateModel value, $Res Function(_ProfileUIStateModel) _then) = __$ProfileUIStateModelCopyWithImpl;
 @override @useResult
 $Res call({
  bool isEditMode, int selectedPhotoIndex, bool isPhotoGalleryExpanded, String? activePromptId, bool isEditingInterests, bool isBioExpanded, Map<String, String> validationErrors, Map<String, bool> loadingStates, bool showVerificationPrompt, List<String> selectedInterests, double photoUploadProgress, bool showActionSheet
@@ -316,17 +316,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$ProfileUIStateCopyWithImpl<$Res>
-    implements _$ProfileUIStateCopyWith<$Res> {
-  __$ProfileUIStateCopyWithImpl(this._self, this._then);
+class __$ProfileUIStateModelCopyWithImpl<$Res>
+    implements _$ProfileUIStateModelCopyWith<$Res> {
+  __$ProfileUIStateModelCopyWithImpl(this._self, this._then);
 
-  final _ProfileUIState _self;
-  final $Res Function(_ProfileUIState) _then;
+  final _ProfileUIStateModel _self;
+  final $Res Function(_ProfileUIStateModel) _then;
 
-/// Create a copy of ProfileUIState
+/// Create a copy of ProfileUIStateModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? isEditMode = null,Object? selectedPhotoIndex = null,Object? isPhotoGalleryExpanded = null,Object? activePromptId = freezed,Object? isEditingInterests = null,Object? isBioExpanded = null,Object? validationErrors = null,Object? loadingStates = null,Object? showVerificationPrompt = null,Object? selectedInterests = null,Object? photoUploadProgress = null,Object? showActionSheet = null,}) {
-  return _then(_ProfileUIState(
+  return _then(_ProfileUIStateModel(
 isEditMode: null == isEditMode ? _self.isEditMode : isEditMode // ignore: cast_nullable_to_non_nullable
 as bool,selectedPhotoIndex: null == selectedPhotoIndex ? _self.selectedPhotoIndex : selectedPhotoIndex // ignore: cast_nullable_to_non_nullable
 as int,isPhotoGalleryExpanded: null == isPhotoGalleryExpanded ? _self.isPhotoGalleryExpanded : isPhotoGalleryExpanded // ignore: cast_nullable_to_non_nullable
@@ -347,7 +347,7 @@ as bool,
 }
 
 /// @nodoc
-mixin _$PhotoGalleryState {
+mixin _$PhotoGalleryStateModel {
 
 /// Currently selected photo index
  int get currentIndex;/// Whether gallery is in fullscreen mode
@@ -355,17 +355,17 @@ mixin _$PhotoGalleryState {
  bool get showPhotoInfo;/// Photos being uploaded
  List<String> get uploading;/// Failed upload attempts
  List<String> get failedUploads;
-/// Create a copy of PhotoGalleryState
+/// Create a copy of PhotoGalleryStateModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$PhotoGalleryStateCopyWith<PhotoGalleryState> get copyWith => _$PhotoGalleryStateCopyWithImpl<PhotoGalleryState>(this as PhotoGalleryState, _$identity);
+$PhotoGalleryStateModelCopyWith<PhotoGalleryStateModel> get copyWith => _$PhotoGalleryStateModelCopyWithImpl<PhotoGalleryStateModel>(this as PhotoGalleryStateModel, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhotoGalleryState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.isFullscreen, isFullscreen) || other.isFullscreen == isFullscreen)&&(identical(other.showPhotoInfo, showPhotoInfo) || other.showPhotoInfo == showPhotoInfo)&&const DeepCollectionEquality().equals(other.uploading, uploading)&&const DeepCollectionEquality().equals(other.failedUploads, failedUploads));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhotoGalleryStateModel&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.isFullscreen, isFullscreen) || other.isFullscreen == isFullscreen)&&(identical(other.showPhotoInfo, showPhotoInfo) || other.showPhotoInfo == showPhotoInfo)&&const DeepCollectionEquality().equals(other.uploading, uploading)&&const DeepCollectionEquality().equals(other.failedUploads, failedUploads));
 }
 
 
@@ -374,15 +374,15 @@ int get hashCode => Object.hash(runtimeType,currentIndex,isFullscreen,showPhotoI
 
 @override
 String toString() {
-  return 'PhotoGalleryState(currentIndex: $currentIndex, isFullscreen: $isFullscreen, showPhotoInfo: $showPhotoInfo, uploading: $uploading, failedUploads: $failedUploads)';
+  return 'PhotoGalleryStateModel(currentIndex: $currentIndex, isFullscreen: $isFullscreen, showPhotoInfo: $showPhotoInfo, uploading: $uploading, failedUploads: $failedUploads)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $PhotoGalleryStateCopyWith<$Res>  {
-  factory $PhotoGalleryStateCopyWith(PhotoGalleryState value, $Res Function(PhotoGalleryState) _then) = _$PhotoGalleryStateCopyWithImpl;
+abstract mixin class $PhotoGalleryStateModelCopyWith<$Res>  {
+  factory $PhotoGalleryStateModelCopyWith(PhotoGalleryStateModel value, $Res Function(PhotoGalleryStateModel) _then) = _$PhotoGalleryStateModelCopyWithImpl;
 @useResult
 $Res call({
  int currentIndex, bool isFullscreen, bool showPhotoInfo, List<String> uploading, List<String> failedUploads
@@ -393,14 +393,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$PhotoGalleryStateCopyWithImpl<$Res>
-    implements $PhotoGalleryStateCopyWith<$Res> {
-  _$PhotoGalleryStateCopyWithImpl(this._self, this._then);
+class _$PhotoGalleryStateModelCopyWithImpl<$Res>
+    implements $PhotoGalleryStateModelCopyWith<$Res> {
+  _$PhotoGalleryStateModelCopyWithImpl(this._self, this._then);
 
-  final PhotoGalleryState _self;
-  final $Res Function(PhotoGalleryState) _then;
+  final PhotoGalleryStateModel _self;
+  final $Res Function(PhotoGalleryStateModel) _then;
 
-/// Create a copy of PhotoGalleryState
+/// Create a copy of PhotoGalleryStateModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? currentIndex = null,Object? isFullscreen = null,Object? showPhotoInfo = null,Object? uploading = null,Object? failedUploads = null,}) {
   return _then(_self.copyWith(
@@ -416,8 +416,8 @@ as List<String>,
 }
 
 
-/// Adds pattern-matching-related methods to [PhotoGalleryState].
-extension PhotoGalleryStatePatterns on PhotoGalleryState {
+/// Adds pattern-matching-related methods to [PhotoGalleryStateModel].
+extension PhotoGalleryStateModelPatterns on PhotoGalleryStateModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -430,10 +430,10 @@ extension PhotoGalleryStatePatterns on PhotoGalleryState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PhotoGalleryState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PhotoGalleryStateModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _PhotoGalleryState() when $default != null:
+case _PhotoGalleryStateModel() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -452,10 +452,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PhotoGalleryState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PhotoGalleryStateModel value)  $default,){
 final _that = this;
 switch (_that) {
-case _PhotoGalleryState():
+case _PhotoGalleryStateModel():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -473,10 +473,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PhotoGalleryState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PhotoGalleryStateModel value)?  $default,){
 final _that = this;
 switch (_that) {
-case _PhotoGalleryState() when $default != null:
+case _PhotoGalleryStateModel() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -496,7 +496,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int currentIndex,  bool isFullscreen,  bool showPhotoInfo,  List<String> uploading,  List<String> failedUploads)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _PhotoGalleryState() when $default != null:
+case _PhotoGalleryStateModel() when $default != null:
 return $default(_that.currentIndex,_that.isFullscreen,_that.showPhotoInfo,_that.uploading,_that.failedUploads);case _:
   return orElse();
 
@@ -517,7 +517,7 @@ return $default(_that.currentIndex,_that.isFullscreen,_that.showPhotoInfo,_that.
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int currentIndex,  bool isFullscreen,  bool showPhotoInfo,  List<String> uploading,  List<String> failedUploads)  $default,) {final _that = this;
 switch (_that) {
-case _PhotoGalleryState():
+case _PhotoGalleryStateModel():
 return $default(_that.currentIndex,_that.isFullscreen,_that.showPhotoInfo,_that.uploading,_that.failedUploads);case _:
   throw StateError('Unexpected subclass');
 
@@ -537,7 +537,7 @@ return $default(_that.currentIndex,_that.isFullscreen,_that.showPhotoInfo,_that.
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int currentIndex,  bool isFullscreen,  bool showPhotoInfo,  List<String> uploading,  List<String> failedUploads)?  $default,) {final _that = this;
 switch (_that) {
-case _PhotoGalleryState() when $default != null:
+case _PhotoGalleryStateModel() when $default != null:
 return $default(_that.currentIndex,_that.isFullscreen,_that.showPhotoInfo,_that.uploading,_that.failedUploads);case _:
   return null;
 
@@ -549,8 +549,8 @@ return $default(_that.currentIndex,_that.isFullscreen,_that.showPhotoInfo,_that.
 /// @nodoc
 
 
-class _PhotoGalleryState implements PhotoGalleryState {
-  const _PhotoGalleryState({this.currentIndex = 0, this.isFullscreen = false, this.showPhotoInfo = false, final  List<String> uploading = const [], final  List<String> failedUploads = const []}): _uploading = uploading,_failedUploads = failedUploads;
+class _PhotoGalleryStateModel implements PhotoGalleryStateModel {
+  const _PhotoGalleryStateModel({this.currentIndex = 0, this.isFullscreen = false, this.showPhotoInfo = false, final  List<String> uploading = const [], final  List<String> failedUploads = const []}): _uploading = uploading,_failedUploads = failedUploads;
   
 
 /// Currently selected photo index
@@ -578,17 +578,17 @@ class _PhotoGalleryState implements PhotoGalleryState {
 }
 
 
-/// Create a copy of PhotoGalleryState
+/// Create a copy of PhotoGalleryStateModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$PhotoGalleryStateCopyWith<_PhotoGalleryState> get copyWith => __$PhotoGalleryStateCopyWithImpl<_PhotoGalleryState>(this, _$identity);
+_$PhotoGalleryStateModelCopyWith<_PhotoGalleryStateModel> get copyWith => __$PhotoGalleryStateModelCopyWithImpl<_PhotoGalleryStateModel>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhotoGalleryState&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.isFullscreen, isFullscreen) || other.isFullscreen == isFullscreen)&&(identical(other.showPhotoInfo, showPhotoInfo) || other.showPhotoInfo == showPhotoInfo)&&const DeepCollectionEquality().equals(other._uploading, _uploading)&&const DeepCollectionEquality().equals(other._failedUploads, _failedUploads));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhotoGalleryStateModel&&(identical(other.currentIndex, currentIndex) || other.currentIndex == currentIndex)&&(identical(other.isFullscreen, isFullscreen) || other.isFullscreen == isFullscreen)&&(identical(other.showPhotoInfo, showPhotoInfo) || other.showPhotoInfo == showPhotoInfo)&&const DeepCollectionEquality().equals(other._uploading, _uploading)&&const DeepCollectionEquality().equals(other._failedUploads, _failedUploads));
 }
 
 
@@ -597,15 +597,15 @@ int get hashCode => Object.hash(runtimeType,currentIndex,isFullscreen,showPhotoI
 
 @override
 String toString() {
-  return 'PhotoGalleryState(currentIndex: $currentIndex, isFullscreen: $isFullscreen, showPhotoInfo: $showPhotoInfo, uploading: $uploading, failedUploads: $failedUploads)';
+  return 'PhotoGalleryStateModel(currentIndex: $currentIndex, isFullscreen: $isFullscreen, showPhotoInfo: $showPhotoInfo, uploading: $uploading, failedUploads: $failedUploads)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$PhotoGalleryStateCopyWith<$Res> implements $PhotoGalleryStateCopyWith<$Res> {
-  factory _$PhotoGalleryStateCopyWith(_PhotoGalleryState value, $Res Function(_PhotoGalleryState) _then) = __$PhotoGalleryStateCopyWithImpl;
+abstract mixin class _$PhotoGalleryStateModelCopyWith<$Res> implements $PhotoGalleryStateModelCopyWith<$Res> {
+  factory _$PhotoGalleryStateModelCopyWith(_PhotoGalleryStateModel value, $Res Function(_PhotoGalleryStateModel) _then) = __$PhotoGalleryStateModelCopyWithImpl;
 @override @useResult
 $Res call({
  int currentIndex, bool isFullscreen, bool showPhotoInfo, List<String> uploading, List<String> failedUploads
@@ -616,17 +616,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$PhotoGalleryStateCopyWithImpl<$Res>
-    implements _$PhotoGalleryStateCopyWith<$Res> {
-  __$PhotoGalleryStateCopyWithImpl(this._self, this._then);
+class __$PhotoGalleryStateModelCopyWithImpl<$Res>
+    implements _$PhotoGalleryStateModelCopyWith<$Res> {
+  __$PhotoGalleryStateModelCopyWithImpl(this._self, this._then);
 
-  final _PhotoGalleryState _self;
-  final $Res Function(_PhotoGalleryState) _then;
+  final _PhotoGalleryStateModel _self;
+  final $Res Function(_PhotoGalleryStateModel) _then;
 
-/// Create a copy of PhotoGalleryState
+/// Create a copy of PhotoGalleryStateModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? currentIndex = null,Object? isFullscreen = null,Object? showPhotoInfo = null,Object? uploading = null,Object? failedUploads = null,}) {
-  return _then(_PhotoGalleryState(
+  return _then(_PhotoGalleryStateModel(
 currentIndex: null == currentIndex ? _self.currentIndex : currentIndex // ignore: cast_nullable_to_non_nullable
 as int,isFullscreen: null == isFullscreen ? _self.isFullscreen : isFullscreen // ignore: cast_nullable_to_non_nullable
 as bool,showPhotoInfo: null == showPhotoInfo ? _self.showPhotoInfo : showPhotoInfo // ignore: cast_nullable_to_non_nullable
@@ -640,7 +640,7 @@ as List<String>,
 }
 
 /// @nodoc
-mixin _$EditFormState {
+mixin _$EditFormStateModel {
 
 /// Whether form has unsaved changes
  bool get hasUnsavedChanges;/// Current editing section
@@ -649,17 +649,17 @@ mixin _$EditFormState {
  bool get isSaving;/// Field-specific errors
  Map<String, String> get fieldErrors;/// Modified fields tracking
  Map<String, dynamic> get modifiedFields;
-/// Create a copy of EditFormState
+/// Create a copy of EditFormStateModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$EditFormStateCopyWith<EditFormState> get copyWith => _$EditFormStateCopyWithImpl<EditFormState>(this as EditFormState, _$identity);
+$EditFormStateModelCopyWith<EditFormStateModel> get copyWith => _$EditFormStateModelCopyWithImpl<EditFormStateModel>(this as EditFormStateModel, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditFormState&&(identical(other.hasUnsavedChanges, hasUnsavedChanges) || other.hasUnsavedChanges == hasUnsavedChanges)&&(identical(other.currentSection, currentSection) || other.currentSection == currentSection)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&const DeepCollectionEquality().equals(other.fieldErrors, fieldErrors)&&const DeepCollectionEquality().equals(other.modifiedFields, modifiedFields));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EditFormStateModel&&(identical(other.hasUnsavedChanges, hasUnsavedChanges) || other.hasUnsavedChanges == hasUnsavedChanges)&&(identical(other.currentSection, currentSection) || other.currentSection == currentSection)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&const DeepCollectionEquality().equals(other.fieldErrors, fieldErrors)&&const DeepCollectionEquality().equals(other.modifiedFields, modifiedFields));
 }
 
 
@@ -668,15 +668,15 @@ int get hashCode => Object.hash(runtimeType,hasUnsavedChanges,currentSection,isV
 
 @override
 String toString() {
-  return 'EditFormState(hasUnsavedChanges: $hasUnsavedChanges, currentSection: $currentSection, isValid: $isValid, isSaving: $isSaving, fieldErrors: $fieldErrors, modifiedFields: $modifiedFields)';
+  return 'EditFormStateModel(hasUnsavedChanges: $hasUnsavedChanges, currentSection: $currentSection, isValid: $isValid, isSaving: $isSaving, fieldErrors: $fieldErrors, modifiedFields: $modifiedFields)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $EditFormStateCopyWith<$Res>  {
-  factory $EditFormStateCopyWith(EditFormState value, $Res Function(EditFormState) _then) = _$EditFormStateCopyWithImpl;
+abstract mixin class $EditFormStateModelCopyWith<$Res>  {
+  factory $EditFormStateModelCopyWith(EditFormStateModel value, $Res Function(EditFormStateModel) _then) = _$EditFormStateModelCopyWithImpl;
 @useResult
 $Res call({
  bool hasUnsavedChanges, String? currentSection, bool isValid, bool isSaving, Map<String, String> fieldErrors, Map<String, dynamic> modifiedFields
@@ -687,14 +687,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$EditFormStateCopyWithImpl<$Res>
-    implements $EditFormStateCopyWith<$Res> {
-  _$EditFormStateCopyWithImpl(this._self, this._then);
+class _$EditFormStateModelCopyWithImpl<$Res>
+    implements $EditFormStateModelCopyWith<$Res> {
+  _$EditFormStateModelCopyWithImpl(this._self, this._then);
 
-  final EditFormState _self;
-  final $Res Function(EditFormState) _then;
+  final EditFormStateModel _self;
+  final $Res Function(EditFormStateModel) _then;
 
-/// Create a copy of EditFormState
+/// Create a copy of EditFormStateModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? hasUnsavedChanges = null,Object? currentSection = freezed,Object? isValid = null,Object? isSaving = null,Object? fieldErrors = null,Object? modifiedFields = null,}) {
   return _then(_self.copyWith(
@@ -711,8 +711,8 @@ as Map<String, dynamic>,
 }
 
 
-/// Adds pattern-matching-related methods to [EditFormState].
-extension EditFormStatePatterns on EditFormState {
+/// Adds pattern-matching-related methods to [EditFormStateModel].
+extension EditFormStateModelPatterns on EditFormStateModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -725,10 +725,10 @@ extension EditFormStatePatterns on EditFormState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _EditFormState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _EditFormStateModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _EditFormState() when $default != null:
+case _EditFormStateModel() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -747,10 +747,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _EditFormState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _EditFormStateModel value)  $default,){
 final _that = this;
 switch (_that) {
-case _EditFormState():
+case _EditFormStateModel():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -768,10 +768,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _EditFormState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _EditFormStateModel value)?  $default,){
 final _that = this;
 switch (_that) {
-case _EditFormState() when $default != null:
+case _EditFormStateModel() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -791,7 +791,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool hasUnsavedChanges,  String? currentSection,  bool isValid,  bool isSaving,  Map<String, String> fieldErrors,  Map<String, dynamic> modifiedFields)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _EditFormState() when $default != null:
+case _EditFormStateModel() when $default != null:
 return $default(_that.hasUnsavedChanges,_that.currentSection,_that.isValid,_that.isSaving,_that.fieldErrors,_that.modifiedFields);case _:
   return orElse();
 
@@ -812,7 +812,7 @@ return $default(_that.hasUnsavedChanges,_that.currentSection,_that.isValid,_that
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool hasUnsavedChanges,  String? currentSection,  bool isValid,  bool isSaving,  Map<String, String> fieldErrors,  Map<String, dynamic> modifiedFields)  $default,) {final _that = this;
 switch (_that) {
-case _EditFormState():
+case _EditFormStateModel():
 return $default(_that.hasUnsavedChanges,_that.currentSection,_that.isValid,_that.isSaving,_that.fieldErrors,_that.modifiedFields);case _:
   throw StateError('Unexpected subclass');
 
@@ -832,7 +832,7 @@ return $default(_that.hasUnsavedChanges,_that.currentSection,_that.isValid,_that
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool hasUnsavedChanges,  String? currentSection,  bool isValid,  bool isSaving,  Map<String, String> fieldErrors,  Map<String, dynamic> modifiedFields)?  $default,) {final _that = this;
 switch (_that) {
-case _EditFormState() when $default != null:
+case _EditFormStateModel() when $default != null:
 return $default(_that.hasUnsavedChanges,_that.currentSection,_that.isValid,_that.isSaving,_that.fieldErrors,_that.modifiedFields);case _:
   return null;
 
@@ -844,8 +844,8 @@ return $default(_that.hasUnsavedChanges,_that.currentSection,_that.isValid,_that
 /// @nodoc
 
 
-class _EditFormState implements EditFormState {
-  const _EditFormState({this.hasUnsavedChanges = false, this.currentSection, this.isValid = true, this.isSaving = false, final  Map<String, String> fieldErrors = const {}, final  Map<String, dynamic> modifiedFields = const {}}): _fieldErrors = fieldErrors,_modifiedFields = modifiedFields;
+class _EditFormStateModel implements EditFormStateModel {
+  const _EditFormStateModel({this.hasUnsavedChanges = false, this.currentSection, this.isValid = true, this.isSaving = false, final  Map<String, String> fieldErrors = const {}, final  Map<String, dynamic> modifiedFields = const {}}): _fieldErrors = fieldErrors,_modifiedFields = modifiedFields;
   
 
 /// Whether form has unsaved changes
@@ -875,17 +875,17 @@ class _EditFormState implements EditFormState {
 }
 
 
-/// Create a copy of EditFormState
+/// Create a copy of EditFormStateModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$EditFormStateCopyWith<_EditFormState> get copyWith => __$EditFormStateCopyWithImpl<_EditFormState>(this, _$identity);
+_$EditFormStateModelCopyWith<_EditFormStateModel> get copyWith => __$EditFormStateModelCopyWithImpl<_EditFormStateModel>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditFormState&&(identical(other.hasUnsavedChanges, hasUnsavedChanges) || other.hasUnsavedChanges == hasUnsavedChanges)&&(identical(other.currentSection, currentSection) || other.currentSection == currentSection)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&const DeepCollectionEquality().equals(other._fieldErrors, _fieldErrors)&&const DeepCollectionEquality().equals(other._modifiedFields, _modifiedFields));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EditFormStateModel&&(identical(other.hasUnsavedChanges, hasUnsavedChanges) || other.hasUnsavedChanges == hasUnsavedChanges)&&(identical(other.currentSection, currentSection) || other.currentSection == currentSection)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.isSaving, isSaving) || other.isSaving == isSaving)&&const DeepCollectionEquality().equals(other._fieldErrors, _fieldErrors)&&const DeepCollectionEquality().equals(other._modifiedFields, _modifiedFields));
 }
 
 
@@ -894,15 +894,15 @@ int get hashCode => Object.hash(runtimeType,hasUnsavedChanges,currentSection,isV
 
 @override
 String toString() {
-  return 'EditFormState(hasUnsavedChanges: $hasUnsavedChanges, currentSection: $currentSection, isValid: $isValid, isSaving: $isSaving, fieldErrors: $fieldErrors, modifiedFields: $modifiedFields)';
+  return 'EditFormStateModel(hasUnsavedChanges: $hasUnsavedChanges, currentSection: $currentSection, isValid: $isValid, isSaving: $isSaving, fieldErrors: $fieldErrors, modifiedFields: $modifiedFields)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$EditFormStateCopyWith<$Res> implements $EditFormStateCopyWith<$Res> {
-  factory _$EditFormStateCopyWith(_EditFormState value, $Res Function(_EditFormState) _then) = __$EditFormStateCopyWithImpl;
+abstract mixin class _$EditFormStateModelCopyWith<$Res> implements $EditFormStateModelCopyWith<$Res> {
+  factory _$EditFormStateModelCopyWith(_EditFormStateModel value, $Res Function(_EditFormStateModel) _then) = __$EditFormStateModelCopyWithImpl;
 @override @useResult
 $Res call({
  bool hasUnsavedChanges, String? currentSection, bool isValid, bool isSaving, Map<String, String> fieldErrors, Map<String, dynamic> modifiedFields
@@ -913,17 +913,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$EditFormStateCopyWithImpl<$Res>
-    implements _$EditFormStateCopyWith<$Res> {
-  __$EditFormStateCopyWithImpl(this._self, this._then);
+class __$EditFormStateModelCopyWithImpl<$Res>
+    implements _$EditFormStateModelCopyWith<$Res> {
+  __$EditFormStateModelCopyWithImpl(this._self, this._then);
 
-  final _EditFormState _self;
-  final $Res Function(_EditFormState) _then;
+  final _EditFormStateModel _self;
+  final $Res Function(_EditFormStateModel) _then;
 
-/// Create a copy of EditFormState
+/// Create a copy of EditFormStateModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? hasUnsavedChanges = null,Object? currentSection = freezed,Object? isValid = null,Object? isSaving = null,Object? fieldErrors = null,Object? modifiedFields = null,}) {
-  return _then(_EditFormState(
+  return _then(_EditFormStateModel(
 hasUnsavedChanges: null == hasUnsavedChanges ? _self.hasUnsavedChanges : hasUnsavedChanges // ignore: cast_nullable_to_non_nullable
 as bool,currentSection: freezed == currentSection ? _self.currentSection : currentSection // ignore: cast_nullable_to_non_nullable
 as String?,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
