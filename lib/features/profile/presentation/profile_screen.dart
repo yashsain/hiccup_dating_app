@@ -195,7 +195,7 @@ class ProfileScreen extends ConsumerWidget {
             '• Domain entities ✅\n'
             '• Demo data system ✅\n\n'
             'Ready for UI development!',
-            style: AppTextStyles.bodyText.copyWith(
+            style: AppTextStyles.bodySmall.copyWith(
               color: Colors.green.shade800,
             ),
           ),
@@ -249,7 +249,7 @@ class ProfileScreen extends ConsumerWidget {
         const SizedBox(height: 16),
         Text(
           'Loading demo data...',
-          style: AppTextStyles.body.copyWith(color: textColor),
+          style: AppTextStyles.bodySmall.copyWith(color: textColor),
         ),
       ],
     ),
