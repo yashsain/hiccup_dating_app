@@ -30,6 +30,7 @@ class DatabaseConfig {
   static const String badgesTable = 'badges';
 
   // 👤 Profile Table Columns
+  // 👤 Profile Table Columns
   static const String profileIdColumn = 'id';
   static const String profileNameColumn = 'name';
   static const String profileAgeColumn = 'age';
@@ -42,6 +43,24 @@ class DatabaseConfig {
   static const String profilePhotoVerificationColumn = 'photo_verification';
   static const String profileIdentityVerificationColumn =
       'identity_verification';
+  static const String profilePremiumColumn = 'premium';
+  static const String profileInstagramUrlColumn = 'instagram_url';
+  static const String profileSpotifyUrlColumn = 'spotify_url';
+  static const String profileCreatedAtColumn = 'created_at';
+  static const String profileUpdatedAtColumn = 'updated_at';
+  static const String profilePromptIdsColumn = 'prompt_ids';
+  static const String profileActivePollidColumn = 'active_poll_id';
+  static const String profileMediaIdsColumn = 'media_ids';
+  static const String profileInterestIdsColumn = 'interest_ids';
+  static const String profileBadgeIdsColumn = 'badge_ids';
+
+  // 💬 Prompts Table Columns
+  static const String promptIdColumn = 'id';
+  static const String promptProfileIdColumn = 'profile_id';
+  static const String promptQuestionColumn = 'question';
+  static const String promptResponseColumn = 'response';
+  static const String promptDisplayOrderColumn = 'display_order';
+  static const String promptCreatedAtColumn = 'created_at';
 
   // 📊 Polls Table Columns
   static const String pollIdColumn = 'id';
@@ -49,26 +68,49 @@ class DatabaseConfig {
   static const String pollQuestionColumn = 'question';
   static const String pollOptionsColumn = 'options';
   static const String pollIsActiveColumn = 'is_active';
+  static const String pollVotesColumn = 'votes';
+  static const String pollTotalVotesColumn = 'total_votes';
   static const String pollCreatedAtColumn = 'created_at';
 
   // 🎨 Media Table Columns
   static const String mediaIdColumn = 'id';
   static const String mediaProfileIdColumn = 'profile_id';
-  static const String mediaTypeColumn = 'media_type';
+  static const String mediaTypeColumn = 'type';
   static const String mediaFilePathColumn = 'file_path';
+  static const String mediaCaptionColumn = 'caption';
+  static const String mediaFileSizeBytesColumn = 'file_size_bytes';
+  static const String mediaDurationSecondsColumn = 'duration_seconds';
+  static const String mediaWidthColumn = 'width';
+  static const String mediaHeightColumn = 'height';
+  static const String mediaThumbnailPathColumn = 'thumbnail_path';
   static const String mediaDisplayOrderColumn = 'display_order';
+  static const String mediaIsProcessingColumn = 'is_processing';
+  static const String mediaIsVisibleColumn = 'is_visible';
   static const String mediaCreatedAtColumn = 'created_at';
 
   // 🎯 Interests Table Columns
   static const String interestIdColumn = 'id';
   static const String interestProfileIdColumn = 'profile_id';
   static const String interestColumn = 'interest';
+  static const String interestDisplayNameColumn = 'display_name';
+  static const String interestCategoryColumn = 'category';
+  static const String interestIsCustomColumn = 'is_custom';
+  static const String interestDisplayOrderColumn = 'display_order';
+  static const String interestPopularityColumn = 'popularity';
   static const String interestCreatedAtColumn = 'created_at';
 
   // 🏆 Badges Table Columns
   static const String badgeIdColumn = 'id';
   static const String badgeProfileIdColumn = 'profile_id';
   static const String badgeColumn = 'badge';
+  static const String badgeTypeColumn = 'type';
+  static const String badgeDescriptionColumn = 'description';
+  static const String badgeIconUrlColumn = 'icon_url';
+  static const String badgeColorColumn = 'color';
+  static const String badgeIsVisibleColumn = 'is_visible';
+  static const String badgeIsRareColumn = 'is_rare';
+  static const String badgeEarnedAtColumn = 'earned_at';
+  static const String badgeExpiresAtColumn = 'expires_at';
   static const String badgeCreatedAtColumn = 'created_at';
 
   // 🎭 Media Types
@@ -170,53 +212,6 @@ class DatabaseConfig {
   static const String errorDatabaseConnection = 'Database connection failed';
   static const String errorDatabaseOperation = 'Database operation failed';
 
-  // 👤 Additional Profile Table Columns
-  static const String profilePremiumColumn = 'premium';
-  static const String profileInstagramUrlColumn = 'instagram_url';
-  static const String profileSpotifyUrlColumn = 'spotify_url';
-  static const String profileActivePollidColumn = 'active_poll_id';
-  static const String profileCreatedAtColumn = 'created_at';
-  static const String profileUpdatedAtColumn = 'updated_at';
-
-  // 📝 Prompt Table Columns
-  static const String promptIdColumn = 'id';
-  static const String promptProfileIdColumn = 'profile_id';
-  static const String promptQuestionColumn = 'question';
-  static const String promptResponseColumn = 'response';
-  static const String promptDisplayOrderColumn = 'display_order';
-  static const String promptCreatedAtColumn = 'created_at';
-
-  // 📊 Poll Table Columns
-
-  static const String pollVotesColumn = 'votes';
-  static const String pollTotalVotesColumn = 'total_votes';
-
-  // 🎥 Media Table Columns
-  static const String mediaCaptionColumn = 'caption';
-  static const String mediaFileSizeBytesColumn = 'file_size_bytes';
-  static const String mediaDurationSecondsColumn = 'duration_seconds';
-  static const String mediaWidthColumn = 'width';
-  static const String mediaHeightColumn = 'height';
-  static const String mediaThumbnailPathColumn = 'thumbnail_path';
-  static const String mediaIsProcessingColumn = 'is_processing';
-  static const String mediaIsVisibleColumn = 'is_visible';
-
-  // 🎯 Interest Table Columns
-
-  static const String interestCategoryColumn = 'category';
-  static const String interestIsCustomColumn = 'is_custom';
-  static const String interestDisplayOrderColumn = 'display_order';
-  static const String interestPopularityColumn = 'popularity_score';
-
-  // 🏆 Additional Badge Table Columns
-  static const String badgeTypeColumn = 'type';
-  static const String badgeDescriptionColumn = 'description';
-  static const String badgeIsVisibleColumn = 'is_visible';
-  static const String badgeIsRareColumn = 'is_rare';
-  static const String badgeEarnedAtColumn = 'earned_at';
-  static const String badgeExpiresAtColumn = 'expires_at';
-  static const String badgeIconUrlColumn = 'icon_url';
-  static const String badgeColorColumn = 'color';
   // 🏗️ SQL TABLE CREATION QUERIES
 
   /// Create profiles table SQL
