@@ -102,9 +102,12 @@ class SampleProfiles {
     location: 'San Francisco, CA',
     gender: 'Non-binary',
     sexualOrientation: 'Pansexual',
-    bio: 'Full-stack developer who lives for weekend hikes and discovering new coffee shops ☕🏔️ Always up for deep conversations about tech, philosophy, or the best trail mix combinations!',
-    datingGoals: 'Looking for meaningful connections with fellow adventurers and thinkers',
-    music: 'Indie rock, lo-fi beats for coding, and whatever playlist matches the hiking trail',
+    bio:
+        'Full-stack developer who lives for weekend hikes and discovering new coffee shops ☕🏔️ Always up for deep conversations about tech, philosophy, or the best trail mix combinations!',
+    datingGoals:
+        'Looking for meaningful connections with fellow adventurers and thinkers',
+    music:
+        'Indie rock, lo-fi beats for coding, and whatever playlist matches the hiking trail',
     photoVerification: true,
     identityVerification: true,
     premium: 'Hiccup Premium',
@@ -114,8 +117,21 @@ class SampleProfiles {
     updatedAt: DateTime.now().subtract(const Duration(hours: 2)),
     promptIds: ['alex_prompt_1', 'alex_prompt_2', 'alex_prompt_3'],
     activePollId: 'alex_poll_1',
-    mediaIds: ['alex_photo_1', 'alex_photo_2', 'alex_photo_3', 'alex_photo_4', 'alex_video_1'],
-    interestIds: ['alex_int_1', 'alex_int_2', 'alex_int_3', 'alex_int_4', 'alex_int_5', 'alex_int_6'],
+    mediaIds: [
+      'alex_photo_1',
+      'alex_photo_2',
+      'alex_photo_3',
+      'alex_photo_4',
+      'alex_video_1',
+    ],
+    interestIds: [
+      'alex_int_1',
+      'alex_int_2',
+      'alex_int_3',
+      'alex_int_4',
+      'alex_int_5',
+      'alex_int_6',
+    ],
     badgeIds: ['alex_badge_1', 'alex_badge_2', 'alex_badge_3'],
   );
 
@@ -124,7 +140,8 @@ class SampleProfiles {
       id: 'alex_prompt_1',
       profileId: alexChenId,
       question: 'Two truths and a lie',
-      response: 'I speak 3 languages fluently, I\'ve never broken a bone in my life, and I can solve a Rubik\'s cube in under 2 minutes 🧩',
+      response:
+          'I speak 3 languages fluently, I\'ve never broken a bone in my life, and I can solve a Rubik\'s cube in under 2 minutes 🧩',
       displayOrder: 1,
       createdAt: DateTime.now().subtract(const Duration(days: 30)),
     ),
@@ -132,7 +149,8 @@ class SampleProfiles {
       id: 'alex_prompt_2',
       profileId: alexChenId,
       question: 'My ideal weekend looks like',
-      response: 'Saturday: Morning hike with podcast + coffee, afternoon coding a passion project, evening trying that new ramen place everyone\'s talking about 🍜',
+      response:
+          'Saturday: Morning hike with podcast + coffee, afternoon coding a passion project, evening trying that new ramen place everyone\'s talking about 🍜',
       displayOrder: 2,
       createdAt: DateTime.now().subtract(const Duration(days: 25)),
     ),
@@ -140,7 +158,8 @@ class SampleProfiles {
       id: 'alex_prompt_3',
       profileId: alexChenId,
       question: 'I\'m overly competitive about',
-      response: 'Board games - sorry not sorry! I will absolutely strategize for 20 minutes on a single Settlers of Catan move 🎲',
+      response:
+          'Board games - sorry not sorry! I will absolutely strategize for 20 minutes on a single Settlers of Catan move 🎲',
       displayOrder: 3,
       createdAt: DateTime.now().subtract(const Duration(days: 20)),
     ),
@@ -150,7 +169,12 @@ class SampleProfiles {
     id: 'alex_poll_1',
     profileId: alexChenId,
     question: 'What\'s your ideal first date activity?',
-    options: ['Coffee shop conversation', 'Easy hiking trail', 'Board game café', 'Art museum'],
+    options: [
+      'Coffee shop conversation',
+      'Easy hiking trail',
+      'Board game café',
+      'Art museum',
+    ],
     isActive: true,
     createdAt: DateTime.now().subtract(const Duration(days: 15)),
   );
@@ -160,7 +184,8 @@ class SampleProfiles {
       id: 'alex_photo_1',
       profileId: alexChenId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
       caption: 'Sunset vibes after conquering Mount Tam 🌅',
       displayOrder: 1,
       width: 400,
@@ -174,7 +199,8 @@ class SampleProfiles {
       id: 'alex_photo_2',
       profileId: alexChenId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=400',
       caption: 'Found the perfect coding spot ☕',
       displayOrder: 2,
       width: 400,
@@ -188,7 +214,8 @@ class SampleProfiles {
       id: 'alex_photo_3',
       profileId: alexChenId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400',
       caption: 'Board game night champion 🏆',
       displayOrder: 3,
       width: 400,
@@ -202,7 +229,8 @@ class SampleProfiles {
       id: 'alex_photo_4',
       profileId: alexChenId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400',
       caption: 'Debugging life, one line at a time 💻',
       displayOrder: 4,
       width: 400,
@@ -216,14 +244,16 @@ class SampleProfiles {
       id: 'alex_video_1',
       profileId: alexChenId,
       type: MediaType.video,
-      filePath: 'https://sample-videos.com/zip/10/mp4/480x360/sample_960x540_ocean_with_audio.mp4',
+      filePath:
+          'https://sample-videos.com/zip/10/mp4/480x360/sample_960x540_ocean_with_audio.mp4',
       caption: 'Quick trail review - this one\'s a keeper! 🥾',
       displayOrder: 5,
       width: 480,
       height: 360,
       fileSizeBytes: 8500000,
       durationSeconds: 45,
-      thumbnailPath: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400',
+      thumbnailPath:
+          'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400',
       isProcessing: false,
       isVisible: true,
       createdAt: DateTime.now().subtract(const Duration(days: 20)),
@@ -337,9 +367,12 @@ class SampleProfiles {
     location: 'Brooklyn, NY',
     gender: 'Female',
     sexualOrientation: 'Bisexual',
-    bio: 'Digital artist by day, vinyl collector by night 🎨🎵 I believe life is too short for boring conversations and bad music. Always down to explore new galleries or dive bars with good playlists!',
-    datingGoals: 'Seeking someone who appreciates art, music, and spontaneous adventures',
-    music: 'Everything from classic jazz to experimental electronic - currently obsessed with FKA twigs',
+    bio:
+        'Digital artist by day, vinyl collector by night 🎨🎵 I believe life is too short for boring conversations and bad music. Always down to explore new galleries or dive bars with good playlists!',
+    datingGoals:
+        'Seeking someone who appreciates art, music, and spontaneous adventures',
+    music:
+        'Everything from classic jazz to experimental electronic - currently obsessed with FKA twigs',
     photoVerification: true,
     identityVerification: false,
     premium: null,
@@ -349,8 +382,23 @@ class SampleProfiles {
     updatedAt: DateTime.now().subtract(const Duration(hours: 6)),
     promptIds: ['maya_prompt_1', 'maya_prompt_2', 'maya_prompt_3'],
     activePollId: 'maya_poll_1',
-    mediaIds: ['maya_photo_1', 'maya_photo_2', 'maya_photo_3', 'maya_photo_4', 'maya_video_1', 'maya_audio_1'],
-    interestIds: ['maya_int_1', 'maya_int_2', 'maya_int_3', 'maya_int_4', 'maya_int_5', 'maya_int_6', 'maya_int_7'],
+    mediaIds: [
+      'maya_photo_1',
+      'maya_photo_2',
+      'maya_photo_3',
+      'maya_photo_4',
+      'maya_video_1',
+      'maya_audio_1',
+    ],
+    interestIds: [
+      'maya_int_1',
+      'maya_int_2',
+      'maya_int_3',
+      'maya_int_4',
+      'maya_int_5',
+      'maya_int_6',
+      'maya_int_7',
+    ],
     badgeIds: ['maya_badge_1', 'maya_badge_2'],
   );
 
@@ -359,7 +407,8 @@ class SampleProfiles {
       id: 'maya_prompt_1',
       profileId: mayaPatelId,
       question: 'The way to my heart is',
-      response: 'Through a perfectly curated playlist and maybe some late-night philosophical conversations about whether art truly imitates life 🎭',
+      response:
+          'Through a perfectly curated playlist and maybe some late-night philosophical conversations about whether art truly imitates life 🎭',
       displayOrder: 1,
       createdAt: DateTime.now().subtract(const Duration(days: 28)),
     ),
@@ -367,7 +416,8 @@ class SampleProfiles {
       id: 'maya_prompt_2',
       profileId: mayaPatelId,
       question: 'I want someone who',
-      response: 'Gets excited about random museum exhibits, doesn\'t judge my 3am creative spurts, and can appreciate both Coltrane and Charli XCX 🎷',
+      response:
+          'Gets excited about random museum exhibits, doesn\'t judge my 3am creative spurts, and can appreciate both Coltrane and Charli XCX 🎷',
       displayOrder: 2,
       createdAt: DateTime.now().subtract(const Duration(days: 25)),
     ),
@@ -375,7 +425,8 @@ class SampleProfiles {
       id: 'maya_prompt_3',
       profileId: mayaPatelId,
       question: 'My most controversial opinion is',
-      response: 'Pineapple on pizza is amazing AND digital art is just as valid as traditional mediums. Fight me (respectfully) 🍍🎨',
+      response:
+          'Pineapple on pizza is amazing AND digital art is just as valid as traditional mediums. Fight me (respectfully) 🍍🎨',
       displayOrder: 3,
       createdAt: DateTime.now().subtract(const Duration(days: 20)),
     ),
@@ -385,7 +436,12 @@ class SampleProfiles {
     id: 'maya_poll_1',
     profileId: mayaPatelId,
     question: 'Which creative date sounds most appealing?',
-    options: ['Art gallery opening', 'Vinyl record shopping', 'Paint & sip class', 'Live jazz performance'],
+    options: [
+      'Art gallery opening',
+      'Vinyl record shopping',
+      'Paint & sip class',
+      'Live jazz performance',
+    ],
     isActive: true,
     createdAt: DateTime.now().subtract(const Duration(days: 18)),
   );
@@ -395,7 +451,8 @@ class SampleProfiles {
       id: 'maya_photo_1',
       profileId: mayaPatelId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400',
       caption: 'Self-portrait Sunday vibes ✨',
       displayOrder: 1,
       width: 400,
@@ -409,7 +466,8 @@ class SampleProfiles {
       id: 'maya_photo_2',
       profileId: mayaPatelId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400',
       caption: 'Latest digital piece - still obsessing over these colors 🎨',
       displayOrder: 2,
       width: 400,
@@ -423,8 +481,9 @@ class SampleProfiles {
       id: 'maya_photo_3',
       profileId: mayaPatelId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400',
-      caption: 'Vinyl hunting success! Found this gem for $5 🎵',
+      filePath:
+          'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400',
+      caption: 'Vinyl hunting success! Found this gem for \$5 🎵',
       displayOrder: 3,
       width: 400,
       height: 400,
@@ -437,7 +496,8 @@ class SampleProfiles {
       id: 'maya_photo_4',
       profileId: mayaPatelId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400',
       caption: 'Gallery opening last week - so inspiring! 🖼️',
       displayOrder: 4,
       width: 400,
@@ -451,14 +511,16 @@ class SampleProfiles {
       id: 'maya_video_1',
       profileId: mayaPatelId,
       type: MediaType.video,
-      filePath: 'https://sample-videos.com/zip/10/mp4/480x360/sample_960x540_ocean_with_audio.mp4',
+      filePath:
+          'https://sample-videos.com/zip/10/mp4/480x360/sample_960x540_ocean_with_audio.mp4',
       caption: 'Time-lapse of my latest piece coming to life ⏰',
       displayOrder: 5,
       width: 480,
       height: 360,
       fileSizeBytes: 12800000,
       durationSeconds: 60,
-      thumbnailPath: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400',
+      thumbnailPath:
+          'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400',
       isProcessing: false,
       isVisible: true,
       createdAt: DateTime.now().subtract(const Duration(days: 12)),
@@ -583,9 +645,12 @@ class SampleProfiles {
     location: 'Austin, TX',
     gender: 'Male',
     sexualOrientation: 'Straight',
-    bio: 'Personal trainer who believes fitness should be fun, not punishment 💪 When I\'m not helping clients crush their goals, you\'ll find me rock climbing, trying new workout classes, or planning my next adventure!',
-    datingGoals: 'Looking for an adventure buddy who loves staying active and trying new things',
-    music: 'High-energy playlists for workouts, but give me some country and indie folk for road trips',
+    bio:
+        'Personal trainer who believes fitness should be fun, not punishment 💪 When I\'m not helping clients crush their goals, you\'ll find me rock climbing, trying new workout classes, or planning my next adventure!',
+    datingGoals:
+        'Looking for an adventure buddy who loves staying active and trying new things',
+    music:
+        'High-energy playlists for workouts, but give me some country and indie folk for road trips',
     photoVerification: true,
     identityVerification: true,
     premium: 'Hiccup Premium',
@@ -595,9 +660,27 @@ class SampleProfiles {
     updatedAt: DateTime.now().subtract(const Duration(hours: 12)),
     promptIds: ['jordan_prompt_1', 'jordan_prompt_2', 'jordan_prompt_3'],
     activePollId: 'jordan_poll_1',
-    mediaIds: ['jordan_photo_1', 'jordan_photo_2', 'jordan_photo_3', 'jordan_photo_4', 'jordan_video_1'],
-    interestIds: ['jordan_int_1', 'jordan_int_2', 'jordan_int_3', 'jordan_int_4', 'jordan_int_5', 'jordan_int_6'],
-    badgeIds: ['jordan_badge_1', 'jordan_badge_2', 'jordan_badge_3', 'jordan_badge_4'],
+    mediaIds: [
+      'jordan_photo_1',
+      'jordan_photo_2',
+      'jordan_photo_3',
+      'jordan_photo_4',
+      'jordan_video_1',
+    ],
+    interestIds: [
+      'jordan_int_1',
+      'jordan_int_2',
+      'jordan_int_3',
+      'jordan_int_4',
+      'jordan_int_5',
+      'jordan_int_6',
+    ],
+    badgeIds: [
+      'jordan_badge_1',
+      'jordan_badge_2',
+      'jordan_badge_3',
+      'jordan_badge_4',
+    ],
   );
 
   static List<PromptEntity> get jordanSmithPrompts => [
@@ -605,7 +688,8 @@ class SampleProfiles {
       id: 'jordan_prompt_1',
       profileId: jordanSmithId,
       question: 'A life goal of mine is',
-      response: 'To climb El Capitan in Yosemite and help 100 people discover that they\'re stronger than they think they are 🧗‍♂️',
+      response:
+          'To climb El Capitan in Yosemite and help 100 people discover that they\'re stronger than they think they are 🧗‍♂️',
       displayOrder: 1,
       createdAt: DateTime.now().subtract(const Duration(days: 25)),
     ),
@@ -613,7 +697,8 @@ class SampleProfiles {
       id: 'jordan_prompt_2',
       profileId: jordanSmithId,
       question: 'You should NOT go out with me if',
-      response: 'You think rest days are for the weak or you hate being encouraged to try new things. I\'m definitely that person who suggests hiking dates! 🥾',
+      response:
+          'You think rest days are for the weak or you hate being encouraged to try new things. I\'m definitely that person who suggests hiking dates! 🥾',
       displayOrder: 2,
       createdAt: DateTime.now().subtract(const Duration(days: 22)),
     ),
@@ -621,7 +706,8 @@ class SampleProfiles {
       id: 'jordan_prompt_3',
       profileId: jordanSmithId,
       question: 'My greatest strength is',
-      response: 'Making people believe in themselves. Whether it\'s their first pull-up or facing a fear, I\'ll be your biggest cheerleader 📣',
+      response:
+          'Making people believe in themselves. Whether it\'s their first pull-up or facing a fear, I\'ll be your biggest cheerleader 📣',
       displayOrder: 3,
       createdAt: DateTime.now().subtract(const Duration(days: 18)),
     ),
@@ -631,7 +717,12 @@ class SampleProfiles {
     id: 'jordan_poll_1',
     profileId: jordanSmithId,
     question: 'What\'s your ideal adventure date?',
-    options: ['Rock climbing gym', 'Kayaking trip', 'Hiking with picnic', 'New fitness class'],
+    options: [
+      'Rock climbing gym',
+      'Kayaking trip',
+      'Hiking with picnic',
+      'New fitness class',
+    ],
     isActive: true,
     createdAt: DateTime.now().subtract(const Duration(days: 16)),
   );
@@ -641,7 +732,8 @@ class SampleProfiles {
       id: 'jordan_photo_1',
       profileId: jordanSmithId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400',
       caption: 'Conquered this route after months of training! 🧗‍♂️',
       displayOrder: 1,
       width: 400,
@@ -655,7 +747,8 @@ class SampleProfiles {
       id: 'jordan_photo_2',
       profileId: jordanSmithId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400',
       caption: 'Morning runs in Austin are unbeatable 🌅',
       displayOrder: 2,
       width: 400,
@@ -669,7 +762,8 @@ class SampleProfiles {
       id: 'jordan_photo_3',
       profileId: jordanSmithId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=400',
       caption: 'Client just hit their first bodyweight squat! 💪',
       displayOrder: 3,
       width: 400,
@@ -683,7 +777,8 @@ class SampleProfiles {
       id: 'jordan_photo_4',
       profileId: jordanSmithId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
       caption: 'Weekend adventure at Hamilton Pool 🏊‍♂️',
       displayOrder: 4,
       width: 400,
@@ -697,14 +792,16 @@ class SampleProfiles {
       id: 'jordan_video_1',
       profileId: jordanSmithId,
       type: MediaType.video,
-      filePath: 'https://sample-videos.com/zip/10/mp4/480x360/sample_960x540_ocean_with_audio.mp4',
+      filePath:
+          'https://sample-videos.com/zip/10/mp4/480x360/sample_960x540_ocean_with_audio.mp4',
       caption: 'Quick form check - perfect deadlift technique! 🏋️‍♂️',
       displayOrder: 5,
       width: 480,
       height: 360,
       fileSizeBytes: 15200000,
       durationSeconds: 20,
-      thumbnailPath: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=400',
+      thumbnailPath:
+          'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=400',
       isProcessing: false,
       isVisible: true,
       createdAt: DateTime.now().subtract(const Duration(days: 10)),
@@ -829,9 +926,11 @@ class SampleProfiles {
     location: 'Portland, OR',
     gender: 'Male',
     sexualOrientation: 'Straight',
-    bio: 'Executive chef who believes food is love made edible 🍳❤️ Always experimenting with fusion cuisine and planning my next food-focused travel adventure. Warning: I will definitely cook for you!',
+    bio:
+        'Executive chef who believes food is love made edible 🍳❤️ Always experimenting with fusion cuisine and planning my next food-focused travel adventure. Warning: I will definitely cook for you!',
     datingGoals: 'Seeking a fellow foodie to explore flavors and cultures with',
-    music: 'Latin beats while cooking, jazz for wine tastings, indie folk for road trips',
+    music:
+        'Latin beats while cooking, jazz for wine tastings, indie folk for road trips',
     photoVerification: true,
     identityVerification: false,
     premium: null,
@@ -841,8 +940,24 @@ class SampleProfiles {
     updatedAt: DateTime.now().subtract(const Duration(hours: 8)),
     promptIds: ['sam_prompt_1', 'sam_prompt_2', 'sam_prompt_3'],
     activePollId: 'sam_poll_1',
-    mediaIds: ['sam_photo_1', 'sam_photo_2', 'sam_photo_3', 'sam_photo_4', 'sam_photo_5', 'sam_video_1'],
-    interestIds: ['sam_int_1', 'sam_int_2', 'sam_int_3', 'sam_int_4', 'sam_int_5', 'sam_int_6', 'sam_int_7', 'sam_int_8'],
+    mediaIds: [
+      'sam_photo_1',
+      'sam_photo_2',
+      'sam_photo_3',
+      'sam_photo_4',
+      'sam_photo_5',
+      'sam_video_1',
+    ],
+    interestIds: [
+      'sam_int_1',
+      'sam_int_2',
+      'sam_int_3',
+      'sam_int_4',
+      'sam_int_5',
+      'sam_int_6',
+      'sam_int_7',
+      'sam_int_8',
+    ],
     badgeIds: ['sam_badge_1', 'sam_badge_2', 'sam_badge_3'],
   );
 
@@ -851,7 +966,8 @@ class SampleProfiles {
       id: 'sam_prompt_1',
       profileId: samRodriguezId,
       question: 'The way to my heart is',
-      response: 'Through your stomach, obviously! But really, it\'s sharing a meal you\'ve never tried before and watching your face light up 🥘',
+      response:
+          'Through your stomach, obviously! But really, it\'s sharing a meal you\'ve never tried before and watching your face light up 🥘',
       displayOrder: 1,
       createdAt: DateTime.now().subtract(const Duration(days: 35)),
     ),
@@ -859,7 +975,8 @@ class SampleProfiles {
       id: 'sam_prompt_2',
       profileId: samRodriguezId,
       question: 'I want someone who',
-      response: 'Is adventurous with food, doesn\'t mind flour in my hair after a long kitchen day, and dreams of eating our way through different countries 🌍',
+      response:
+          'Is adventurous with food, doesn\'t mind flour in my hair after a long kitchen day, and dreams of eating our way through different countries 🌍',
       displayOrder: 2,
       createdAt: DateTime.now().subtract(const Duration(days: 30)),
     ),
@@ -867,7 +984,8 @@ class SampleProfiles {
       id: 'sam_prompt_3',
       profileId: samRodriguezId,
       question: 'My most controversial opinion is',
-      response: 'Pineapple belongs on pizza AND in tacos. Cuban-Hawaiian fusion is my specialty - don\'t knock it \'til you try it! 🍍🌮',
+      response:
+          'Pineapple belongs on pizza AND in tacos. Cuban-Hawaiian fusion is my specialty - don\'t knock it \'til you try it! 🍍🌮',
       displayOrder: 3,
       createdAt: DateTime.now().subtract(const Duration(days: 25)),
     ),
@@ -877,7 +995,12 @@ class SampleProfiles {
     id: 'sam_poll_1',
     profileId: samRodriguezId,
     question: 'What\'s your ideal food date?',
-    options: ['Cooking class together', 'Food truck crawl', 'Wine & cheese tasting', 'Farmers market adventure'],
+    options: [
+      'Cooking class together',
+      'Food truck crawl',
+      'Wine & cheese tasting',
+      'Farmers market adventure',
+    ],
     isActive: true,
     createdAt: DateTime.now().subtract(const Duration(days: 20)),
   );
@@ -887,7 +1010,8 @@ class SampleProfiles {
       id: 'sam_photo_1',
       profileId: samRodriguezId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
       caption: 'Just another day in paradise (aka my kitchen) 👨‍🍳',
       displayOrder: 1,
       width: 400,
@@ -901,7 +1025,8 @@ class SampleProfiles {
       id: 'sam_photo_2',
       profileId: samRodriguezId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
       caption: 'Tonight\'s special: Korean-Mexican fusion tacos 🌮',
       displayOrder: 2,
       width: 400,
@@ -915,7 +1040,8 @@ class SampleProfiles {
       id: 'sam_photo_3',
       profileId: samRodriguezId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400',
       caption: 'Street food adventures in Thailand last month 🇹🇭',
       displayOrder: 3,
       width: 400,
@@ -929,7 +1055,8 @@ class SampleProfiles {
       id: 'sam_photo_4',
       profileId: samRodriguezId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',
       caption: 'Wine pairing session with the team 🍷',
       displayOrder: 4,
       width: 400,
@@ -943,7 +1070,8 @@ class SampleProfiles {
       id: 'sam_photo_5',
       profileId: samRodriguezId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1543353071-873f17a7a088?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1543353071-873f17a7a088?w=400',
       caption: 'Portland farmer\'s market haul - inspiration for tonight! 🥕',
       displayOrder: 5,
       width: 400,
@@ -957,14 +1085,16 @@ class SampleProfiles {
       id: 'sam_video_1',
       profileId: samRodriguezId,
       type: MediaType.video,
-      filePath: 'https://sample-videos.com/zip/10/mp4/480x360/sample_960x540_ocean_with_audio.mp4',
+      filePath:
+          'https://sample-videos.com/zip/10/mp4/480x360/sample_960x540_ocean_with_audio.mp4',
       caption: 'Quick knife skills demo - satisfying and useful! 🔪',
       displayOrder: 6,
       width: 480,
       height: 360,
       fileSizeBytes: 18500000,
       durationSeconds: 90,
-      thumbnailPath: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',
+      thumbnailPath:
+          'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',
       isProcessing: false,
       isVisible: true,
       createdAt: DateTime.now().subtract(const Duration(days: 12)),
@@ -1096,9 +1226,12 @@ class SampleProfiles {
     location: 'Seattle, WA',
     gender: 'Non-binary',
     sexualOrientation: 'Queer',
-    bio: 'Freelance photographer who believes the best stories are found in quiet corners and golden hour light 📸☕ When I\'m not chasing perfect lighting, I\'m probably reading in a cozy café or planning my next photo walk!',
-    datingGoals: 'Looking for someone who appreciates life\'s quieter moments and deeper conversations',
-    music: 'Indie folk, acoustic covers, and whatever matches the current book I\'m reading',
+    bio:
+        'Freelance photographer who believes the best stories are found in quiet corners and golden hour light 📸☕ When I\'m not chasing perfect lighting, I\'m probably reading in a cozy café or planning my next photo walk!',
+    datingGoals:
+        'Looking for someone who appreciates life\'s quieter moments and deeper conversations',
+    music:
+        'Indie folk, acoustic covers, and whatever matches the current book I\'m reading',
     photoVerification: true,
     identityVerification: false,
     premium: null,
@@ -1108,8 +1241,20 @@ class SampleProfiles {
     updatedAt: DateTime.now().subtract(const Duration(hours: 4)),
     promptIds: ['casey_prompt_1', 'casey_prompt_2', 'casey_prompt_3'],
     activePollId: 'casey_poll_1',
-    mediaIds: ['casey_photo_1', 'casey_photo_2', 'casey_photo_3', 'casey_photo_4'],
-    interestIds: ['casey_int_1', 'casey_int_2', 'casey_int_3', 'casey_int_4', 'casey_int_5', 'casey_int_6'],
+    mediaIds: [
+      'casey_photo_1',
+      'casey_photo_2',
+      'casey_photo_3',
+      'casey_photo_4',
+    ],
+    interestIds: [
+      'casey_int_1',
+      'casey_int_2',
+      'casey_int_3',
+      'casey_int_4',
+      'casey_int_5',
+      'casey_int_6',
+    ],
     badgeIds: ['casey_badge_1', 'casey_badge_2'],
   );
 
@@ -1118,7 +1263,8 @@ class SampleProfiles {
       id: 'casey_prompt_1',
       profileId: caseyKimId,
       question: 'I\'m weirdly attracted to',
-      response: 'People who get genuinely excited about small things - perfect lighting, a good book recommendation, or finding the ideal coffee shop corner 📚',
+      response:
+          'People who get genuinely excited about small things - perfect lighting, a good book recommendation, or finding the ideal coffee shop corner 📚',
       displayOrder: 1,
       createdAt: DateTime.now().subtract(const Duration(days: 22)),
     ),
@@ -1126,7 +1272,8 @@ class SampleProfiles {
       id: 'casey_prompt_2',
       profileId: caseyKimId,
       question: 'My ideal weekend looks like',
-      response: 'Saturday photo walk through Pike Place, afternoon reading in a new café, Sunday developing film and planning next week\'s shoots 🎞️',
+      response:
+          'Saturday photo walk through Pike Place, afternoon reading in a new café, Sunday developing film and planning next week\'s shoots 🎞️',
       displayOrder: 2,
       createdAt: DateTime.now().subtract(const Duration(days: 18)),
     ),
@@ -1134,7 +1281,8 @@ class SampleProfiles {
       id: 'casey_prompt_3',
       profileId: caseyKimId,
       question: 'Two truths and a lie',
-      response: 'I\'ve read 52 books this year, I once accidentally photographed a celebrity, and I can make latte art that doesn\'t look like a blob ☕',
+      response:
+          'I\'ve read 52 books this year, I once accidentally photographed a celebrity, and I can make latte art that doesn\'t look like a blob ☕',
       displayOrder: 3,
       createdAt: DateTime.now().subtract(const Duration(days: 15)),
     ),
@@ -1144,7 +1292,12 @@ class SampleProfiles {
     id: 'casey_poll_1',
     profileId: caseyKimId,
     question: 'What\'s your perfect cozy date?',
-    options: ['Bookstore browsing', 'Coffee & people watching', 'Museum photo walk', 'Rainy day reading'],
+    options: [
+      'Bookstore browsing',
+      'Coffee & people watching',
+      'Museum photo walk',
+      'Rainy day reading',
+    ],
     isActive: true,
     createdAt: DateTime.now().subtract(const Duration(days: 12)),
   );
@@ -1154,7 +1307,8 @@ class SampleProfiles {
       id: 'casey_photo_1',
       profileId: caseyKimId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400',
       caption: 'Golden hour magic at Discovery Park ✨',
       displayOrder: 1,
       width: 400,
@@ -1168,7 +1322,8 @@ class SampleProfiles {
       id: 'casey_photo_2',
       profileId: caseyKimId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400',
       caption: 'Current read and perfect rainy day setup 📖',
       displayOrder: 2,
       width: 400,
@@ -1182,7 +1337,8 @@ class SampleProfiles {
       id: 'casey_photo_3',
       profileId: caseyKimId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400',
       caption: 'My favorite corner at Victrola - best light for reading ☕',
       displayOrder: 3,
       width: 400,
@@ -1196,7 +1352,8 @@ class SampleProfiles {
       id: 'casey_photo_4',
       profileId: caseyKimId,
       type: MediaType.photo,
-      filePath: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400',
+      filePath:
+          'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400',
       caption: 'Street photography session in Capitol Hill 📷',
       displayOrder: 4,
       width: 400,
@@ -1309,11 +1466,13 @@ class SampleProfiles {
     if (targetProfile == null) return [];
 
     final targetInterestIds = targetProfile.interestIds;
-    
+
     return allProfiles
-        .where((profile) => 
-            profile.id != profileId &&
-            profile.interestIds.any((id) => targetInterestIds.contains(id)))
+        .where(
+          (profile) =>
+              profile.id != profileId &&
+              profile.interestIds.any((id) => targetInterestIds.contains(id)),
+        )
         .toList();
   }
 

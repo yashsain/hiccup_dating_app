@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hiccup_dating_app/features/profile/domain/entities/poll_entity.dart';
+import 'package:hiccup_dating_app/features/profile/domain/entities/prompt_entity.dart';
+import 'package:hiccup_dating_app/features/profile/domain/entities/media_entity.dart';
 import 'profile_providers.dart';
+import '../../domain/usecases/profile_data.dart';
 
 /// 🎯 Profile Integration Demo - Complete Data Flow Example (2025)
 ///
@@ -258,7 +262,7 @@ class _SingleProfileSection extends ConsumerWidget {
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [_ProfileDetailCard(profileData)],
+                  children: [_ProfileDetailCard(profileData as ProfileData)],
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
@@ -312,7 +316,8 @@ class _ProfileContentSection extends ConsumerWidget {
               title: 'Prompts',
               icon: Icons.question_answer,
               asyncValue: prompts,
-              itemBuilder: (prompt) => '${prompt.question}: ${prompt.response}',
+              itemBuilder: (prompt) =>
+                  '${(prompt as PromptEntity?)?.question ?? 'N/A'}: ${(prompt)?.response ?? 'N/A'}',
             ),
 
             const SizedBox(height: 12),
@@ -323,7 +328,7 @@ class _ProfileContentSection extends ConsumerWidget {
               icon: Icons.poll,
               asyncValue: poll,
               itemBuilder: (pollData) => pollData != null
-                  ? '${pollData.question} (${pollData.options.length} options)'
+                  ? '${(pollData as PollEntity?)?.question ?? 'N/A'} (${(pollData as PollEntity?)?.options.length ?? 0} options)'
                   : 'No active poll',
               isSingle: true,
             ),
@@ -335,8 +340,10 @@ class _ProfileContentSection extends ConsumerWidget {
               title: 'Media',
               icon: Icons.photo_library,
               asyncValue: media,
-              itemBuilder: (mediaItem) =>
-                  '${mediaItem.type.name}: ${mediaItem.caption}',
+              itemBuilder: (mediaItem) {
+                final item = mediaItem as MediaEntity?;
+                return '${item?.type.name ?? 'unknown'}: ${item?.caption ?? 'No caption'}';
+              },
             ),
 
             const SizedBox(height: 12),
@@ -346,8 +353,10 @@ class _ProfileContentSection extends ConsumerWidget {
               title: 'Interests',
               icon: Icons.favorite,
               asyncValue: interests,
-              itemBuilder: (interest) =>
-                  '${interest.interest} (${interest.category.name})',
+              itemBuilder: (interest) {
+                final i = interest as dynamic;
+                return '${i.interest ?? 'unknown'} (${i.category?.name ?? 'uncategorized'})';
+              },
             ),
 
             const SizedBox(height: 12),
@@ -357,7 +366,10 @@ class _ProfileContentSection extends ConsumerWidget {
               title: 'Badges',
               icon: Icons.military_tech,
               asyncValue: badges,
-              itemBuilder: (badge) => '${badge.badge} (${badge.type.name})',
+              itemBuilder: (badge) {
+                final b = badge as dynamic;
+                return '${b.badge ?? 'unknown'} (${b.type?.name ?? 'unknown'})';
+              },
             ),
           ],
         ),
@@ -578,14 +590,18 @@ class _ProfileTile extends StatelessWidget {
       leading: CircleAvatar(
         backgroundColor: Colors.blue.shade100,
         child: Text(
-          profile['name']?.toString().substring(0, 1).toUpperCase() ?? '?',
+          (profile['name'] as String?)
+                  ?.toString()
+                  .substring(0, 1)
+                  .toUpperCase() ??
+              '?',
           style: TextStyle(
             color: Colors.blue.shade800,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
-      title: Text(profile['name'] ?? 'Unknown'),
+      title: Text(profile['name'] as String? ?? 'Unknown'),
       subtitle: Text('${profile['age']} • ${profile['location']}'),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
@@ -706,59 +722,57 @@ class _ContentSection<T> extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(icon, size: 16),
-            const SizedBox(width: 4),
-            Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-          ],
-        ),
-        const SizedBox(height: 4),
-        asyncValue.when(
-          data: (data) {
-            if (isSingle) {
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        children: [
+          Icon(icon, size: 16),
+          const SizedBox(width: 4),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+        ],
+      ),
+      const SizedBox(height: 4),
+      asyncValue.when(
+        data: (data) {
+          if (isSingle) {
+            return Text(
+              '• ${itemBuilder(data as T)}',
+              style: const TextStyle(fontSize: 12),
+            );
+          } else {
+            final items = data as List<T>;
+            if (items.isEmpty) {
               return Text(
-                '• ${itemBuilder(data)}',
-                style: const TextStyle(fontSize: 12),
-              );
-            } else {
-              final items = data as List<T>;
-              if (items.isEmpty) {
-                return Text(
-                  'No $title found',
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                );
-              }
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: items
-                    .take(3)
-                    .map(
-                      (item) => Text(
-                        '• ${itemBuilder(item)}',
-                        style: const TextStyle(fontSize: 12),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
-                    .toList(),
+                'No $title found',
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               );
             }
-          },
-          loading: () =>
-              Text('Loading $title...', style: const TextStyle(fontSize: 12)),
-          error: (error, stack) => Text(
-            'Error loading $title',
-            style: TextStyle(fontSize: 12, color: Colors.red.shade600),
-          ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: items
+                  .take(3)
+                  .map(
+                    (item) => Text(
+                      '• ${itemBuilder(item)}',
+                      style: const TextStyle(fontSize: 12),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                  .toList(),
+            );
+          }
+        },
+        loading: () =>
+            Text('Loading $title...', style: const TextStyle(fontSize: 12)),
+        error: (error, stack) => Text(
+          'Error loading $title',
+          style: TextStyle(fontSize: 12, color: Colors.red.shade600),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
 }
 
 class _StatCard extends StatelessWidget {
@@ -770,33 +784,31 @@ class _StatCard extends StatelessWidget {
   const _StatCard(this.title, this.value, this.icon, this.color);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withOpacity(0.3)),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, color: color, size: 24),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: color.shade700,
-            ),
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: color.withOpacity(0.1),
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: color.withOpacity(0.3)),
+    ),
+    child: Column(
+      children: [
+        Icon(icon, color: color, size: 24),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: color,
           ),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+        Text(
+          title,
+          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
 }

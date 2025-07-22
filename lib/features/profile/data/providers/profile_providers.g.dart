@@ -166,7 +166,7 @@ final class ProfileLocalDatasourceProvider
 }
 
 String _$profileLocalDatasourceHash() =>
-    r'0068b235d8c79b466c612a90a8d34345f5ee8c75';
+    r'5385c3a961d912dd0be37fd7709d1f73c17b2b15';
 
 /// Profile Repository Provider
 ///
@@ -234,7 +234,7 @@ final class ProfileRepositoryProvider
   }
 }
 
-String _$profileRepositoryHash() => r'aeb2e021ab76aaa491a11d491ebde5f5a3d7eb83';
+String _$profileRepositoryHash() => r'8793023ff6a77c56daeea0bbac41581b6ebab5a6';
 
 /// Demo Data Manager Provider
 ///
@@ -288,7 +288,7 @@ final class DemoDataManagerProvider
   }
 }
 
-String _$demoDataManagerHash() => r'aa5904c8ffd703208743dfad5c14584ac7a2a85e';
+String _$demoDataManagerHash() => r'b7224ebd3ba8f7847e37384f34056c70dc5f8d8e';
 
 /// Get Profile Use Case Provider
 ///
@@ -347,7 +347,7 @@ final class GetProfileUseCaseProvider
   }
 }
 
-String _$getProfileUseCaseHash() => r'431ce544474f8861b3bf4d001c7b80c7d21ad555';
+String _$getProfileUseCaseHash() => r'3dc53432c8b476e9520cb695693e9f15b1dd0bed';
 
 /// Update Profile Use Case Provider
 ///
@@ -407,7 +407,7 @@ final class UpdateProfileUseCaseProvider
 }
 
 String _$updateProfileUseCaseHash() =>
-    r'4d525ab88fbc7c195b90c2f76e955360dd1acd3b';
+    r'23b9454718c5abd5c4c7aadf6c402a4285d2d94a';
 
 /// Initialize Demo Data Provider
 ///
@@ -453,7 +453,7 @@ final class InitializeDemoDataProvider
 }
 
 String _$initializeDemoDataHash() =>
-    r'cb701cebf28e4d229a1faeaf4e755a722052d2e6';
+    r'0316946f637df1f350ba4af22a4c7ea0645fb170';
 
 /// All Demo Profiles Provider
 ///
@@ -506,7 +506,7 @@ final class AllDemoProfilesProvider
   }
 }
 
-String _$allDemoProfilesHash() => r'f1755f61b4910e2d595fb254411e4bb3db7cf523';
+String _$allDemoProfilesHash() => r'0dda12acd8e35173f6425158cfa99fbe31974994';
 
 /// Random Demo Profile Provider
 ///
@@ -559,7 +559,7 @@ final class RandomDemoProfileProvider
   }
 }
 
-String _$randomDemoProfileHash() => r'4112718abf03c625883d52d3725e696689abbd26';
+String _$randomDemoProfileHash() => r'6660809887e7e2c1a1b805d8db32d2265c7e38a2';
 
 /// Demo Profiles by Verification Provider
 ///
@@ -632,7 +632,7 @@ final class DemoProfilesByVerificationProvider
 }
 
 String _$demoProfilesByVerificationHash() =>
-    r'895aea677aedbaf7c66e471912b56c02276362db';
+    r'c9fa79cea8caefafec262345261e0b7edb4a725f';
 
 /// Demo Profiles by Verification Provider
 ///
@@ -709,7 +709,7 @@ final class PremiumDemoProfilesProvider
 }
 
 String _$premiumDemoProfilesHash() =>
-    r'4848758958f5e1a73c8ecaee2778d4e182bb2183';
+    r'e1a927b3e3b91abd3904e90c19b130d3b74245a3';
 
 /// Single Profile Provider
 ///
@@ -778,7 +778,7 @@ final class ProfileProvider
   }
 }
 
-String _$profileHash() => r'22f309882c313ff85e55249aa0f945fdac4b35ca';
+String _$profileHash() => r'f9e27f0dbfe6422bda8f067f288f4edb7e6bcd60';
 
 /// Single Profile Provider
 ///
@@ -872,7 +872,7 @@ final class ProfileStatisticsProvider
   }
 }
 
-String _$profileStatisticsHash() => r'a9be31fce2d4a939abf6706e06970fa68a0713b6';
+String _$profileStatisticsHash() => r'd5f01ffad09803764c99cd44f2eec94d00f2b02c';
 
 /// Profile Statistics Provider
 ///
@@ -949,7 +949,7 @@ final class AllProfilesProvider
   }
 }
 
-String _$allProfilesHash() => r'32d278ca06edecc18a965774dd5a3409afacc9fd';
+String _$allProfilesHash() => r'7e4a128723f6e6523b000324875db5efbade4b0c';
 
 /// Verified Profiles Provider
 ///
@@ -999,7 +999,7 @@ final class VerifiedProfilesProvider
   }
 }
 
-String _$verifiedProfilesHash() => r'ac041473dec23bdcb3e9be0afedafbb6d89aae5f';
+String _$verifiedProfilesHash() => r'96b7a84ffce4fa0cff9fc67d320bf36f76e98077';
 
 /// Premium Profiles Provider
 ///
@@ -1049,7 +1049,7 @@ final class PremiumProfilesProvider
   }
 }
 
-String _$premiumProfilesHash() => r'b782eb92775cb0d12cb9310dc4950ea0349a38d5';
+String _$premiumProfilesHash() => r'c8089d4627fae972f599de9c1c4f7f31d2010936';
 
 /// Profile Prompts Provider
 ///
@@ -1117,7 +1117,7 @@ final class ProfilePromptsProvider
   }
 }
 
-String _$profilePromptsHash() => r'd16bb185898948a081e9dba66b97dbfd95195319';
+String _$profilePromptsHash() => r'875c88d97af0c9c71202adaabd6d6f0b71a30cd0';
 
 /// Profile Prompts Provider
 ///
@@ -1207,7 +1207,7 @@ final class ProfileActivePollProvider
   }
 }
 
-String _$profileActivePollHash() => r'9ca0e0faecd03d3197313e71e05ba77f9f5704e0';
+String _$profileActivePollHash() => r'd7edfa6bd1ba744a51c84b4308d135de0cbee632';
 
 /// Profile Active Poll Provider
 ///
@@ -1299,7 +1299,7 @@ final class ProfileMediaProvider
   }
 }
 
-String _$profileMediaHash() => r'af9e40654155b0285fdaa8bc6f4a28cd9389de3e';
+String _$profileMediaHash() => r'5fbad104e8ec1f9099d3d29b686db4dc17d2c0ae';
 
 /// Profile Media Provider
 ///
@@ -1392,7 +1392,7 @@ final class ProfileMediaByTypeProvider
 }
 
 String _$profileMediaByTypeHash() =>
-    r'531296e63e210c93642ae6addc5d2a966a1dbc89';
+    r'9401c9be7a09c0c1e955fe5b14d4b7a0a8eb486e';
 
 /// Profile Media by Type Provider
 ///
@@ -1491,7 +1491,7 @@ final class ProfileInterestsProvider
   }
 }
 
-String _$profileInterestsHash() => r'bd8477372fa18c568e8d7648b7d388759661e317';
+String _$profileInterestsHash() => r'90b472c3fa0b4f09aa9bcb540833cacd73ede647';
 
 /// Profile Interests Provider
 ///
@@ -1584,7 +1584,7 @@ final class ProfileVisibleBadgesProvider
 }
 
 String _$profileVisibleBadgesHash() =>
-    r'e6a522b52f751b943d7ef30d6ec8193748c9e5c9';
+    r'b13943b50e919ab3914b02fe0010e0c3d8b456d8';
 
 /// Profile Visible Badges Provider
 ///
@@ -1654,7 +1654,7 @@ final class DemoDataHealthCheckProvider
 }
 
 String _$demoDataHealthCheckHash() =>
-    r'394f23a2674bbe87dd769a9507e429e64b520707';
+    r'ca3fc1dde035474ddd5da95efc7c10310a1cd263';
 
 /// Database Statistics Provider
 ///
@@ -1703,7 +1703,7 @@ final class DatabaseStatisticsProvider
 }
 
 String _$databaseStatisticsHash() =>
-    r'848efa196acb576e8e1154b68c5402621cedc1d5';
+    r'3b142744a237f8044cf42c9a144583c48744fe14';
 
 /// Popular Interests Provider
 ///
@@ -1751,7 +1751,7 @@ final class PopularInterestsProvider
   }
 }
 
-String _$popularInterestsHash() => r'f13d38a95ca3100ca2db647908e3fe05c7f52f72';
+String _$popularInterestsHash() => r'e6de29e64063020ca3170d1d7e0aa0705cb3090a';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

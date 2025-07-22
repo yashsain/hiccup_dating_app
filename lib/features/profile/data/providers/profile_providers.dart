@@ -4,6 +4,12 @@ import '../../../../shared/database/database_provider.dart';
 import '../../data/datasources/profile_local_datasource.dart';
 import '../../data/mock_data/demo_data_manager.dart';
 import '../../data/repositories/profile_repository_impl.dart';
+import '../../domain/entities/badge_entity.dart';
+import '../../domain/entities/interest_entity.dart';
+import '../../domain/entities/media_entity.dart';
+import '../../domain/entities/poll_entity.dart';
+import '../../domain/entities/profile_entity.dart';
+import '../../domain/entities/prompt_entity.dart';
 import '../../domain/repositories/profile_repository.dart';
 import '../../domain/usecases/get_profile_usecase.dart';
 import '../../domain/usecases/update_profile_usecase.dart';
@@ -186,14 +192,7 @@ Future<ProfileData?> profile(Ref ref, String profileId) async {
   final useCase = ref.watch(getProfileUseCaseProvider);
   final result = await useCase.execute(profileId);
 
-  return result.fold(
-    onSuccess: (data) => data,
-    onFailure: (failure) {
-      // Log error and return null
-      print('Error getting profile $profileId: ${failure.message}');
-      return null;
-    },
-  );
+  return result;
 }
 
 /// Profile Statistics Provider
@@ -238,7 +237,8 @@ Future<List<ProfileEntity>> verifiedProfiles(Ref ref) async {
   final repository = ref.watch(profileRepositoryProvider);
 
   try {
-    return await repository.getVerifiedProfiles();
+    final allProfiles = await repository.getAllProfiles();
+    return allProfiles.where((p) => p.photoVerification).toList();
   } catch (e) {
     print('Error getting verified profiles: $e');
     return [];
@@ -253,7 +253,8 @@ Future<List<ProfileEntity>> premiumProfiles(Ref ref) async {
   final repository = ref.watch(profileRepositoryProvider);
 
   try {
-    return await repository.getPremiumProfiles();
+    final allProfiles = await repository.getAllProfiles();
+    return allProfiles.where((p) => p.premium != null).toList();
   } catch (e) {
     print('Error getting premium profiles: $e');
     return [];
@@ -393,7 +394,7 @@ Future<List<String>> popularInterests(Ref ref) async {
   final repository = ref.watch(profileRepositoryProvider);
 
   try {
-    return await repository.getPopularInterests(limit: 20);
+    return await repository.getPopularInterests();
   } catch (e) {
     print('Error getting popular interests: $e');
     return [];

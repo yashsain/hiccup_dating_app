@@ -1,3 +1,4 @@
+import 'package:hiccup_dating_app/features/profile/data/providers/profile_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../entities/profile_entity.dart';
 import '../entities/prompt_entity.dart';

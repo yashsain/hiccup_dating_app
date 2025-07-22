@@ -206,6 +206,7 @@ class DatabaseConfig {
   static const String interestCategoryColumn = 'category';
   static const String interestIsCustomColumn = 'is_custom';
   static const String interestDisplayOrderColumn = 'display_order';
+  static const String interestPopularityColumn = 'popularity_score';
 
   // 🏆 Additional Badge Table Columns
   static const String badgeTypeColumn = 'type';
@@ -298,17 +299,18 @@ class DatabaseConfig {
   /// Create interests table SQL
   static const String createInterestsTableQuery =
       '''
-    CREATE TABLE $interestsTable (
-      $interestIdColumn TEXT PRIMARY KEY,
-      $interestProfileIdColumn TEXT NOT NULL,
-      $interestColumn TEXT NOT NULL,
-      $interestCategoryColumn TEXT,
-      $interestIsCustomColumn INTEGER DEFAULT 0,
-      $interestDisplayOrderColumn INTEGER,
-      $interestCreatedAtColumn TEXT NOT NULL,
-      FOREIGN KEY ($interestProfileIdColumn) REFERENCES $profilesTable($profileIdColumn) ON DELETE CASCADE
-    );
-  ''';
+  CREATE TABLE $interestsTable (
+    $interestIdColumn TEXT PRIMARY KEY,
+    $interestProfileIdColumn TEXT NOT NULL,
+    $interestColumn TEXT NOT NULL,
+    $interestCategoryColumn TEXT,
+    $interestIsCustomColumn INTEGER DEFAULT 0,
+    $interestDisplayOrderColumn INTEGER,
+    $interestPopularityColumn INTEGER DEFAULT 0,
+    $interestCreatedAtColumn TEXT NOT NULL,
+    FOREIGN KEY ($interestProfileIdColumn) REFERENCES $profilesTable($profileIdColumn) ON DELETE CASCADE
+  );
+''';
 
   /// Create badges table SQL
   static const String createBadgesTableQuery =

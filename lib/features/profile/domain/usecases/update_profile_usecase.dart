@@ -1,13 +1,13 @@
+import 'package:hiccup_dating_app/features/profile/data/providers/profile_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../entities/badge_entity.dart';
+import '../entities/interest_entity.dart';
+import '../entities/media_entity.dart';
+import '../entities/poll_entity.dart';
 import '../entities/profile_entity.dart';
 import '../entities/prompt_entity.dart';
-import '../entities/poll_entity.dart';
-import '../entities/media_entity.dart';
-import '../entities/interest_entity.dart';
-import '../entities/badge_entity.dart';
 import '../repositories/profile_repository.dart';
-import '../../../../shared/database/database_provider.dart';
-import '../../data/repositories/profile_repository_impl.dart';
 
 // This line is required for code generation
 part 'update_profile_usecase.g.dart';
