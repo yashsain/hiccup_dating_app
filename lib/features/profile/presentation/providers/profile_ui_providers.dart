@@ -72,6 +72,54 @@ class ProfileUIStateModel with _$ProfileUIStateModel {
 
   /// 📱 Factory for initial state
   factory ProfileUIStateModel.initial() => const ProfileUIStateModel();
+
+  @override
+  // TODO: implement activePromptId
+  String? get activePromptId => throw UnimplementedError();
+
+  @override
+  // TODO: implement isBioExpanded
+  bool get isBioExpanded => throw UnimplementedError();
+
+  @override
+  // TODO: implement isEditMode
+  bool get isEditMode => throw UnimplementedError();
+
+  @override
+  // TODO: implement isEditingInterests
+  bool get isEditingInterests => throw UnimplementedError();
+
+  @override
+  // TODO: implement isPhotoGalleryExpanded
+  bool get isPhotoGalleryExpanded => throw UnimplementedError();
+
+  @override
+  // TODO: implement loadingStates
+  Map<String, bool> get loadingStates => throw UnimplementedError();
+
+  @override
+  // TODO: implement photoUploadProgress
+  double get photoUploadProgress => throw UnimplementedError();
+
+  @override
+  // TODO: implement selectedInterests
+  List<String> get selectedInterests => throw UnimplementedError();
+
+  @override
+  // TODO: implement selectedPhotoIndex
+  int get selectedPhotoIndex => throw UnimplementedError();
+
+  @override
+  // TODO: implement showActionSheet
+  bool get showActionSheet => throw UnimplementedError();
+
+  @override
+  // TODO: implement showVerificationPrompt
+  bool get showVerificationPrompt => throw UnimplementedError();
+
+  @override
+  // TODO: implement validationErrors
+  Map<String, String> get validationErrors => throw UnimplementedError();
 }
 
 /// 🎯 Photo Gallery State Model
@@ -97,6 +145,26 @@ class PhotoGalleryStateModel with _$PhotoGalleryStateModel {
   }) = _PhotoGalleryStateModel;
 
   factory PhotoGalleryStateModel.initial() => const PhotoGalleryStateModel();
+
+  @override
+  // TODO: implement currentIndex
+  int get currentIndex => throw UnimplementedError();
+
+  @override
+  // TODO: implement failedUploads
+  List<String> get failedUploads => throw UnimplementedError();
+
+  @override
+  // TODO: implement isFullscreen
+  bool get isFullscreen => throw UnimplementedError();
+
+  @override
+  // TODO: implement showPhotoInfo
+  bool get showPhotoInfo => throw UnimplementedError();
+
+  @override
+  // TODO: implement uploading
+  List<String> get uploading => throw UnimplementedError();
 }
 
 /// 🎯 Edit Form State Model
@@ -125,6 +193,30 @@ class EditFormStateModel with _$EditFormStateModel {
   }) = _EditFormStateModel;
 
   factory EditFormStateModel.initial() => const EditFormStateModel();
+
+  @override
+  // TODO: implement currentSection
+  String? get currentSection => throw UnimplementedError();
+
+  @override
+  // TODO: implement fieldErrors
+  Map<String, String> get fieldErrors => throw UnimplementedError();
+
+  @override
+  // TODO: implement hasUnsavedChanges
+  bool get hasUnsavedChanges => throw UnimplementedError();
+
+  @override
+  // TODO: implement isSaving
+  bool get isSaving => throw UnimplementedError();
+
+  @override
+  // TODO: implement isValid
+  bool get isValid => throw UnimplementedError();
+
+  @override
+  // TODO: implement modifiedFields
+  Map<String, dynamic> get modifiedFields => throw UnimplementedError();
 }
 
 // ============================================================================
