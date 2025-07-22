@@ -12,10 +12,10 @@ import 'widgets/platform/profile_app_bar.dart';
 
 /// 👤 Profile Screen - Modern Premium Dating Profile (2025)
 ///
-/// ✅ FIXED ALL TYPE ISSUES:
-/// - Fixed dynamic to String casting issues (lines 194, 196)
-/// - Fixed context scope issues (lines 311, 314)
-/// - Proper type safety throughout
+/// ✅ FIXED ALL CONTEXT ISSUES:
+/// - Added BuildContext parameters to all helper methods
+/// - Fixed lines 284, 287 context undefined errors
+/// - Proper method signatures throughout
 /// - Clean integration with UI providers
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key, this.profileId, this.isOwnProfile = true});
@@ -163,14 +163,30 @@ class ProfileScreen extends ConsumerWidget {
         ),
         const SizedBox(height: 12),
 
-        // FIXED: Proper type casting to avoid dynamic to String errors
-        _buildPreviewRow('Name', profileData.profile.name.toString()),
-        _buildPreviewRow('Age', profileData.profile.age.toString()),
-        _buildPreviewRow('Location', profileData.profile.location.toString()),
-        _buildPreviewRow('Prompts', profileData.prompts.length.toString()),
-        _buildPreviewRow('Media', profileData.media.length.toString()),
-        _buildPreviewRow('Interests', profileData.interests.length.toString()),
-        _buildPreviewRow('Badges', profileData.badges.length.toString()),
+        // Basic info preview - FIXED: Pass context to _buildPreviewRow
+        _buildPreviewRow(context, 'Name', profileData.profile.name.toString()),
+        _buildPreviewRow(context, 'Age', profileData.profile.age.toString()),
+        _buildPreviewRow(
+          context,
+          'Location',
+          profileData.profile.location.toString(),
+        ),
+        _buildPreviewRow(
+          context,
+          'Prompts',
+          profileData.prompts.length.toString(),
+        ),
+        _buildPreviewRow(context, 'Media', profileData.media.length.toString()),
+        _buildPreviewRow(
+          context,
+          'Interests',
+          profileData.interests.length.toString(),
+        ),
+        _buildPreviewRow(
+          context,
+          'Badges',
+          profileData.badges.length.toString(),
+        ),
 
         const SizedBox(height: 8),
         Text(
@@ -272,22 +288,23 @@ class ProfileScreen extends ConsumerWidget {
     ),
   );
 
-  /// Helper method to build preview rows - FIXED: Proper String types
-  Widget _buildPreviewRow(String label, String value) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 2),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: AppTextStyles.getCaption(
-            context,
-          ).copyWith(fontWeight: FontWeight.w500),
+  /// Helper method to build preview rows - FIXED: Added BuildContext parameter
+  Widget _buildPreviewRow(BuildContext context, String label, String value) =>
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: AppTextStyles.getCaption(
+                context,
+              ).copyWith(fontWeight: FontWeight.w500),
+            ),
+            Text(value, style: AppTextStyles.getCaption(context)),
+          ],
         ),
-        Text(value, style: AppTextStyles.getCaption(context)),
-      ],
-    ),
-  );
+      );
 
   /// 🔧 Show settings - FIXED: Proper BuildContext parameter
   void _showSettings(BuildContext context) {
