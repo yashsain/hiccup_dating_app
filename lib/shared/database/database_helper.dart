@@ -74,7 +74,7 @@ class DatabaseHelper {
       // Enable foreign key constraints
       await db.execute('PRAGMA foreign_keys = ON');
 
-      // Create all tables
+      // Create all tables in dependency order
       await _createProfilesTable(db);
       await _createPromptsTable(db);
       await _createPollsTable(db);
@@ -89,7 +89,7 @@ class DatabaseHelper {
     }
   }
 
-  /// 🏗️ Create profiles table - Main user profile information
+  /// 🏗️ Create profiles table - FULL SCHEMA to match ProfileModel
   Future<void> _createProfilesTable(Database db) async {
     await db.execute('''
       CREATE TABLE $profilesTable (
@@ -107,13 +107,18 @@ class DatabaseHelper {
         premium TEXT,
         instagram_url TEXT,
         spotify_url TEXT,
-        created_at INTEGER NOT NULL,
-        updated_at INTEGER NOT NULL
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        prompt_ids TEXT DEFAULT '[]',
+        active_poll_id TEXT,
+        media_ids TEXT DEFAULT '[]',
+        interest_ids TEXT DEFAULT '[]',
+        badge_ids TEXT DEFAULT '[]'
       )
     ''');
   }
 
-  /// 🏗️ Create prompts table - User responses to questions
+  /// 🏗️ Create prompts table - FULL SCHEMA to match PromptModel
   Future<void> _createPromptsTable(Database db) async {
     await db.execute('''
       CREATE TABLE $promptsTable (
@@ -122,13 +127,13 @@ class DatabaseHelper {
         question TEXT NOT NULL,
         response TEXT NOT NULL,
         display_order INTEGER NOT NULL,
-        created_at INTEGER NOT NULL,
+        created_at TEXT NOT NULL,
         FOREIGN KEY (profile_id) REFERENCES $profilesTable (id) ON DELETE CASCADE
       )
     ''');
   }
 
-  /// 🏗️ Create polls table - User-created polls
+  /// 🏗️ Create polls table - FULL SCHEMA to match PollModel
   Future<void> _createPollsTable(Database db) async {
     await db.execute('''
       CREATE TABLE $pollsTable (
@@ -137,48 +142,71 @@ class DatabaseHelper {
         question TEXT NOT NULL,
         options TEXT NOT NULL,
         is_active INTEGER DEFAULT 1,
-        created_at INTEGER NOT NULL,
+        votes TEXT DEFAULT '{}',
+        total_votes INTEGER DEFAULT 0,
+        created_at TEXT NOT NULL,
         FOREIGN KEY (profile_id) REFERENCES $profilesTable (id) ON DELETE CASCADE
       )
     ''');
   }
 
-  /// 🏗️ Create media table - Photos, videos, voice notes
+  /// 🏗️ Create media table - FULL SCHEMA to match MediaModel
   Future<void> _createMediaTable(Database db) async {
     await db.execute('''
       CREATE TABLE $mediaTable (
         id TEXT PRIMARY KEY,
         profile_id TEXT NOT NULL,
-        media_type TEXT NOT NULL,
+        type TEXT NOT NULL,
         file_path TEXT NOT NULL,
+        caption TEXT,
+        file_size_bytes INTEGER DEFAULT 0,
+        duration_seconds INTEGER,
+        width INTEGER,
+        height INTEGER,
+        thumbnail_path TEXT,
         display_order INTEGER NOT NULL,
-        created_at INTEGER NOT NULL,
+        is_processing INTEGER DEFAULT 0,
+        is_visible INTEGER DEFAULT 1,
+        created_at TEXT NOT NULL,
         FOREIGN KEY (profile_id) REFERENCES $profilesTable (id) ON DELETE CASCADE
       )
     ''');
   }
 
-  /// 🏗️ Create interests table - User interests/hobbies
+  /// 🏗️ Create interests table - FULL SCHEMA to match InterestModel
   Future<void> _createInterestsTable(Database db) async {
     await db.execute('''
       CREATE TABLE $interestsTable (
         id TEXT PRIMARY KEY,
         profile_id TEXT NOT NULL,
         interest TEXT NOT NULL,
-        created_at INTEGER NOT NULL,
+        display_name TEXT,
+        category TEXT,
+        is_custom INTEGER DEFAULT 0,
+        display_order INTEGER,
+        popularity INTEGER DEFAULT 0,
+        created_at TEXT NOT NULL,
         FOREIGN KEY (profile_id) REFERENCES $profilesTable (id) ON DELETE CASCADE
       )
     ''');
   }
 
-  /// 🏗️ Create badges table - User achievements/traits
+  /// 🏗️ Create badges table - FULL SCHEMA to match BadgeModel
   Future<void> _createBadgesTable(Database db) async {
     await db.execute('''
       CREATE TABLE $badgesTable (
         id TEXT PRIMARY KEY,
         profile_id TEXT NOT NULL,
         badge TEXT NOT NULL,
-        created_at INTEGER NOT NULL,
+        type TEXT NOT NULL,
+        description TEXT,
+        icon_url TEXT,
+        color TEXT,
+        is_visible INTEGER DEFAULT 1,
+        is_rare INTEGER DEFAULT 0,
+        earned_at TEXT,
+        expires_at TEXT,
+        created_at TEXT NOT NULL,
         FOREIGN KEY (profile_id) REFERENCES $profilesTable (id) ON DELETE CASCADE
       )
     ''');
