@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path/path.dart';
 
 import '../../../../../shared/constants/app_colors.dart';
 import '../../../../../shared/constants/app_text_styles.dart';
 import '../../../../../shared/services/theme_provider.dart';
 
 /// ❌ Profile Error Widget - User-Friendly Error Handling (2025)
+///
+/// ✅ FIXED IMPORT ISSUES:
+/// - Removed incorrect Context import (path package)
+/// - Using proper BuildContext throughout
+/// - Clean type safety and error handling
 ///
 /// A beautiful, theme-aware error widget specifically designed for profile errors.
 /// Features:
@@ -15,12 +19,6 @@ import '../../../../../shared/services/theme_provider.dart';
 /// - Theme-aware styling
 /// - Different error types with appropriate icons
 /// - Helpful suggestions for resolution
-///
-/// Design follows 2025 UX principles:
-/// - Clear, non-technical language
-/// - Actionable error states
-/// - Consistent visual hierarchy
-/// - Positive error recovery experience
 class ProfileErrorWidget extends ConsumerWidget {
   /// Primary error message to display
   final String message;
@@ -31,11 +29,17 @@ class ProfileErrorWidget extends ConsumerWidget {
   /// Retry callback function
   final VoidCallback? onRetry;
 
-  /// Error type for appropriate styling and messaging
+  /// Error type for specific styling and actions
   final ProfileErrorType type;
 
-  /// Whether to show technical details
+  /// Whether to show technical details (debug mode)
   final bool showTechnicalDetails;
+
+  /// Custom icon override
+  final IconData? customIcon;
+
+  /// Custom color override
+  final Color? customColor;
 
   const ProfileErrorWidget({
     super.key,
@@ -44,235 +48,204 @@ class ProfileErrorWidget extends ConsumerWidget {
     this.onRetry,
     this.type = ProfileErrorType.general,
     this.showTechnicalDetails = false,
+    this.customIcon,
+    this.customColor,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 🎨 Get current theme
-    final brightness = ref.watch(currentBrightnessProvider);
-    final primaryColor = AppColors.getPrimaryColor(brightness);
-    final textColor = AppColors.getPrimaryTextColor(brightness);
-    final surfaceColor = AppColors.getSurfaceColor(brightness);
+    // 🎨 Get current theme information
+    final currentBrightness = ref.watch(currentBrightnessProvider);
+    final gradient = AppColors.getThemeGradient(currentBrightness);
 
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // 🎨 Error illustration
-            _buildErrorIllustration(primaryColor),
-
-            const SizedBox(height: 32),
-
-            // 📱 Error card container
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: surfaceColor.withOpacity(0.8),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: _getErrorColor().withOpacity(0.3),
-                  width: 1,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: _getErrorColor().withOpacity(0.1),
-                    blurRadius: 20,
-                    offset: const Offset(0, 8),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  // 🏷️ Error title
-                  Text(
-                    _getErrorTitle(),
-                    style: AppTextStyles.getHeading3(
-                      context,
-                    ).copyWith(color: textColor, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // 📝 Error message
-                  Text(
-                    message,
-                    style: AppTextStyles.getBodyMedium(
-                      context,
-                    ).copyWith(color: textColor.withOpacity(0.8)),
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // 💡 Helpful suggestion
-                  _buildSuggestion(textColor),
-
-                  const SizedBox(height: 24),
-
-                  // 🔄 Action buttons
-                  _buildActionButtons(context, primaryColor),
-
-                  // 🔧 Technical details (if enabled)
-                  if (showTechnicalDetails && error != null) ...[
-                    const SizedBox(height: 20),
-                    _buildTechnicalDetails(textColor),
-                  ],
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// 🎨 Build error illustration
-  Widget _buildErrorIllustration(Color primaryColor) => Container(
-    width: 120,
-    height: 120,
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      color: _getErrorColor().withOpacity(0.1),
-      border: Border.all(color: _getErrorColor().withOpacity(0.3), width: 2),
-    ),
-    child: Icon(_getErrorIcon(), size: 64, color: _getErrorColor()),
-  );
-
-  /// 💡 Build helpful suggestion
-  Widget _buildSuggestion(Color textColor) {
-    final suggestion = _getSuggestion();
-    if (suggestion.isEmpty) return const SizedBox.shrink();
+    // 🎨 Theme-aware colors
+    final backgroundColor = AppColors.getBackgroundColor(currentBrightness);
+    final surfaceColor = AppColors.getSurfaceColor(currentBrightness);
+    final textColor = AppColors.getPrimaryTextColor(currentBrightness);
+    final errorColor = customColor ?? _getErrorColor();
 
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.accentBlue.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.accentBlue.withOpacity(0.3),
-          width: 1,
-        ),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            Icons.lightbulb_outline_rounded,
-            color: AppColors.accentBlue,
-            size: 20,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              suggestion,
-              style: AppTextStyles.getBodySmall(
-                context,
-              ).copyWith(color: textColor.withOpacity(0.9)),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// 🔄 Build action buttons
-  Widget _buildActionButtons(BuildContext context, Color primaryColor) =>
-      Column(
-        children: [
-          // Primary action (retry)
-          if (onRetry != null)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: onRetry,
-                icon: const Icon(Icons.refresh_rounded),
-                label: Text(_getRetryButtonText()),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ),
-
-          // Secondary actions
-          if (_hasSecondaryActions()) ...[
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                // Go back button
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back_rounded),
-                    label: const Text('Go Back'),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: primaryColor,
-                      side: BorderSide(color: primaryColor.withOpacity(0.5)),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(width: 12),
-
-                // Contact support button
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () => _contactSupport(context),
-                    icon: const Icon(Icons.help_outline_rounded),
-                    label: const Text('Help'),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: primaryColor,
-                      side: BorderSide(color: primaryColor.withOpacity(0.5)),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
+      decoration: BoxDecoration(gradient: gradient),
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(32),
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 400),
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color: surfaceColor.withOpacity(0.95),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: errorColor.withOpacity(0.2), width: 1),
+              boxShadow: [
+                BoxShadow(
+                  color: errorColor.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
                 ),
               ],
             ),
-          ],
-        ],
-      );
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // 🎨 Error icon with animation
+                _buildErrorIcon(errorColor),
+                const SizedBox(height: 24),
 
-  /// 🔧 Build technical details section
-  Widget _buildTechnicalDetails(Color textColor) => ExpansionTile(
-    title: Text(
-      'Technical Details',
-      style: AppTextStyles.getCaption(context).copyWith(
-        color: textColor.withOpacity(0.7),
-        fontWeight: FontWeight.w600,
-      ),
-    ),
-    children: [
-      Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          error ?? 'No technical details available',
-          style: AppTextStyles.getCaption(context).copyWith(
-            color: textColor.withOpacity(0.6),
-            fontFamily: 'monospace',
+                // 📝 Error title
+                _buildErrorTitle(context, textColor),
+                const SizedBox(height: 12),
+
+                // 📝 Error message
+                _buildErrorMessage(context, textColor),
+                const SizedBox(height: 8),
+
+                // 💡 Helpful suggestion
+                _buildSuggestion(context, textColor),
+                const SizedBox(height: 32),
+
+                // 🎯 Action buttons
+                _buildActionButtons(context, ref, errorColor),
+
+                // 🔧 Technical details (if enabled)
+                if (showTechnicalDetails && error != null) ...[
+                  const SizedBox(height: 24),
+                  _buildTechnicalDetails(context, textColor),
+                ],
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  /// 🎨 Build animated error icon
+  Widget _buildErrorIcon(Color errorColor) => Container(
+    width: 80,
+    height: 80,
+    decoration: BoxDecoration(
+      color: errorColor.withOpacity(0.1),
+      shape: BoxShape.circle,
+    ),
+    child: Icon(customIcon ?? _getErrorIcon(), size: 40, color: errorColor),
+  );
+
+  /// 📝 Build error title
+  Widget _buildErrorTitle(BuildContext context, Color textColor) => Text(
+    _getErrorTitle(),
+    style: AppTextStyles.getHeading3(
+      context,
+    ).copyWith(color: textColor, fontWeight: FontWeight.bold),
+    textAlign: TextAlign.center,
+  );
+
+  /// 📝 Build error message
+  Widget _buildErrorMessage(BuildContext context, Color textColor) => Text(
+    message,
+    style: AppTextStyles.getBodyMedium(
+      context,
+    ).copyWith(color: textColor.withOpacity(0.8)),
+    textAlign: TextAlign.center,
+  );
+
+  /// 💡 Build helpful suggestion
+  Widget _buildSuggestion(BuildContext context, Color textColor) => Text(
+    _getSuggestion(),
+    style: AppTextStyles.getBodySmall(
+      context,
+    ).copyWith(color: textColor.withOpacity(0.6), fontStyle: FontStyle.italic),
+    textAlign: TextAlign.center,
+  );
+
+  /// 🎯 Build action buttons
+  Widget _buildActionButtons(
+    BuildContext context,
+    WidgetRef ref,
+    Color errorColor,
+  ) => Column(
+    children: [
+      // Primary retry button
+      if (onRetry != null)
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton.icon(
+            onPressed: onRetry,
+            icon: const Icon(Icons.refresh_rounded),
+            label: Text(
+              _getRetryButtonText(),
+              style: AppTextStyles.getButton(context),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: errorColor,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ),
+
+      // Secondary actions
+      if (_hasSecondaryActions()) ...[
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: TextButton.icon(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Icons.arrow_back_rounded),
+                label: Text('Go Back', style: AppTextStyles.getButton(context)),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: TextButton.icon(
+                onPressed: () => _contactSupport(context),
+                icon: const Icon(Icons.help_outline_rounded),
+                label: Text(
+                  'Get Help',
+                  style: AppTextStyles.getButton(context),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     ],
   );
+
+  /// 🔧 Build technical details section
+  Widget _buildTechnicalDetails(BuildContext context, Color textColor) =>
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Technical Details:',
+            style: AppTextStyles.getLabelSmall(context).copyWith(
+              color: textColor.withOpacity(0.7),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: textColor.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: textColor.withOpacity(0.1), width: 1),
+            ),
+            child: Text(
+              error ?? 'No technical details available',
+              style: AppTextStyles.getCaption(context).copyWith(
+                color: textColor.withOpacity(0.6),
+                fontFamily: 'monospace',
+              ),
+            ),
+          ),
+        ],
+      );
 
   /// 🎯 Get error-specific title
   String _getErrorTitle() {

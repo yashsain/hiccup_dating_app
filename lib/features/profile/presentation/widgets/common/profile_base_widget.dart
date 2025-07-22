@@ -8,25 +8,18 @@ import '../../../../../shared/services/theme_provider.dart';
 
 /// 🏗️ Profile Base Widget - Foundation for All Profile Components (2025)
 ///
+/// ✅ FIXED CONTEXT ISSUES:
+/// - Removed context usage from property getters
+/// - All methods now properly accept BuildContext parameters
+/// - Clean separation of concerns
+/// - Type-safe theme access
+///
 /// This abstract base class provides common functionality for all profile widgets:
 /// - Consistent theme integration
 /// - Common styling methods
 /// - Responsive design helpers
 /// - Animation utilities
 /// - Platform-specific adjustments
-///
-/// Benefits:
-/// - Reduces code duplication
-/// - Ensures consistent theming
-/// - Centralizes common functionality
-/// - Easy maintenance and updates
-/// - Type-safe theme access
-///
-/// Design principles:
-/// - Theme-aware by default
-/// - Responsive and accessible
-/// - Performance optimized
-/// - Platform adaptive
 abstract class ProfileBaseWidget extends ConsumerWidget {
   const ProfileBaseWidget({super.key});
 
@@ -192,38 +185,14 @@ abstract class ProfileBaseWidget extends ConsumerWidget {
         BoxShadow(
           color: primaryColor.withOpacity(0.1),
           blurRadius: elevation * 2,
-          spreadRadius: elevation / 4,
           offset: Offset(0, elevation / 2),
         ),
       ],
     );
   }
 
-  /// 🎨 Get gradient card decoration
-  BoxDecoration getGradientCardDecoration(
-    WidgetRef ref, {
-    double? borderRadius,
-    double opacity = 0.1,
-  }) {
-    final gradient = getThemeGradient(ref);
-
-    return BoxDecoration(
-      gradient: LinearGradient(
-        begin: gradient.begin,
-        end: gradient.end,
-        colors: gradient.colors
-            .map((color) => color.withOpacity(opacity))
-            .toList(),
-        stops: gradient.stops,
-      ),
-      borderRadius: BorderRadius.circular(
-        borderRadius ?? AppConstants.borderRadius,
-      ),
-    );
-  }
-
-  /// ✨ Get button style with theme integration
-  ButtonStyle getElevatedButtonStyle(
+  /// 🎯 Get primary button style
+  ButtonStyle getPrimaryButtonStyle(
     WidgetRef ref, {
     Color? backgroundColor,
     Color? foregroundColor,
@@ -234,17 +203,40 @@ abstract class ProfileBaseWidget extends ConsumerWidget {
     return ElevatedButton.styleFrom(
       backgroundColor: backgroundColor ?? primaryColor,
       foregroundColor: foregroundColor ?? Colors.white,
-      elevation: AppConstants.elevationLow,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           borderRadius ?? AppConstants.borderRadius,
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      elevation: AppConstants.elevationLow,
     );
   }
 
-  /// ✨ Get outlined button style with theme integration
+  /// 🎯 Get secondary button style
+  ButtonStyle getSecondaryButtonStyle(
+    WidgetRef ref, {
+    Color? backgroundColor,
+    Color? foregroundColor,
+    double? borderRadius,
+  }) {
+    final surfaceColor = getSurfaceColor(ref);
+    final primaryColor = getPrimaryColor(ref);
+
+    return ElevatedButton.styleFrom(
+      backgroundColor: backgroundColor ?? surfaceColor,
+      foregroundColor: foregroundColor ?? primaryColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          borderRadius ?? AppConstants.borderRadius,
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      elevation: AppConstants.elevationLow / 2,
+    );
+  }
+
+  /// 🎯 Get outlined button style
   ButtonStyle getOutlinedButtonStyle(
     WidgetRef ref, {
     Color? borderColor,
@@ -319,91 +311,22 @@ abstract class ProfileBaseWidget extends ConsumerWidget {
     );
   }
 
-  /// 📱 Check if current platform needs special handling
-  bool get isIOS =>
-      Theme.of(context as BuildContext).platform == TargetPlatform.iOS;
-  bool get isAndroid =>
-      Theme.of(context as BuildContext).platform == TargetPlatform.android;
+  /// 📱 Check if current platform needs special handling - FIXED: Accept BuildContext parameter
+  bool isIOS(BuildContext context) =>
+      Theme.of(context).platform == TargetPlatform.iOS;
 
-  /// 📱 Get platform-specific padding
-  EdgeInsets getPlatformPadding({double? horizontal, double? vertical}) {
-    return EdgeInsets.symmetric(
-      horizontal: horizontal ?? (isIOS ? 20.0 : 16.0),
-      vertical: vertical ?? (isIOS ? 16.0 : 12.0),
-    );
-  }
+  bool isAndroid(BuildContext context) =>
+      Theme.of(context).platform == TargetPlatform.android;
 
-  /// 🎯 Safe area wrapper for content
-  Widget buildSafeContent({
-    required Widget child,
-    bool maintainBottomViewPadding = false,
+  /// 📱 Get platform-specific padding - FIXED: Accept BuildContext parameter
+  EdgeInsets getPlatformPadding(
+    BuildContext context, {
+    double? horizontal,
+    double? vertical,
   }) {
-    return SafeArea(
-      maintainBottomViewPadding: maintainBottomViewPadding,
-      child: child,
-    );
-  }
-
-  /// 📏 Get semantic spacing values
-  double get spacingXSmall => 4.0;
-  double get spacingSmall => 8.0;
-  double get spacingMedium => 16.0;
-  double get spacingLarge => 24.0;
-  double get spacingXLarge => 32.0;
-  double get spacingXXLarge => 48.0;
-}
-
-/// 🎯 Profile Widget Mixins
-///
-/// Additional functionality that can be mixed into profile widgets
-
-/// 📱 Responsive Layout Mixin
-mixin ProfileResponsiveMixin on ConsumerWidget {
-  /// Get responsive column count for grids
-  int getResponsiveColumns(BuildContext context, {int maxColumns = 4}) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    if (screenWidth > AppConstants.tabletBreakpoint) {
-      return maxColumns; // Tablet/Desktop
-    } else if (screenWidth > AppConstants.mobileBreakpoint) {
-      return (maxColumns * 0.75).round(); // Large mobile
-    } else {
-      return (maxColumns * 0.5).round(); // Mobile
-    }
-  }
-
-  /// Get responsive font size
-  double getResponsiveFontSize(BuildContext context, double baseFontSize) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    if (screenWidth > AppConstants.tabletBreakpoint) {
-      return baseFontSize * 1.2; // Tablet/Desktop
-    } else if (screenWidth > AppConstants.mobileBreakpoint) {
-      return baseFontSize * 1.1; // Large mobile
-    } else {
-      return baseFontSize; // Mobile
-    }
-  }
-}
-
-/// 🎬 Animation Mixin
-mixin ProfileAnimationMixin on ConsumerStatefulWidget {
-  /// Create standard slide-in animation controller
-  AnimationController createSlideController(TickerProvider vsync) {
-    return AnimationController(
-      duration: AppConstants.animationDuration,
-      vsync: vsync,
-    );
-  }
-
-  /// Create standard fade animation controller
-  AnimationController createFadeController(TickerProvider vsync) {
-    return AnimationController(
-      duration: Duration(
-        milliseconds: (AppConstants.animationDuration.inMilliseconds * 0.8)
-            .round(),
-      ),
-      vsync: vsync,
+    return EdgeInsets.symmetric(
+      horizontal: horizontal ?? (isIOS(context) ? 20.0 : 16.0),
+      vertical: vertical ?? (isIOS(context) ? 16.0 : 12.0),
     );
   }
 }
