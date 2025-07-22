@@ -141,7 +141,7 @@ class ProfileScreen extends ConsumerWidget {
           (profileData.media as List)
               .map<String>(
                 (dynamic media) =>
-                    'Type: ${media.type.name}\nPath: ${media.filePath}\nOrder: ${media.displayOrder}\nCaption: ${media.caption ?? 'No caption'}',
+                    'Type: ${media.type.displayName}\nPath: ${media.filePath}\nOrder: ${media.displayOrder}\nCaption: ${media.caption ?? 'No caption'}',
               )
               .toList(),
           textColor,
@@ -155,7 +155,7 @@ class ProfileScreen extends ConsumerWidget {
           (profileData.interests as List)
               .map<String>(
                 (dynamic interest) =>
-                    '${interest.interest} (${interest.category.name})',
+                    '${interest.interest} (${interest.category.displayName})',
               )
               .toList(),
           textColor,
@@ -169,7 +169,7 @@ class ProfileScreen extends ConsumerWidget {
           (profileData.badges as List)
               .map<String>(
                 (dynamic badge) =>
-                    '${badge.badge} (${badge.type.name}) - Visible: ${badge.isVisible}',
+                    '${badge.badge} (${badge.type.displayName}) - Visible: ${badge.isVisible}',
               )
               .toList(),
           textColor,

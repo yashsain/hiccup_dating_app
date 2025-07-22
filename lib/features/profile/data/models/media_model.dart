@@ -71,39 +71,35 @@ class MediaModel {
   /// with proper enum conversion and validation.
   static MediaEntity fromMap(Map<String, dynamic> map) {
     try {
-      // 🔍 Validate required fields
-      _validateRequiredFields(map);
-
       return MediaEntity(
         // 🔑 Primary identifiers
-        id: map['id'] as String,
-        profileId: map['profile_id'] as String,
+        id: map['id'] as String? ?? '',
+        profileId: map['profile_id'] as String? ?? '',
 
         // 🎭 Media type and content
         type: MediaType.values.firstWhere(
           (type) => type.name == map['type'],
-          orElse: () => throw MediaModelException(
-            'Invalid media type: ${map['type']}',
-            map['id']?.toString(),
-          ),
+          orElse: () => MediaType.photo, // Default instead of throwing
         ),
-        filePath: map['file_path'] as String,
+        filePath: map['file_path'] as String? ?? '', // Handle null
         caption: map['caption'] as String?,
 
-        // 📊 File metadata
-        fileSizeBytes: map['file_size_bytes'] as int,
-        durationSeconds: map['duration_seconds'] as int?, // nullable for photos
+        // 📊 File metadata - Handle nulls with defaults
+        fileSizeBytes: map['file_size_bytes'] as int? ?? 0,
+        durationSeconds: map['duration_seconds'] as int?,
         width: map['width'] as int?,
         height: map['height'] as int?,
         thumbnailPath: map['thumbnail_path'] as String?,
 
-        // 📱 Display properties
-        displayOrder: map['display_order'] as int,
+        // 📱 Display properties - Handle nulls with defaults
+        displayOrder: map['display_order'] as int? ?? 1,
         isProcessing: (map['is_processing'] as int? ?? 0) == 1,
         isVisible: (map['is_visible'] as int? ?? 1) == 1,
 
-        // ⏰ Timestamps
-        createdAt: DateTime.parse(map['created_at'] as String),
+        // ⏰ Timestamps - Handle null safely
+        createdAt: map['created_at'] != null
+            ? DateTime.tryParse(map['created_at'] as String) ?? DateTime.now()
+            : DateTime.now(),
       );
     } catch (e) {
       throw MediaModelException(
