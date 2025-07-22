@@ -26,7 +26,7 @@ class DatabaseHelper {
   DatabaseHelper._internal();
 
   // 📋 Database configuration constants
-  static const String _databaseName = 'hiccup_profiles.db';
+  static const String _databaseName = 'hiccup_profiles_v2.db';
   static const int _databaseVersion = 1;
 
   // 🏗️ Table names - centralized for easy maintenance

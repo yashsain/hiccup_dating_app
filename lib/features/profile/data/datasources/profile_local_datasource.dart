@@ -968,15 +968,25 @@ class ProfileLocalDatasource {
         db.rawQuery(
           'SELECT COUNT(*) as count FROM ${DatabaseConfig.badgesTable}',
         ),
+        // Add verified profiles count
+        db.rawQuery(
+          'SELECT COUNT(*) as count FROM ${DatabaseConfig.profilesTable} WHERE photo_verification = 1',
+        ),
+        // Add premium profiles count
+        db.rawQuery(
+          'SELECT COUNT(*) as count FROM ${DatabaseConfig.profilesTable} WHERE premium IS NOT NULL',
+        ),
       ]);
 
       return {
         'profiles': futures[0].first['count'] as int,
         'prompts': futures[1].first['count'] as int,
         'polls': futures[2].first['count'] as int,
-        'media': futures[3].first['count'] as int,
+        'media_items': futures[3].first['count'] as int, // ← Fixed key name
         'interests': futures[4].first['count'] as int,
         'badges': futures[5].first['count'] as int,
+        'verified_profiles': futures[6].first['count'] as int, // ← Added
+        'premium_profiles': futures[7].first['count'] as int, // ← Added
       };
     } catch (e) {
       throw ProfileDatasourceException(
