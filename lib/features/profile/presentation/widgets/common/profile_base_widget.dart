@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../shared/constants/app_colors.dart';
-import '../../../../../shared/constants/app_text_styles.dart';
 import '../../../../../shared/constants/app_constants.dart';
+import '../../../../../shared/constants/app_text_styles.dart';
 import '../../../../../shared/services/theme_provider.dart';
 
 /// 🏗️ Profile Base Widget - Foundation for All Profile Components (2025)

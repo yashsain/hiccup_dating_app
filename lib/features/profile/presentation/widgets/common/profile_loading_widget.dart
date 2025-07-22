@@ -1,3 +1,4 @@
+import 'dart:math' show cos, sin;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,13 +24,13 @@ import '../../../../../shared/services/theme_provider.dart';
 class ProfileLoadingWidget extends ConsumerStatefulWidget {
   /// Loading message to display
   final String? message;
-  
+
   /// Loading type for different scenarios
   final ProfileLoadingType type;
-  
+
   /// Whether to show the loading percentage
   final bool showProgress;
-  
+
   /// Current progress (0.0 to 1.0) if showProgress is true
   final double progress;
 
@@ -42,7 +43,8 @@ class ProfileLoadingWidget extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<ProfileLoadingWidget> createState() => _ProfileLoadingWidgetState();
+  ConsumerState<ProfileLoadingWidget> createState() =>
+      _ProfileLoadingWidgetState();
 }
 
 class _ProfileLoadingWidgetState extends ConsumerState<ProfileLoadingWidget>
@@ -72,26 +74,18 @@ class _ProfileLoadingWidgetState extends ConsumerState<ProfileLoadingWidget>
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
-    _pulseAnimation = Tween<double>(
-      begin: 0.8,
-      end: 1.2,
-    ).animate(CurvedAnimation(
-      parent: _pulseController,
-      curve: Curves.easeInOut,
-    ));
+    _pulseAnimation = Tween<double>(begin: 0.8, end: 1.2).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
 
     // Rotation animation for outer ring
     _rotationController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     );
-    _rotationAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _rotationController,
-      curve: Curves.linear,
-    ));
+    _rotationAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _rotationController, curve: Curves.linear),
+    );
 
     // Start animations
     _pulseController.repeat(reverse: true);
@@ -111,20 +105,20 @@ class _ProfileLoadingWidgetState extends ConsumerState<ProfileLoadingWidget>
         children: [
           // 💖 Animated loading indicator
           _buildLoadingIndicator(primaryColor),
-          
+
           const SizedBox(height: 32),
-          
+
           // 📝 Loading message
           _buildLoadingMessage(textColor),
-          
+
           // 📊 Progress indicator (if enabled)
           if (widget.showProgress) ...[
             const SizedBox(height: 24),
             _buildProgressIndicator(primaryColor),
           ],
-          
+
           const SizedBox(height: 16),
-          
+
           // 💡 Loading tip
           _buildLoadingTip(textColor),
         ],
@@ -134,133 +128,128 @@ class _ProfileLoadingWidgetState extends ConsumerState<ProfileLoadingWidget>
 
   /// 💖 Build animated loading indicator
   Widget _buildLoadingIndicator(Color primaryColor) => SizedBox(
-      width: 120,
-      height: 120,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Outer rotating ring
-          AnimatedBuilder(
-            animation: _rotationAnimation,
-            builder: (context, child) => Transform.rotate(
-                angle: _rotationAnimation.value * 2 * 3.14159,
-                child: Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: primaryColor.withOpacity(0.3),
-                      width: 2,
-                    ),
-                  ),
-                  child: CustomPaint(
-                    painter: _LoadingRingPainter(
-                      primaryColor: primaryColor,
-                      progress: widget.showProgress ? widget.progress : null,
-                    ),
-                  ),
+    width: 120,
+    height: 120,
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        // Outer rotating ring
+        AnimatedBuilder(
+          animation: _rotationAnimation,
+          builder: (context, child) => Transform.rotate(
+            angle: _rotationAnimation.value * 2 * 3.14159,
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: primaryColor.withOpacity(0.3),
+                  width: 2,
                 ),
               ),
-          ),
-          
-          // Pulsing heart in center
-          AnimatedBuilder(
-            animation: _pulseAnimation,
-            builder: (context, child) => Transform.scale(
-                scale: _pulseAnimation.value,
-                child: Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: primaryColor.withOpacity(0.1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: primaryColor.withOpacity(0.3),
-                        blurRadius: 20,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                  ),
-                  child: Icon(
-                    Icons.favorite_rounded,
-                    size: 32,
-                    color: primaryColor,
-                  ),
+              child: CustomPaint(
+                painter: _LoadingRingPainter(
+                  primaryColor: primaryColor,
+                  progress: widget.showProgress ? widget.progress : null,
                 ),
               ),
+            ),
           ),
-        ],
-      ),
-    );
+        ),
+
+        // Pulsing heart in center
+        AnimatedBuilder(
+          animation: _pulseAnimation,
+          builder: (context, child) => Transform.scale(
+            scale: _pulseAnimation.value,
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: primaryColor.withOpacity(0.1),
+                boxShadow: [
+                  BoxShadow(
+                    color: primaryColor.withOpacity(0.3),
+                    blurRadius: 20,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: Icon(
+                Icons.favorite_rounded,
+                size: 32,
+                color: primaryColor,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 
   /// 📝 Build loading message
   Widget _buildLoadingMessage(Color textColor) {
     final message = widget.message ?? _getDefaultMessage();
-    
+
     return Text(
       message,
-      style: AppTextStyles.getHeading4(context).copyWith(
-        color: textColor,
-        fontWeight: FontWeight.w600,
-      ),
+      style: AppTextStyles.getHeading4(
+        context,
+      ).copyWith(color: textColor, fontWeight: FontWeight.w600),
       textAlign: TextAlign.center,
     );
   }
 
   /// 📊 Build progress indicator
   Widget _buildProgressIndicator(Color primaryColor) => Column(
-      children: [
-        // Progress bar
-        Container(
-          width: 200,
-          height: 4,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2),
-            color: primaryColor.withOpacity(0.2),
-          ),
-          child: FractionallySizedBox(
-            alignment: Alignment.centerLeft,
-            widthFactor: widget.progress,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(2),
-                gradient: LinearGradient(
-                  colors: [
-                    primaryColor,
-                    primaryColor.withOpacity(0.7),
-                  ],
-                ),
+    children: [
+      // Progress bar
+      Container(
+        width: 200,
+        height: 4,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          color: primaryColor.withOpacity(0.2),
+        ),
+        child: FractionallySizedBox(
+          alignment: Alignment.centerLeft,
+          widthFactor: widget.progress,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2),
+              gradient: LinearGradient(
+                colors: [primaryColor, primaryColor.withOpacity(0.7)],
               ),
             ),
           ),
         ),
-        
-        const SizedBox(height: 8),
-        
-        // Progress percentage
-        Text(
-          '${(widget.progress * 100).toInt()}%',
-          style: AppTextStyles.getCaption(context).copyWith(
-            color: primaryColor,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ],
-    );
+      ),
+
+      const SizedBox(height: 8),
+
+      // Progress percentage
+      Text(
+        '${(widget.progress * 100).toInt()}%',
+        style: AppTextStyles.getCaption(
+          context,
+        ).copyWith(color: primaryColor, fontWeight: FontWeight.w600),
+      ),
+    ],
+  );
 
   /// 💡 Build loading tip
   Widget _buildLoadingTip(Color textColor) {
     final tip = _getLoadingTip();
-    
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Text(
         tip,
-        style: AppTextStyles.getCaption(context).copyWith(
-          color: textColor.withOpacity(0.7),
-        ),
+        style: AppTextStyles.getCaption(
+          context,
+        ).copyWith(color: textColor.withOpacity(0.7)),
         textAlign: TextAlign.center,
       ),
     );
@@ -310,10 +299,7 @@ class _LoadingRingPainter extends CustomPainter {
   final Color primaryColor;
   final double? progress;
 
-  _LoadingRingPainter({
-    required this.primaryColor,
-    this.progress,
-  });
+  _LoadingRingPainter({required this.primaryColor, this.progress});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -332,10 +318,7 @@ class _LoadingRingPainter extends CustomPainter {
     if (progress != null) {
       final progressPaint = Paint()
         ..shader = LinearGradient(
-          colors: [
-            primaryColor,
-            primaryColor.withOpacity(0.6),
-          ],
+          colors: [primaryColor, primaryColor.withOpacity(0.6)],
         ).createShader(Rect.fromCircle(center: center, radius: radius))
         ..style = PaintingStyle.stroke
         ..strokeWidth = 3
@@ -359,7 +342,7 @@ class _LoadingRingPainter extends CustomPainter {
         final angle = (i * 3.14159 / 4);
         final opacity = (i % 4 + 1) / 4;
         final dotRadius = 3.0 * opacity;
-        
+
         final dotCenter = Offset(
           center.dx + radius * 0.8 * cos(angle),
           center.dy + radius * 0.8 * sin(angle),
@@ -386,6 +369,3 @@ enum ProfileLoadingType {
   saving,
   uploading,
 }
-
-/// 📐 Math helper for loading ring
-import 'dart:math' show cos, sin;
