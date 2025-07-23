@@ -8,6 +8,7 @@ import '../data/providers/profile_providers.dart';
 import 'providers/profile_ui_providers.dart';
 import 'widgets/common/profile_error_widget.dart';
 import 'widgets/common/profile_loading_widget.dart';
+import 'widgets/gallery/profile_photo_gallery.dart';
 import 'widgets/header/profile_header.dart';
 import 'widgets/platform/profile_app_bar.dart';
 
@@ -16,14 +17,14 @@ import 'widgets/platform/profile_app_bar.dart';
 /// This screen displays a complete user profile with:
 /// - Platform-specific app bar with edit/share actions
 /// - Profile header with photo, name, age, location, badges
-/// - Photo gallery with swipeable media carousel
+/// - Photo gallery with swipeable media carousel ✅ NEW
 /// - Bio section with dating goals and personality
 /// - Interactive prompts and polls
 /// - Interest chips and hobby display
 /// - Platform-optimized animations and interactions
 ///
 /// Architecture:
-/// - Uses ProfileHeader component for clean separation
+/// - Uses ProfileHeader and ProfilePhotoGallery components for clean separation
 /// - Integrates with existing data layer (zero changes needed)
 /// - Platform-specific components isolated in platform/ folder
 /// - Reusable widgets following ProfileBaseWidget pattern
@@ -37,6 +38,7 @@ import 'widgets/platform/profile_app_bar.dart';
 /// - ✅ Accessibility support throughout
 /// - ✅ Error handling with retry capabilities
 /// - ✅ Loading states with branded components
+/// - ✅ Photo Gallery with swipeable carousel ✅ NEW
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key, this.profileId, this.isOwnProfile = true});
 
@@ -77,7 +79,7 @@ class ProfileScreen extends ConsumerWidget {
       ),
 
       // 🎨 Gradient background matching Hiccup theme
-      body: Container(
+      body: DecoratedBox(
         decoration: BoxDecoration(gradient: gradient),
         child: SafeArea(
           child: profileAsync.when(
@@ -137,26 +139,27 @@ class ProfileScreen extends ConsumerWidget {
         ),
       ),
 
-      // 🚧 Placeholder sections for Phase 2 components
-      SliverToBoxAdapter(child: _buildTemporaryPlaceholders(context, ref)),
+      // 📸 Photo Gallery Section ✅ NEW
+      SliverToBoxAdapter(
+        child: ProfilePhotoGallery(
+          profileId: profileId,
+          isOwnProfile: isOwnProfile,
+          onAddMediaPressed: () => _handleAddMedia(context, ref),
+          onMediaTapped: (index, mediaItem) =>
+              _handleMediaTap(context, ref, index, mediaItem),
+        ),
+      ),
+
+      // 🚧 Placeholder sections for remaining Phase 2 components
+      SliverToBoxAdapter(child: _buildRemainingPlaceholders(context, ref)),
     ],
   );
 
-  /// 🚧 Temporary placeholders for upcoming components
-  Widget _buildTemporaryPlaceholders(BuildContext context, WidgetRef ref) =>
+  /// 🚧 Remaining placeholders for upcoming components
+  Widget _buildRemainingPlaceholders(BuildContext context, WidgetRef ref) =>
       Column(
         children: [
           const SizedBox(height: 16),
-
-          // Placeholder for Photo Gallery (coming next)
-          _buildComponentPlaceholder(
-            context,
-            'Photo Gallery',
-            'Swipeable media carousel with photos, videos, and voice notes',
-            Icons.photo_library_rounded,
-          ),
-
-          const SizedBox(height: 12),
 
           // Placeholder for Bio Section (coming next)
           _buildComponentPlaceholder(
@@ -296,11 +299,294 @@ class ProfileScreen extends ConsumerWidget {
 
   /// 📸 Handle photo tap action
   void _handlePhotoTap(BuildContext context, WidgetRef ref) {
-    // Future: Open photo gallery or camera
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Photo gallery coming in Phase 2!',
+          'Photo editing coming in Phase 3!',
+          style: AppTextStyles.getBodyMedium(
+            context,
+          ).copyWith(color: Colors.white),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
+  }
+
+  /// ➕ Handle add media action ✅ NEW
+  void _handleAddMedia(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text('Add Media', style: AppTextStyles.getHeading3(context)),
+            const SizedBox(height: 16),
+
+            // Media type options
+            _buildMediaOption(
+              context,
+              'Take Photo',
+              'Capture a new photo with camera',
+              Icons.camera_alt_rounded,
+              () => _handleCameraAction(context),
+            ),
+            const SizedBox(height: 12),
+            _buildMediaOption(
+              context,
+              'Choose from Gallery',
+              'Select photos from your gallery',
+              Icons.photo_library_rounded,
+              () => _handleGalleryAction(context),
+            ),
+            const SizedBox(height: 12),
+            _buildMediaOption(
+              context,
+              'Record Video',
+              'Create a short video clip',
+              Icons.videocam_rounded,
+              () => _handleVideoAction(context),
+            ),
+            const SizedBox(height: 12),
+            _buildMediaOption(
+              context,
+              'Voice Note',
+              'Record a voice introduction',
+              Icons.mic_rounded,
+              () => _handleVoiceAction(context),
+            ),
+
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 🎬 Handle media tap action ✅ NEW
+  void _handleMediaTap(
+    BuildContext context,
+    WidgetRef ref,
+    int index,
+    dynamic mediaItem,
+  ) {
+    showDialog(
+      context: context,
+      backgroundColor: Colors.black87,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 400,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                      Theme.of(context).colorScheme.primary.withOpacity(0.6),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        _getMediaIcon(mediaItem.type),
+                        color: Colors.white,
+                        size: 64,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        '${mediaItem.type} Preview',
+                        style: AppTextStyles.getHeading3(
+                          context,
+                        ).copyWith(color: Colors.white),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Full media viewer coming in Phase 3!',
+                        style: AppTextStyles.getBodyMedium(
+                          context,
+                        ).copyWith(color: Colors.white.withOpacity(0.8)),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 16,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Text(
+                  'Close',
+                  style: AppTextStyles.getLabelLarge(context),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// 🎯 Build media option for bottom sheet
+  Widget _buildMediaOption(
+    BuildContext context,
+    String title,
+    String description,
+    IconData icon,
+    VoidCallback onTap,
+  ) => InkWell(
+    onTap: onTap,
+    borderRadius: BorderRadius.circular(12),
+    child: Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(
+              icon,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: AppTextStyles.getLabelLarge(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  description,
+                  style: AppTextStyles.getBodySmall(context).copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.6),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Icon(
+            Icons.chevron_right_rounded,
+            color: Theme.of(context).colorScheme.outline,
+          ),
+        ],
+      ),
+    ),
+  );
+
+  /// 📷 Handle camera action
+  void _handleCameraAction(BuildContext context) {
+    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Camera integration coming in Phase 3!',
+          style: AppTextStyles.getBodyMedium(
+            context,
+          ).copyWith(color: Colors.white),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
+  }
+
+  /// 🖼️ Handle gallery action
+  void _handleGalleryAction(BuildContext context) {
+    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Gallery picker coming in Phase 3!',
+          style: AppTextStyles.getBodyMedium(
+            context,
+          ).copyWith(color: Colors.white),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
+  }
+
+  /// 🎬 Handle video action
+  void _handleVideoAction(BuildContext context) {
+    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Video recording coming in Phase 3!',
+          style: AppTextStyles.getBodyMedium(
+            context,
+          ).copyWith(color: Colors.white),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
+  }
+
+  /// 🎤 Handle voice action
+  void _handleVoiceAction(BuildContext context) {
+    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Voice recording coming in Phase 3!',
           style: AppTextStyles.getBodyMedium(
             context,
           ).copyWith(color: Colors.white),
@@ -375,7 +661,7 @@ class ProfileScreen extends ConsumerWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Profile sharing coming soon!',
+          'Profile sharing coming in Phase 3!',
           style: AppTextStyles.getBodyMedium(
             context,
           ).copyWith(color: Colors.white),
@@ -385,5 +671,17 @@ class ProfileScreen extends ConsumerWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
+  }
+
+  /// 🔧 Helper method to get media icon
+  IconData _getMediaIcon(String type) {
+    switch (type.toLowerCase()) {
+      case 'video':
+        return Icons.videocam_rounded;
+      case 'voice':
+        return Icons.mic_rounded;
+      default:
+        return Icons.photo_rounded;
+    }
   }
 }
