@@ -79,7 +79,7 @@ class ProfileScreen extends ConsumerWidget {
       ),
 
       // 🎨 Gradient background matching Hiccup theme
-      body: DecoratedBox(
+      body: Container(
         decoration: BoxDecoration(gradient: gradient),
         child: SafeArea(
           child: profileAsync.when(
@@ -379,7 +379,7 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  /// 🎬 Handle media tap action ✅ NEW
+  /// 🎬 Handle media tap action ✅ FIXED - Removed backgroundColor parameter
   void _handleMediaTap(
     BuildContext context,
     WidgetRef ref,
@@ -388,7 +388,6 @@ class ProfileScreen extends ConsumerWidget {
   ) {
     showDialog(
       context: context,
-      backgroundColor: Colors.black87,
       builder: (context) => Dialog(
         backgroundColor: Colors.transparent,
         child: Container(
@@ -414,13 +413,15 @@ class ProfileScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        _getMediaIcon(mediaItem.type),
+                        _getMediaIcon(
+                          mediaItem.type?.toString() ?? 'photo',
+                        ), // ✅ FIXED - Safe null handling
                         color: Colors.white,
                         size: 64,
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        '${mediaItem.type} Preview',
+                        '${mediaItem.type?.toString() ?? 'Media'} Preview', // ✅ FIXED - Safe null handling
                         style: AppTextStyles.getHeading3(
                           context,
                         ).copyWith(color: Colors.white),
@@ -673,7 +674,7 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  /// 🔧 Helper method to get media icon
+  /// 🔧 Helper method to get media icon - ✅ FIXED - Proper String type handling
   IconData _getMediaIcon(String type) {
     switch (type.toLowerCase()) {
       case 'video':

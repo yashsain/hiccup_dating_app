@@ -293,16 +293,22 @@ class ProfilePhotoGallery extends ProfileBaseWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              _getMediaIcon(mediaItem.type),
+              _getMediaIcon(
+                mediaItem.type?.toString() ?? 'photo',
+              ), // ✅ FIXED - Safe type conversion
               color: Colors.white.withOpacity(0.9),
               size: 48,
             ),
             const SizedBox(height: 8),
             Text(
-              _getMediaTypeLabel(mediaItem.type),
-              style: AppTextStyles.getLabelMedium(null).copyWith(
-                color: Colors.white.withOpacity(0.9),
+              _getMediaTypeLabel(
+                mediaItem.type?.toString() ?? 'photo',
+              ), // ✅ FIXED - Safe type conversion
+              style: const TextStyle(
+                // ✅ FIXED - Use TextStyle directly instead of context-dependent method
+                color: Colors.white,
                 fontWeight: FontWeight.w600,
+                fontSize: 14,
               ),
             ),
           ],
@@ -313,7 +319,8 @@ class ProfilePhotoGallery extends ProfileBaseWidget {
 
   /// 🏷️ Build media type indicator
   Widget _buildMediaTypeIndicator(dynamic mediaItem, Color primaryColor) {
-    final type = mediaItem.type.toLowerCase();
+    final type = (mediaItem.type?.toString() ?? 'photo')
+        .toLowerCase(); // ✅ FIXED - Safe type conversion
     Color indicatorColor;
     IconData icon;
 
@@ -351,7 +358,8 @@ class ProfilePhotoGallery extends ProfileBaseWidget {
           const SizedBox(width: 4),
           Text(
             type.toUpperCase(),
-            style: AppTextStyles.getCaption(null).copyWith(
+            style: const TextStyle(
+              // ✅ FIXED - Use TextStyle directly instead of context-dependent method
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 10,
@@ -384,9 +392,10 @@ class ProfilePhotoGallery extends ProfileBaseWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (mediaItem.caption?.isNotEmpty == true) ...[
+            if (mediaItem.caption?.toString().isNotEmpty == true) ...[
               Text(
-                mediaItem.caption,
+                mediaItem.caption?.toString() ??
+                    '', // ✅ FIXED - Safe string conversion
                 style: AppTextStyles.getBodySmall(
                   context,
                 ).copyWith(color: Colors.white, fontWeight: FontWeight.w500),
@@ -474,7 +483,8 @@ class ProfilePhotoGallery extends ProfileBaseWidget {
   ) {
     final typeCounts = <String, int>{};
     for (final item in media) {
-      final type = item.type.toLowerCase();
+      final type = (item.type?.toString() ?? 'photo')
+          .toLowerCase(); // ✅ FIXED - Safe string conversion
       typeCounts[type] = (typeCounts[type] ?? 0) + 1;
     }
 
@@ -491,7 +501,11 @@ class ProfilePhotoGallery extends ProfileBaseWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(_getMediaIcon(entry.key), color: primaryColor, size: 12),
+                  Icon(
+                    _getMediaIcon(entry.key), // ✅ FIXED - Already String
+                    color: primaryColor,
+                    size: 12,
+                  ),
                   const SizedBox(width: 4),
                   Text(
                     '${entry.value}',
@@ -645,7 +659,7 @@ class ProfilePhotoGallery extends ProfileBaseWidget {
   );
 
   // ============================================================================
-  // 🔧 HELPER METHODS
+  // 🔧 HELPER METHODS - ✅ FIXED - All methods properly handle String types
   // ============================================================================
 
   /// Get icon for media type
