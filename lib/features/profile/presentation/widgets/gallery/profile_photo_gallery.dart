@@ -404,22 +404,7 @@ class ProfilePhotoGallery extends ProfileBaseWidget {
               ),
               const SizedBox(height: 4),
             ],
-            Row(
-              children: [
-                Icon(
-                  Icons.favorite_rounded,
-                  color: Colors.white.withOpacity(0.8),
-                  size: 16,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  '${mediaItem.likes ?? 0}',
-                  style: AppTextStyles.getCaption(
-                    context,
-                  ).copyWith(color: Colors.white.withOpacity(0.8)),
-                ),
-              ],
-            ),
+            const SizedBox.shrink(),
           ],
         ),
       ),
