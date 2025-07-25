@@ -45,46 +45,130 @@ class ProfileEditTabs extends ConsumerWidget {
     // 🎨 Get current theme information
     final currentBrightness = ref.watch(currentBrightnessProvider);
     final textColor = AppColors.getPrimaryTextColor(currentBrightness);
-    final primaryColor = AppColors.getPrimaryColor(currentBrightness);
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      decoration: BoxDecoration(
-        // Glass morphism container
-        color: Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(4),
-        child: Row(
-          children: [
-            // ✏️ Edit Tab
-            Expanded(
-              child: _buildTabButton(
-                context,
-                'Edit',
-                ProfileEditTab.edit,
-                currentTab == ProfileEditTab.edit,
-                textColor,
-                primaryColor,
-              ),
+    return Column(
+      children: [
+        // 🎯 Tab Container - Matches Reference Image Design
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 24),
+          height: 44, // Fixed height for consistent design
+          decoration: BoxDecoration(
+            // Subtle glass background
+            color: Colors.white.withOpacity(0.12),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Colors.white.withOpacity(0.2),
+              width: 0.5,
             ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(2), // Inner padding
+            child: Row(
+              children: [
+                // 📝 Edit Tab
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => onTabChanged(ProfileEditTab.edit),
+                    child: Container(
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        // White background when selected
+                        color: currentTab == ProfileEditTab.edit
+                            ? Colors.white.withOpacity(0.95)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(10),
+                        // Subtle shadow when selected
+                        boxShadow: currentTab == ProfileEditTab.edit
+                            ? [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.08),
+                                  blurRadius: 3,
+                                  offset: const Offset(0, 1),
+                                ),
+                              ]
+                            : null,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Edit',
+                        style: AppTextStyles.getLabelLarge(context).copyWith(
+                          color: currentTab == ProfileEditTab.edit
+                              ? Colors
+                                    .black87 // Dark text when selected
+                              : textColor.withOpacity(
+                                  0.8,
+                                ), // Light text when not
+                          fontWeight: currentTab == ProfileEditTab.edit
+                              ? FontWeight.w600
+                              : FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
 
-            // 👀 View Tab
-            Expanded(
-              child: _buildTabButton(
-                context,
-                'View',
-                ProfileEditTab.view,
-                currentTab == ProfileEditTab.view,
-                textColor,
-                primaryColor,
-              ),
+                // 👁️ View Tab
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => onTabChanged(ProfileEditTab.view),
+                    child: Container(
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        // White background when selected
+                        color: currentTab == ProfileEditTab.view
+                            ? Colors.white.withOpacity(0.95)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(10),
+                        // Subtle shadow when selected
+                        boxShadow: currentTab == ProfileEditTab.view
+                            ? [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.08),
+                                  blurRadius: 3,
+                                  offset: const Offset(0, 1),
+                                ),
+                              ]
+                            : null,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'View',
+                        style: AppTextStyles.getLabelLarge(context).copyWith(
+                          color: currentTab == ProfileEditTab.view
+                              ? Colors
+                                    .black87 // Dark text when selected
+                              : textColor.withOpacity(
+                                  0.8,
+                                ), // Light text when not
+                          fontWeight: currentTab == ProfileEditTab.view
+                              ? FontWeight.w600
+                              : FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+
+        // 📏 Subtle separation line below tabs (like reference image)
+        const SizedBox(height: 16),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 24),
+          height: 0.5,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.transparent,
+                Colors.white.withOpacity(0.3),
+                Colors.transparent,
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 

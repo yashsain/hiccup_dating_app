@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../shared/constants/app_colors.dart';
 import '../../../shared/constants/app_text_styles.dart';
@@ -90,25 +91,10 @@ class ProfileScreen extends ConsumerWidget {
 
   /// ✏️ Handle edit profile action
   void _handleEditProfile(BuildContext context, WidgetRef ref) {
-    // Toggle edit mode in UI state
-    ref.read(profileUIStateProvider.notifier).toggleEditMode();
+    // Navigate directly to edit screen without snackbar
+    context.push('/main/profile/edit?profileId=$profileId');
 
-    // Show feedback to user
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Edit mode ${ref.read(profileUIStateProvider).isEditMode ? "enabled" : "disabled"}',
-          style: AppTextStyles.getBodyMedium(
-            context,
-          ).copyWith(color: Colors.white),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-    );
-
-    debugPrint('🎯 Edit Profile: Opening edit mode...');
+    debugPrint('🎯 Edit Profile: Navigating to edit screen...');
   }
 
   /// ⚙️ Handle settings action

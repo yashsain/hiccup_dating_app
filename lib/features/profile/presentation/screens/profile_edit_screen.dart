@@ -61,13 +61,10 @@ class ProfileEditScreen extends ConsumerWidget {
         extendBodyBehindAppBar: true,
 
         // 📱 Custom header with Cancel/Name/Done
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: ProfileEditHeader(
-            profileId: profileId,
-            onCancel: () => _handleCancel(context, ref),
-            onDone: () => _handleDone(context, ref),
-          ),
+        appBar: ProfileEditHeader(
+          profileId: profileId,
+          onCancel: () => _handleCancel(context, ref),
+          onDone: () => _handleDone(context, ref),
         ),
 
         // 🎨 MAIN: Single continuous gradient for entire screen
@@ -82,10 +79,10 @@ class ProfileEditScreen extends ConsumerWidget {
             top: false, // Header handles top safe area
             child: Column(
               children: [
-                // 🌌 Top spacing for header
-                const SizedBox(height: kToolbarHeight + 20),
+                // 🌌 Top spacing for header (reduced since header has separation line)
+                const SizedBox(height: kToolbarHeight + 8),
 
-                // 🎯 Tab system (Edit/View) - FIXED: Use correct provider
+                // 🎯 Tab system (Edit/View) - Now with proper design
                 ProfileEditTabs(
                   currentTab: editState.currentTab,
                   onTabChanged: (tab) => ref
@@ -93,9 +90,8 @@ class ProfileEditScreen extends ConsumerWidget {
                       .changeTab(tab),
                 ),
 
-                const SizedBox(height: 24),
-
-                // 📱 Tab content area
+                // 📱 Tab content area (starts right after tab separator)
+                const SizedBox(height: 8),
                 Expanded(child: _buildTabContent(context, ref, editState)),
               ],
             ),
