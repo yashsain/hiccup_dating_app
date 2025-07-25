@@ -79,10 +79,28 @@ class ProfileEditScreen extends ConsumerWidget {
             top: false, // Header handles top safe area
             child: Column(
               children: [
-                // 🌌 Top spacing for header (reduced since header has separation line)
-                const SizedBox(height: kToolbarHeight + 8),
+                // 🌌 More top spacing to push tabs down (like reference image)
+                const SizedBox(height: kToolbarHeight + 40),
 
-                // 🎯 Tab system (Edit/View) - Now with proper design
+                // ✨ Header separation line
+                Container(
+                  height: 0.5,
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.transparent,
+                        Colors.white.withOpacity(0.4),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                ),
+
+                // 📏 Spacing between header line and tabs (like reference)
+                const SizedBox(height: 24),
+
+                // 🎯 Tab system (Edit/View) - Now positioned like reference
                 ProfileEditTabs(
                   currentTab: editState.currentTab,
                   onTabChanged: (tab) => ref
@@ -90,8 +108,8 @@ class ProfileEditScreen extends ConsumerWidget {
                       .changeTab(tab),
                 ),
 
-                // 📱 Tab content area (starts right after tab separator)
-                const SizedBox(height: 8),
+                // 📱 Tab content area
+                const SizedBox(height: 20),
                 Expanded(child: _buildTabContent(context, ref, editState)),
               ],
             ),

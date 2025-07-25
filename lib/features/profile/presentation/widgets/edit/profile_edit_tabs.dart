@@ -45,24 +45,35 @@ class ProfileEditTabs extends ConsumerWidget {
     // 🎨 Get current theme information
     final currentBrightness = ref.watch(currentBrightnessProvider);
     final textColor = AppColors.getPrimaryTextColor(currentBrightness);
+    final primaryColor = AppColors.getPrimaryColor(currentBrightness);
 
     return Column(
       children: [
-        // 🎯 Tab Container - Matches Reference Image Design
+        // 🍎 iOS-Style Liquid Glass Tab Container
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24),
-          height: 44, // Fixed height for consistent design
+          margin: const EdgeInsets.symmetric(horizontal: 32),
+          height: 48, // Slightly taller for better touch targets
           decoration: BoxDecoration(
-            // Subtle glass background
-            color: Colors.white.withOpacity(0.12),
-            borderRadius: BorderRadius.circular(12),
+            // 🌟 Liquid glass background (iOS style)
+            color: Colors.white.withOpacity(0.08),
+            borderRadius: BorderRadius.circular(
+              24,
+            ), // More rounded like reference
             border: Border.all(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withOpacity(0.15),
               width: 0.5,
             ),
+            // ✨ Subtle shadow for depth
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(2), // Inner padding
+            padding: const EdgeInsets.all(3), // Inner padding
             child: Row(
               children: [
                 // 📝 Edit Tab
@@ -72,17 +83,19 @@ class ProfileEditTabs extends ConsumerWidget {
                     child: Container(
                       height: double.infinity,
                       decoration: BoxDecoration(
-                        // White background when selected
+                        // 🎯 Active state background (liquid glass)
                         color: currentTab == ProfileEditTab.edit
-                            ? Colors.white.withOpacity(0.95)
+                            ? Colors.white.withOpacity(0.9)
                             : Colors.transparent,
-                        borderRadius: BorderRadius.circular(10),
-                        // Subtle shadow when selected
+                        borderRadius: BorderRadius.circular(
+                          21,
+                        ), // Match container radius
+                        // 🌟 Premium shadow when selected
                         boxShadow: currentTab == ProfileEditTab.edit
                             ? [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.08),
-                                  blurRadius: 3,
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 4,
                                   offset: const Offset(0, 1),
                                 ),
                               ]
@@ -94,13 +107,13 @@ class ProfileEditTabs extends ConsumerWidget {
                         style: AppTextStyles.getLabelLarge(context).copyWith(
                           color: currentTab == ProfileEditTab.edit
                               ? Colors
-                                    .black87 // Dark text when selected
-                              : textColor.withOpacity(
-                                  0.8,
-                                ), // Light text when not
+                                    .black87 // Dark when selected
+                              : textColor.withOpacity(0.8), // Light when not
                           fontWeight: currentTab == ProfileEditTab.edit
                               ? FontWeight.w600
                               : FontWeight.w500,
+                          fontSize:
+                              16, // Slightly larger for better readability
                         ),
                       ),
                     ),
@@ -114,17 +127,19 @@ class ProfileEditTabs extends ConsumerWidget {
                     child: Container(
                       height: double.infinity,
                       decoration: BoxDecoration(
-                        // White background when selected
+                        // 🎯 Active state background (liquid glass)
                         color: currentTab == ProfileEditTab.view
-                            ? Colors.white.withOpacity(0.95)
+                            ? Colors.white.withOpacity(0.9)
                             : Colors.transparent,
-                        borderRadius: BorderRadius.circular(10),
-                        // Subtle shadow when selected
+                        borderRadius: BorderRadius.circular(
+                          21,
+                        ), // Match container radius
+                        // 🌟 Premium shadow when selected
                         boxShadow: currentTab == ProfileEditTab.view
                             ? [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.08),
-                                  blurRadius: 3,
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 4,
                                   offset: const Offset(0, 1),
                                 ),
                               ]
@@ -136,13 +151,13 @@ class ProfileEditTabs extends ConsumerWidget {
                         style: AppTextStyles.getLabelLarge(context).copyWith(
                           color: currentTab == ProfileEditTab.view
                               ? Colors
-                                    .black87 // Dark text when selected
-                              : textColor.withOpacity(
-                                  0.8,
-                                ), // Light text when not
+                                    .black87 // Dark when selected
+                              : textColor.withOpacity(0.8), // Light when not
                           fontWeight: currentTab == ProfileEditTab.view
                               ? FontWeight.w600
                               : FontWeight.w500,
+                          fontSize:
+                              16, // Slightly larger for better readability
                         ),
                       ),
                     ),
@@ -153,19 +168,38 @@ class ProfileEditTabs extends ConsumerWidget {
           ),
         ),
 
-        // 📏 Subtle separation line below tabs (like reference image)
-        const SizedBox(height: 16),
+        // 📏 Bottom line under active tab (like reference image)
+        const SizedBox(height: 12),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24),
-          height: 0.5,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.transparent,
-                Colors.white.withOpacity(0.3),
-                Colors.transparent,
-              ],
-            ),
+          margin: const EdgeInsets.symmetric(horizontal: 32),
+          height: 2,
+          child: Stack(
+            children: [
+              // Background line (subtle)
+              Container(
+                width: double.infinity,
+                height: 1,
+                color: Colors.white.withOpacity(0.2),
+              ),
+              // Active tab indicator line
+              AnimatedAlign(
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeInOut,
+                alignment: currentTab == ProfileEditTab.edit
+                    ? Alignment.centerLeft
+                    : Alignment.centerRight,
+                child: Container(
+                  width:
+                      MediaQuery.of(context).size.width *
+                      0.25, // Half container width
+                  height: 2,
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(1),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

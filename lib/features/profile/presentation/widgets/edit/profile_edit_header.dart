@@ -57,66 +57,49 @@ class ProfileEditHeader extends ConsumerWidget implements PreferredSizeWidget {
     // 📱 Load profile data to get user's name
     final profileAsync = ref.watch(profileProvider(profileId));
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // 📱 Main header content
-        Container(
-          // 🌟 Glass morphism background
-          decoration: BoxDecoration(
-            // Subtle background for header separation
-            color: Colors.white.withOpacity(0.05),
-          ),
-          child: SafeArea(
-            bottom: false,
-            child: Container(
-              height: kToolbarHeight,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: profileAsync.when(
-                data: (profileData) {
-                  // Extract user's first name
-                  final fullName =
-                      profileData?.profile?.name?.toString() ?? 'User';
-                  final firstName = _extractFirstName(fullName);
+    return Container(
+      // 🌟 Glass morphism background
+      decoration: BoxDecoration(
+        // Subtle background for header separation
+        color: Colors.white.withOpacity(0.05),
+        // Bottom border for subtle separation
+        border: Border(
+          bottom: BorderSide(color: Colors.white.withOpacity(0.2), width: 0.5),
+        ),
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: Container(
+          height: kToolbarHeight,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: profileAsync.when(
+            data: (profileData) {
+              // Extract user's first name
+              final fullName = profileData?.profile?.name?.toString() ?? 'User';
+              final firstName = _extractFirstName(fullName);
 
-                  return _buildHeaderContent(
-                    context,
-                    firstName,
-                    textColor,
-                    primaryColor,
-                  );
-                },
-                loading: () => _buildHeaderContent(
-                  context,
-                  'User', // Fallback during loading
-                  textColor,
-                  primaryColor,
-                ),
-                error: (error, stack) => _buildHeaderContent(
-                  context,
-                  'User', // Fallback on error
-                  textColor,
-                  primaryColor,
-                ),
-              ),
+              return _buildHeaderContent(
+                context,
+                firstName,
+                textColor,
+                primaryColor,
+              );
+            },
+            loading: () => _buildHeaderContent(
+              context,
+              'User', // Fallback during loading
+              textColor,
+              primaryColor,
+            ),
+            error: (error, stack) => _buildHeaderContent(
+              context,
+              'User', // Fallback on error
+              textColor,
+              primaryColor,
             ),
           ),
         ),
-
-        // ✨ Header separation line (like reference image)
-        Container(
-          height: 0.5,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.transparent,
-                Colors.white.withOpacity(0.4),
-                Colors.transparent,
-              ],
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 
