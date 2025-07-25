@@ -6,37 +6,37 @@ part of 'profile_edit_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-/// 🎯 Profile Edit State Provider
+/// 🎯 Profile Edit Notifier - RENAMED TO AVOID CONFLICT
 ///
 /// Main state management for profile editing screen
-@ProviderFor(ProfileEditState)
-const profileEditStateProvider = ProfileEditStateProvider._();
+@ProviderFor(ProfileEditNotifier)
+const profileEditNotifierProvider = ProfileEditNotifierProvider._();
 
-/// 🎯 Profile Edit State Provider
+/// 🎯 Profile Edit Notifier - RENAMED TO AVOID CONFLICT
 ///
 /// Main state management for profile editing screen
-final class ProfileEditStateProvider
-    extends $NotifierProvider<ProfileEditState, ProfileEditState> {
-  /// 🎯 Profile Edit State Provider
+final class ProfileEditNotifierProvider
+    extends $NotifierProvider<ProfileEditNotifier, ProfileEditState> {
+  /// 🎯 Profile Edit Notifier - RENAMED TO AVOID CONFLICT
   ///
   /// Main state management for profile editing screen
-  const ProfileEditStateProvider._()
+  const ProfileEditNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'profileEditStateProvider',
+        name: r'profileEditNotifierProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$profileEditStateHash();
+  String debugGetCreateSourceHash() => _$profileEditNotifierHash();
 
   @$internal
   @override
-  ProfileEditState create() => ProfileEditState();
+  ProfileEditNotifier create() => ProfileEditNotifier();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(ProfileEditState value) {
@@ -47,9 +47,10 @@ final class ProfileEditStateProvider
   }
 }
 
-String _$profileEditStateHash() => r'7dd4429576714f63b5798154c4759d978c7ffaae';
+String _$profileEditNotifierHash() =>
+    r'c5b2ce9c2d5a9b43350e29c3efeccfd0a9126566';
 
-abstract class _$ProfileEditState extends $Notifier<ProfileEditState> {
+abstract class _$ProfileEditNotifier extends $Notifier<ProfileEditState> {
   ProfileEditState build();
   @$mustCallSuper
   @override
@@ -110,7 +111,7 @@ final class CurrentEditTabProvider
   }
 }
 
-String _$currentEditTabHash() => r'3f07923dd3792f780074054026ade9abc64d72b7';
+String _$currentEditTabHash() => r'1492816020f15c5535fb31a8a236b45ae117d4c9';
 
 /// 💾 Has Unsaved Changes Provider (convenience)
 @ProviderFor(hasUnsavedChanges)
@@ -154,7 +155,7 @@ final class HasUnsavedChangesProvider
   }
 }
 
-String _$hasUnsavedChangesHash() => r'447a7cf4f7f83f8a34fa754276eb3eb1b035ea57';
+String _$hasUnsavedChangesHash() => r'4c7399fce09a78bb2295f5b11d5d1f3952b66df8';
 
 /// ✅ Form Valid Provider (convenience)
 @ProviderFor(isFormValid)
@@ -197,7 +198,7 @@ final class IsFormValidProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$isFormValidHash() => r'd44f3e8c698da60d3080c7b98537162fc5f8b47b';
+String _$isFormValidHash() => r'bc961d05a107c48091eb108dc9ff9e36d24f8186';
 
 /// 🔄 Is Saving Provider (convenience)
 @ProviderFor(isSaving)
@@ -240,7 +241,7 @@ final class IsSavingProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$isSavingHash() => r'4b641121e95056123d08878b5fd2f9a68b5084c9';
+String _$isSavingHash() => r'f906445c5038b51d49eb2693df80ac78388e0a7f';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

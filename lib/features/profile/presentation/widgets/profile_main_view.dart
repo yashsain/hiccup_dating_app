@@ -161,13 +161,15 @@ class ProfileMainView extends ConsumerWidget {
         children: [
           // 🖼️ Main profile circle
           Container(
-            width: 180,
-            height: 180,
+            width: 100, // ← ADJUST THIS: Profile circle width
+            height: 100, // ← ADJUST THIS: Profile circle height
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: Colors.white.withOpacity(0.3),
-                width: 4,
+                color: primaryColor.withOpacity(
+                  1,
+                ), // ← ADJUST THIS: Border opacity
+                width: 3, // ← ADJUST THIS: Border thickness
               ),
               boxShadow: [
                 BoxShadow(
@@ -213,8 +215,8 @@ class ProfileMainView extends ConsumerWidget {
   ) => GestureDetector(
     onTap: () => _handleEditPressed(context), // UPDATED
     child: Container(
-      width: 40, // Increased size for better touch target
-      height: 40, // Increased size for better touch target
+      width: 25, // Increased size for better touch target
+      height: 25, // Increased size for better touch target
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.white,

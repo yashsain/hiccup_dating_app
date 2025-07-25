@@ -109,80 +109,88 @@ class ProfileEditHeader extends ConsumerWidget implements PreferredSizeWidget {
     String firstName,
     Color textColor,
     Color primaryColor,
-  ) => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      // 🚫 Cancel Button (Left)
-      _buildCancelButton(context, textColor, primaryColor),
+  ) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // 🚫 Cancel Button (Left)
+        _buildCancelButton(context, textColor, primaryColor),
 
-      // 👤 User Name (Center)
-      _buildUserName(context, firstName, textColor),
+        // 👤 User Name (Center)
+        _buildUserName(context, firstName, textColor),
 
-      // ✅ Done Button (Right)
-      _buildDoneButton(context, textColor, primaryColor),
-    ],
-  );
+        // ✅ Done Button (Right)
+        _buildDoneButton(context, textColor, primaryColor),
+      ],
+    );
+  }
 
   /// 🚫 Build Cancel button
   Widget _buildCancelButton(
     BuildContext context,
     Color textColor,
     Color primaryColor,
-  ) => TextButton(
-    onPressed: onCancel,
-    style: TextButton.styleFrom(
-      foregroundColor: primaryColor,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      minimumSize: const Size(64, 36),
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    ),
-    child: Text(
-      'Cancel',
-      style: AppTextStyles.getLabelLarge(
-        context,
-      ).copyWith(color: primaryColor, fontWeight: FontWeight.w500),
-    ),
-  );
+  ) {
+    return TextButton(
+      onPressed: onCancel,
+      style: TextButton.styleFrom(
+        foregroundColor: primaryColor,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        minimumSize: const Size(64, 36),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      child: Text(
+        'Cancel',
+        style: AppTextStyles.getLabelLarge(
+          context,
+        ).copyWith(color: primaryColor, fontWeight: FontWeight.w500),
+      ),
+    );
+  }
 
   /// 👤 Build User name in center
   Widget _buildUserName(
     BuildContext context,
     String firstName,
     Color textColor,
-  ) => Expanded(
-    child: Text(
-      firstName,
-      style: AppTextStyles.getHeading2(
-        context,
-      ).copyWith(color: textColor, fontWeight: FontWeight.w600),
-      textAlign: TextAlign.center,
-      overflow: TextOverflow.ellipsis,
-    ),
-  );
+  ) {
+    return Expanded(
+      child: Text(
+        firstName,
+        style: AppTextStyles.getBodySmall(
+          context,
+        ).copyWith(color: textColor, fontWeight: FontWeight.w600),
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
 
   /// ✅ Build Done button
   Widget _buildDoneButton(
     BuildContext context,
     Color textColor,
     Color primaryColor,
-  ) => TextButton(
-    onPressed: onDone,
-    style: TextButton.styleFrom(
-      foregroundColor: primaryColor,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      minimumSize: const Size(64, 36),
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    ),
-    child: Text(
-      'Done',
-      style: AppTextStyles.getLabelLarge(context).copyWith(
-        color: primaryColor,
-        fontWeight: FontWeight.w600, // Slightly bolder for primary action
+  ) {
+    return TextButton(
+      onPressed: onDone,
+      style: TextButton.styleFrom(
+        foregroundColor: primaryColor,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        minimumSize: const Size(64, 36),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
-    ),
-  );
+      child: Text(
+        'Done',
+        style: AppTextStyles.getLabelLarge(context).copyWith(
+          color: primaryColor,
+          fontWeight: FontWeight.w600, // Slightly bolder for primary action
+        ),
+      ),
+    );
+  }
 
   /// 🔤 Extract first name from full name
   String _extractFirstName(String fullName) {
@@ -193,34 +201,3 @@ class ProfileEditHeader extends ConsumerWidget implements PreferredSizeWidget {
     return parts.isNotEmpty ? parts.first : 'User';
   }
 }
-
-// ============================================================================
-// 📋 IMPLEMENTATION NOTES
-// ============================================================================
-
-/// **🎯 EXACT REFERENCE MATCH:**
-/// - ✅ Cancel button on left (purple/pink color)
-/// - ✅ User's first name in center (clean typography)  
-/// - ✅ Done button on right (purple/pink color, bolder)
-/// - ✅ Transparent header floating on gradient
-/// - ✅ Proper spacing and touch targets
-/// 
-/// **🎨 DESIGN FEATURES:**
-/// - Glass morphism background with subtle transparency
-/// - Theme-aware colors matching app's gradient palette
-/// - Professional typography with proper font weights
-/// - Accessibility-compliant touch targets
-/// - Smooth hover and press animations
-/// 
-/// **🔧 TECHNICAL FEATURES:**
-/// - Implements PreferredSizeWidget for AppBar compatibility
-/// - Automatic name extraction from profile data
-/// - Error and loading state handling
-/// - Proper safe area handling
-/// - Clean, maintainable code structure
-/// 
-/// **♿ ACCESSIBILITY:**
-/// - Proper minimum touch target sizes
-/// - Semantic labels for screen readers
-/// - High contrast text colors
-/// - Clear visual hierarchy

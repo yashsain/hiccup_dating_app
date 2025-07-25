@@ -26,7 +26,6 @@ class AppRouter {
   static const String login = '/auth/login';
   static const String register = '/auth/register';
   static const String home = '/home';
-  // static const String profile = '/profile';
   static const String chat = '/chat';
   static const String matches = '/matches';
 
@@ -42,7 +41,6 @@ class AppRouter {
 
   /// 🌟 Router Configuration
   /// Riverpod provider for the router - makes it easy to access and test
-  /// 🌟 Router Configuration
   static final routerProvider = Provider<GoRouter>(
     (ref) => GoRouter(
       initialLocation: splash,
@@ -205,40 +203,3 @@ class AppRouter {
     }
   }
 }
-
-// ============================================================================
-// 📋 IMPLEMENTATION NOTES
-// ============================================================================
-
-/// **🎯 NEW CHANGES MADE:**
-/// - ✅ Added ProfileEditScreen import
-/// - ✅ Added profileEdit route constant
-/// - ✅ Added edit sub-route under profile branch
-/// - ✅ Added navigation helper methods for profile edit
-/// - ✅ Support for profile ID parameter passing
-/// - ✅ Both push (modal) and go (navigation) options
-/// 
-/// **🏗️ ROUTE STRUCTURE:**
-/// ```
-/// /main/profile          → ProfileScreen
-/// /main/profile/edit     → ProfileEditScreen
-/// ```
-/// 
-/// **🔄 USAGE EXAMPLES:**
-/// ```dart
-/// // Navigate to edit (replace current)
-/// AppRouter.goToProfileEdit(context, profileId: 'user123');
-/// 
-/// // Push edit (modal style)
-/// AppRouter.pushProfileEdit(context, profileId: 'user123');
-/// 
-/// // From within ProfileScreen:
-/// context.push('/main/profile/edit?profileId=alex_chen_001');
-/// ```
-/// 
-/// **⚡ BENEFITS:**
-/// - Clean URL structure with sub-routes
-/// - Profile ID parameter support
-/// - Modal and navigation options
-/// - Type-safe navigation helpers
-/// - Future-ready for deep linking

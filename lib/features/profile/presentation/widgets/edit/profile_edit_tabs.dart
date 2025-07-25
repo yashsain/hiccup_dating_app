@@ -172,3 +172,9 @@ class ProfileEditTabs extends ConsumerWidget {
 /// - Clear visual indication of selected state
 /// - Proper contrast ratios for text
 /// - Semantic interaction patterns
+///
+/// **✅ NO PROVIDER USAGE:**
+/// - This widget receives state as parameters
+/// - No direct provider dependencies
+/// - Clean separation of concerns
+/// - Easy to test and reuse
