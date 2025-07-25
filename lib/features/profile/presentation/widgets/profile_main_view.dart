@@ -88,55 +88,48 @@ class ProfileMainView extends ConsumerWidget {
     Color primaryColor,
     Color textColor,
     Color secondaryTextColor,
-  ) {
-    return SafeArea(
-      // ✅ App bar is transparent, so we need top safe area
-      top: true,
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // 🌌 Top spacing (for app bar + some breathing room)
-              const SizedBox(height: 60), // Increased for transparent app bar
-              // 🖼️ Large profile photo (main focal point)
-              _buildProfilePhotoSection(
-                context,
-                profileData,
-                primaryColor,
-                textColor,
-              ),
+  ) => SafeArea(
+    // ✅ App bar is transparent, so we need top safe area
+    top: true,
+    child: SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // 🌌 Top spacing (for app bar + some breathing room)
+            const SizedBox(height: 30),
+            // 🖼️ Large profile photo (main focal point)
+            _buildProfilePhotoSection(
+              context,
+              profileData,
+              primaryColor,
+              textColor,
+            ),
 
-              const SizedBox(height: 24),
+            const SizedBox(height: 24),
 
-              // 👤 Name, age, and verification badges
-              _buildNameAgeSection(
-                context,
-                profileData,
-                textColor,
-                primaryColor,
-              ),
+            // 👤 Name, age, and verification badges
+            _buildNameAgeSection(context, profileData, textColor, primaryColor),
 
-              const SizedBox(height: 12),
+            const SizedBox(height: 12),
 
-              // 📍 Location information
-              _buildLocationSection(context, profileData, secondaryTextColor),
+            // 📍 Location information
+            _buildLocationSection(context, profileData, secondaryTextColor),
 
-              const SizedBox(height: 32),
+            const SizedBox(height: 32),
 
-              // 💎 Premium/Get more section
-              _buildPremiumSection(context, textColor, primaryColor),
+            // 💎 Premium/Get more section
+            _buildPremiumSection(context, textColor, primaryColor),
 
-              // 🌌 Generous bottom whitespace
-              const SizedBox(height: 120),
-            ],
-          ),
+            // 🌌 Generous bottom whitespace
+            const SizedBox(height: 120),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
 
   /// 🖼️ Build large profile photo section (main focal point)
   ///
