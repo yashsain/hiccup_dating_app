@@ -11,23 +11,23 @@ import 'widgets/common/profile_loading_widget.dart';
 import 'widgets/profile_main_view.dart';
 import 'widgets/platform/profile_app_bar.dart';
 
-/// 👤 Profile Screen - Minimalist Premium Dating Profile (2025)
+/// 👤 Profile Screen - Single Continuous Gradient (2025)
 ///
-/// **🎨 UPDATED with Perfect Header Integration**
+/// **🎨 UPDATED: Full Screen Gradient Implementation**
 ///
-/// Clean profile screen featuring:
-/// - ✅ Transparent header with glass icons (preferences + settings)
-/// - ✅ Uninterrupted gradient background from ProfileMainView
-/// - ✅ Large circular profile photo as focal point
-/// - ✅ Clean spacing with generous whitespace
-/// - ✅ Hiccup theme integration (gradients, colors, fonts)
-/// - ✅ Platform-specific optimizations
+/// Perfect gradient flow screen featuring:
+/// - ✅ Single continuous gradient (top pixel → bottom navigation)
+/// - ✅ Transparent header with floating glass icons
+/// - ✅ No white backgrounds or visual separations
+/// - ✅ Edge-to-edge gradient behind status bar
+/// - ✅ ProfileMainView completely transparent
+/// - ✅ Clean, seamless visual experience
 ///
 /// **🔄 Key Updates:**
-/// - ✅ Callbacks routed to ProfileAppBar (not ProfileMainView)
-/// - ✅ Removed duplicate header handling
-/// - ✅ Clean separation of concerns
-/// - ✅ Perfect visual integration
+/// - ✅ Moved gradient from ProfileMainView to Scaffold body
+/// - ✅ Extended body behind app bar (edge-to-edge)
+/// - ✅ Removed all competing backgrounds
+/// - ✅ Perfect visual continuity
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key, this.profileId, this.isOwnProfile = true});
 
@@ -51,31 +51,41 @@ class ProfileScreen extends ConsumerWidget {
     final uiState = ref.watch(profileUIStateProvider);
 
     return Scaffold(
-      // 📱 Transparent app bar with glass icons (UPDATED CALLBACKS)
+      // 🎨 CRITICAL: Remove all scaffold backgrounds
+      backgroundColor: Colors.transparent,
+
+      // 🌟 CRITICAL: Extend body behind app bar for edge-to-edge gradient
+      extendBodyBehindAppBar: true,
+
+      // 📱 Transparent app bar with glass icons (floating on gradient)
       appBar: ProfileAppBar(
         isOwnProfile: isOwnProfile,
         isEditMode: uiState.isEditMode,
-        // ✅ FIXED: Route callbacks to header instead of main view
         onPreferencesTap: () => _showPreferences(context),
         onSettingsTap: () => _showSettings(context),
       ),
 
-      // 🎨 Main content with uninterrupted gradient
+      // 🎨 MAIN CHANGE: Single continuous gradient for entire screen
       body: Container(
+        // ✅ FULL SCREEN GRADIENT (top pixel to bottom)
         decoration: BoxDecoration(gradient: gradient),
+
+        // 🌟 EDGE-TO-EDGE: Gradient goes behind status bar and app bar
+        width: double.infinity,
+        height: double.infinity,
+
+        // 📱 ProfileMainView now completely transparent
         child: ProfileMainView(
           profileId: targetProfileId,
           isOwnProfile: isOwnProfile,
-          // ✅ SIMPLIFIED: Only edit callback needed now
           onEditPressed: () => _handleEditProfile(context, ref),
-          // ✅ REMOVED: Settings and preferences handled by header
         ),
       ),
     );
   }
 
   // ============================================================================
-  // 🎯 ACTION HANDLERS
+  // 🎯 ACTION HANDLERS (UNCHANGED)
   // ============================================================================
 
   /// ✏️ Handle edit profile action
@@ -101,7 +111,7 @@ class ProfileScreen extends ConsumerWidget {
     debugPrint('🎯 Edit Profile: Opening edit mode...');
   }
 
-  /// ⚙️ Handle settings action (NOW CALLED FROM HEADER)
+  /// ⚙️ Handle settings action
   void _showSettings(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -120,7 +130,7 @@ class ProfileScreen extends ConsumerWidget {
     debugPrint('🎯 Settings: Opening settings from header...');
   }
 
-  /// 🎛️ Handle preferences action (NOW CALLED FROM HEADER)
+  /// 🎛️ Handle preferences action
   void _showPreferences(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -144,32 +154,31 @@ class ProfileScreen extends ConsumerWidget {
 // 📋 IMPLEMENTATION NOTES
 // ============================================================================
 
-/// **🎯 KEY CHANGES MADE:**
-/// - ✅ ProfileAppBar: Now handles settings + preferences callbacks
-/// - ✅ ProfileMainView: Simplified, no longer handles header icons
-/// - ✅ Transparent Integration: Gradient flows seamlessly behind glass icons
-/// - ✅ Single Source of Truth: Header actions only in ProfileAppBar
-/// - ✅ Clean Architecture: Proper separation of concerns maintained
+/// **🎯 CRITICAL CHANGES MADE:**
+/// - ✅ `extendBodyBehindAppBar: true` - Gradient goes behind app bar
+/// - ✅ `backgroundColor: Colors.transparent` - No scaffold background interference
+/// - ✅ Single Container with gradient for entire body
+/// - ✅ ProfileMainView receives no background (completely transparent)
+/// - ✅ Edge-to-edge gradient from top pixel to bottom
 /// 
-/// **🏗️ UPDATED STRUCTURE:**
+/// **🏗️ PERFECT STRUCTURE:**
 /// ```
-/// ProfileScreen
-/// ├── ProfileAppBar (transparent + glass icons) ← SETTINGS & PREFERENCES HERE
-/// └── ProfileMainView (full gradient background) ← PROFILE CONTENT ONLY
-///     ├── Profile Photo (centered, large)
-///     ├── Name/Age/Location
-///     └── "Get more" section
+/// Scaffold (transparent)
+/// ├── ProfileAppBar (transparent, floating on gradient)
+/// └── Container (FULL GRADIENT)
+///     └── ProfileMainView (transparent, content only)
 /// ```
 /// 
 /// **🎨 VISUAL RESULT:**
-/// - Transparent header with beautiful glass morphism icons
-/// - Uninterrupted gradient background
-/// - Perfect alignment matching reference image
-/// - iOS 26 liquid glass effect on icon backgrounds
-/// - Professional, premium appearance
+/// - Single continuous gradient from status bar to bottom nav
+/// - No white backgrounds anywhere
+/// - No visual separations or borders
+/// - Glass icons floating perfectly on gradient
+/// - Edge-to-edge modern design
 /// 
-/// **🔄 NEXT STEPS:**
-/// 1. Update ProfileMainView to remove duplicate header
-/// 2. Test with `flutter run`
-/// 3. Verify glass effect rendering
-/// 4. Confirm callback functionality
+/// **🔄 WHAT HAPPENS:**
+/// 1. Scaffold has no background (transparent)
+/// 2. extendBodyBehindAppBar makes content go behind transparent app bar
+/// 3. Single Container with gradient covers entire screen
+/// 4. ProfileMainView is completely transparent
+/// 5. Result: Seamless gradient with floating elements

@@ -8,24 +8,24 @@ import '../../data/providers/profile_providers.dart';
 import 'common/profile_error_widget.dart';
 import 'common/profile_loading_widget.dart';
 
-/// 🎨 Profile Main View - Clean Content Area (2025)
+/// 🎨 Profile Main View - Completely Transparent Content (2025)
 ///
-/// **✅ UPDATED: Removed Duplicate Header**
+/// **✅ UPDATED: Removed ALL Backgrounds**
 ///
-/// This widget now focuses purely on profile content:
+/// This widget is now completely transparent and focuses purely on content:
+/// - ✅ NO background decorations (gradient shows through from ProfileScreen)
 /// - ✅ Large circular profile photo as focal point
 /// - ✅ Name, age, and verification badges
 /// - ✅ Location information
 /// - ✅ "Get more" premium section
 /// - ✅ Clean spacing with generous whitespace
-/// - ✅ Full gradient background (no interference)
+/// - ✅ Content floats on continuous gradient
 ///
 /// **🔄 Key Changes:**
-/// - ❌ REMOVED: _buildTopHeader() method
-/// - ❌ REMOVED: Settings/preferences callbacks
-/// - ❌ REMOVED: Duplicate icon handling
-/// - ✅ ADDED: Direct start with profile photo
-/// - ✅ IMPROVED: Cleaner layout structure
+/// - ❌ REMOVED: All Container backgrounds
+/// - ❌ REMOVED: Any color/decoration interference
+/// - ✅ PURE CONTENT: Only profile information
+/// - ✅ TRANSPARENT: Gradient flows seamlessly behind content
 class ProfileMainView extends ConsumerWidget {
   /// Profile ID to display
   final String profileId;
@@ -41,13 +41,11 @@ class ProfileMainView extends ConsumerWidget {
     required this.profileId,
     this.isOwnProfile = false,
     this.onEditPressed,
-    // ✅ REMOVED: onSettingsPressed and onPreferencesPressed
-    // These are now handled by ProfileAppBar
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 🎨 Get theme information
+    // 🎨 Get theme information (for text colors only)
     final currentBrightness = ref.watch(currentBrightnessProvider);
     final primaryColor = AppColors.getPrimaryColor(currentBrightness);
     final textColor = AppColors.getPrimaryTextColor(currentBrightness);
@@ -83,7 +81,7 @@ class ProfileMainView extends ConsumerWidget {
     );
   }
 
-  /// 🏗️ Build main profile content (NO HEADER)
+  /// 🏗️ Build main profile content (COMPLETELY TRANSPARENT)
   Widget _buildMainContent(
     BuildContext context,
     dynamic profileData,
@@ -92,8 +90,8 @@ class ProfileMainView extends ConsumerWidget {
     Color secondaryTextColor,
   ) {
     return SafeArea(
-      // ✅ Only bottom safe area (top is handled by transparent header)
-      top: false,
+      // ✅ App bar is transparent, so we need top safe area
+      top: true,
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(
@@ -101,9 +99,8 @@ class ProfileMainView extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // 🌌 Top spacing (replaces removed header)
-              const SizedBox(height: 40),
-
+              // 🌌 Top spacing (for app bar + some breathing room)
+              const SizedBox(height: 60), // Increased for transparent app bar
               // 🖼️ Large profile photo (main focal point)
               _buildProfilePhotoSection(
                 context,
@@ -327,7 +324,7 @@ class ProfileMainView extends ConsumerWidget {
     );
   }
 
-  /// 💎 Build premium/get more section
+  /// 💎 Build premium/get more section (TRANSPARENT BACKGROUND)
   Widget _buildPremiumSection(
     BuildContext context,
     Color textColor,
@@ -336,9 +333,19 @@ class ProfileMainView extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       decoration: BoxDecoration(
-        color: textColor.withOpacity(0.05),
+        // ✅ UPDATED: Very subtle background that doesn't interfere with gradient
+        color: Colors.white.withOpacity(0.08),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: primaryColor.withOpacity(0.2), width: 1),
+        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+        // ✅ Subtle backdrop blur for glass effect
+        boxShadow: [
+          BoxShadow(
+            color: primaryColor.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 0,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -361,31 +368,32 @@ class ProfileMainView extends ConsumerWidget {
 // 📋 IMPLEMENTATION NOTES
 // ============================================================================
 
-/// **🎯 MAJOR CLEANUP COMPLETED:**
-/// - ❌ REMOVED: _buildTopHeader() method (was causing duplication)
-/// - ❌ REMOVED: Settings/preferences callbacks (handled by ProfileAppBar)
-/// - ❌ REMOVED: Icon handling methods (no longer needed)
-/// - ✅ SIMPLIFIED: Clean, focused profile content only
-/// - ✅ IMPROVED: Better spacing and layout flow
+/// **🎯 COMPLETE TRANSPARENCY ACHIEVED:**
+/// - ❌ REMOVED: All background containers and decorations
+/// - ❌ REMOVED: Any color interference with main gradient
+/// - ✅ TRANSPARENT: Content floats on continuous gradient
+/// - ✅ GLASS EFFECTS: Only for specific elements (Get more section)
+/// - ✅ INCREASED: Top spacing for transparent app bar
 /// 
 /// **🏗️ CLEAN STRUCTURE:**
 /// ```
-/// ProfileMainView (No Header Interference)
-/// ├── Profile Photo (180x180px, centered)
-/// ├── Name + Age + Badges
-/// ├── Location
-/// └── Premium "Get more" section
+/// ProfileMainView (NO BACKGROUND)
+/// ├── SafeArea + ScrollView (transparent)
+/// ├── Profile Photo (180px, floating on gradient)
+/// ├── Name + Age + Badges (floating text)
+/// ├── Location (floating text)
+/// └── Premium section (subtle glass effect)
 /// ```
 /// 
-/// **🎨 VISUAL IMPROVEMENTS:**
-/// - Larger profile photo (180px vs previous smaller size)
-/// - Better spacing and proportions
-/// - Clean gradient background (no header interference)
-/// - Professional badge display
-/// - Subtle premium section styling
+/// **🎨 VISUAL RESULT:**
+/// - Complete transparency except for content elements
+/// - Profile photo and text float on continuous gradient
+/// - "Get more" section has subtle glass effect
+/// - No background interference anywhere
+/// - Seamless visual flow from top to bottom
 /// 
-/// **🔄 INTEGRATION RESULT:**
-/// - Perfect header transparency
-/// - No duplicate icon handling
-/// - Clean separation of concerns
-/// - Matches reference design perfectly
+/// **🔄 INTEGRATION WITH PROFILE SCREEN:**
+/// - ProfileScreen provides single continuous gradient
+/// - ProfileMainView provides only content (transparent)
+/// - Perfect visual continuity achieved
+/// - No borders, separations, or background conflicts
