@@ -9,24 +9,22 @@ import '../../../../../shared/constants/app_colors.dart';
 import '../../../../../shared/constants/app_text_styles.dart';
 import '../../../../../shared/services/theme_provider.dart';
 
-/// 📱 Profile App Bar - Transparent Header with Glass Icons (2025)
+/// 📱 Profile App Bar - Transparent Header with Brand + Glass Icons (2025)
 ///
-/// **🎨 REDESIGNED for Perfect Header Integration:**
+/// **🎨 UPDATED: Added Hiccup Brand Logo**
 ///
 /// Features:
 /// - ✅ Completely transparent background (gradient shows through)
-/// - ✅ No title text ("My Profile" removed)
+/// - ✅ "hiccup" brand logo (top-left)
 /// - ✅ Top-right icons: Preferences → Settings
 /// - ✅ iOS 26 liquid glass effect on icon backgrounds
 /// - ✅ Platform-consistent appearance
 /// - ✅ Perfect integration with ProfileMainView gradient
 ///
-/// **Key Changes from Original:**
-/// - Removed all background colors
-/// - Removed middle/title widget
-/// - Added trailing actions for both icons
-/// - Implemented glass morphism effect
-/// - Enhanced platform consistency
+/// **🔄 Latest Changes:**
+/// - ✅ Added leading "hiccup" brand text
+/// - ✅ Maintained glass icon design
+/// - ✅ Perfect spacing and alignment
 class ProfileAppBar extends ConsumerWidget implements PreferredSizeWidget {
   /// Whether this profile belongs to the current user
   final bool isOwnProfile;
@@ -76,8 +74,8 @@ class ProfileAppBar extends ConsumerWidget implements PreferredSizeWidget {
       // 🚫 No title/middle widget
       middle: null,
 
-      // ← No leading widget (no back button)
-      leading: null,
+      // ← Hiccup Brand Logo (leading)
+      leading: _buildBrandLogo(context, brightness),
       automaticallyImplyLeading: false,
 
       // → Trailing actions with glass icons
@@ -100,12 +98,32 @@ class ProfileAppBar extends ConsumerWidget implements PreferredSizeWidget {
       centerTitle: false,
       titleSpacing: 0,
 
-      // ← No leading widget
-      leading: null,
+      // ← Hiccup Brand Logo (leading)
+      leading: _buildBrandLogo(context, brightness),
       automaticallyImplyLeading: false,
 
       // → Actions with glass icons
       actions: [_buildTrailingActions(context, brightness)],
+    );
+  }
+
+  /// 🏷️ Build Hiccup brand logo (NEW)
+  Widget _buildBrandLogo(BuildContext context, Brightness brightness) {
+    final textColor = AppColors.getPrimaryTextColor(brightness);
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+      child: Container(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          'hiccup',
+          style: AppTextStyles.getHeading4(context).copyWith(
+            fontWeight: FontWeight.bold,
+            color: textColor.withOpacity(0.9),
+            letterSpacing: -0.5, // Tight letter spacing for modern look
+          ),
+        ),
+      ),
     );
   }
 

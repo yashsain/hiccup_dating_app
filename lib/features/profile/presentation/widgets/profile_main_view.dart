@@ -10,11 +10,12 @@ import 'common/profile_loading_widget.dart';
 
 /// 🎨 Profile Main View - Completely Transparent Content (2025)
 ///
-/// **✅ UPDATED: Removed ALL Backgrounds**
+/// **✅ UPDATED: Added Proper Edit Symbol on Profile Circle**
 ///
 /// This widget is now completely transparent and focuses purely on content:
 /// - ✅ NO background decorations (gradient shows through from ProfileScreen)
 /// - ✅ Large circular profile photo as focal point
+/// - ✅ Professional edit symbol for own profiles
 /// - ✅ Name, age, and verification badges
 /// - ✅ Location information
 /// - ✅ "Get more" premium section
@@ -22,10 +23,9 @@ import 'common/profile_loading_widget.dart';
 /// - ✅ Content floats on continuous gradient
 ///
 /// **🔄 Key Changes:**
-/// - ❌ REMOVED: All Container backgrounds
-/// - ❌ REMOVED: Any color/decoration interference
-/// - ✅ PURE CONTENT: Only profile information
-/// - ✅ TRANSPARENT: Gradient flows seamlessly behind content
+/// - ✅ ADDED: Professional edit icon on profile circle
+/// - ✅ IMPROVED: Better edit symbol positioning and styling
+/// - ✅ ENHANCED: Glass effect for edit button
 class ProfileMainView extends ConsumerWidget {
   /// Profile ID to display
   final String profileId;
@@ -139,6 +139,15 @@ class ProfileMainView extends ConsumerWidget {
   }
 
   /// 🖼️ Build large profile photo section (main focal point)
+  ///
+  /// 📐 PROFILE CIRCLE PARAMETERS (to adjust size/radius):
+  /// - Container width: 180 (change this to adjust overall size)
+  /// - Container height: 180 (change this to adjust overall size)
+  /// - Border width: 4 (change this to adjust border thickness)
+  /// - Border color opacity: 0.3 (change this to adjust border visibility)
+  /// - Shadow blur radius: 24 (change this to adjust shadow blur)
+  /// - Shadow spread radius: 4 (change this to adjust shadow spread)
+  /// - Shadow offset: Offset(0, 8) (change this to adjust shadow position)
   Widget _buildProfilePhotoSection(
     BuildContext context,
     dynamic profileData,
@@ -152,29 +161,86 @@ class ProfileMainView extends ConsumerWidget {
 
     return GestureDetector(
       onTap: isOwnProfile ? onEditPressed : null,
-      child: Container(
-        width: 180,
-        height: 180,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: primaryColor.withOpacity(0.3), width: 4),
-          boxShadow: [
-            BoxShadow(
-              color: primaryColor.withOpacity(0.2),
-              blurRadius: 24,
-              spreadRadius: 4,
-              offset: const Offset(0, 8),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // 🖼️ Main profile photo container
+          Container(
+            width: 100, // ← ADJUST THIS: Profile circle width
+            height: 100, // ← ADJUST THIS: Profile circle height
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: primaryColor.withOpacity(
+                  1,
+                ), // ← ADJUST THIS: Border opacity
+                width: 3, // ← ADJUST THIS: Border thickness
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: primaryColor.withOpacity(0.2),
+                  blurRadius: 24, // ← ADJUST THIS: Shadow blur
+                  spreadRadius: 4, // ← ADJUST THIS: Shadow spread
+                  offset: const Offset(0, 8), // ← ADJUST THIS: Shadow position
+                ),
+              ],
             ),
-          ],
-        ),
-        child: ClipOval(
-          child: firstPhoto != null
-              ? _buildProfileImage(firstPhoto, primaryColor)
-              : _buildPlaceholderImage(primaryColor, textColor),
-        ),
+            child: ClipOval(
+              child: firstPhoto != null
+                  ? _buildProfileImage(firstPhoto, primaryColor)
+                  : _buildPlaceholderImage(primaryColor, textColor),
+            ),
+          ),
+
+          // ✏️ Edit button (NEW - Professional Edit Symbol)
+          if (isOwnProfile)
+            Positioned(
+              bottom: 8,
+              right: 8,
+              child: _buildEditButton(context, primaryColor, textColor),
+            ),
+        ],
       ),
     );
   }
+
+  /// ✏️ Build professional edit button (NEW)
+  Widget _buildEditButton(
+    BuildContext context,
+    Color primaryColor,
+    Color textColor,
+  ) => GestureDetector(
+    onTap: onEditPressed,
+    child: Container(
+      width: 25,
+      height: 25,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+        border: Border.all(color: primaryColor.withOpacity(0.2), width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 12,
+            spreadRadius: 0,
+            offset: const Offset(0, 4),
+          ),
+          // Additional soft shadow for depth
+          BoxShadow(
+            color: primaryColor.withOpacity(0.1),
+            blurRadius: 20,
+            spreadRadius: 2,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Icon(
+        Icons.edit_rounded, // Professional edit icon
+        size: 20,
+        color: primaryColor,
+      ),
+    ),
+  );
 
   /// 🖼️ Build actual profile image
   Widget _buildProfileImage(dynamic media, Color primaryColor) {
@@ -209,39 +275,10 @@ class ProfileMainView extends ConsumerWidget {
           ],
         ),
       ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Icon(
-            Icons.person_rounded,
-            size: 60,
-            color: Colors.white.withOpacity(0.6),
-          ),
-          if (isOwnProfile)
-            Positioned(
-              bottom: 12,
-              right: 12,
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  Icons.camera_alt_rounded,
-                  size: 16,
-                  color: primaryColor,
-                ),
-              ),
-            ),
-        ],
+      child: Icon(
+        Icons.person_rounded,
+        size: 60,
+        color: Colors.white.withOpacity(0.6),
       ),
     );
   }
@@ -365,35 +402,40 @@ class ProfileMainView extends ConsumerWidget {
 }
 
 // ============================================================================
-// 📋 IMPLEMENTATION NOTES
+// 📋 PROFILE CIRCLE CUSTOMIZATION GUIDE
 // ============================================================================
 
-/// **🎯 COMPLETE TRANSPARENCY ACHIEVED:**
-/// - ❌ REMOVED: All background containers and decorations
-/// - ❌ REMOVED: Any color interference with main gradient
-/// - ✅ TRANSPARENT: Content floats on continuous gradient
-/// - ✅ GLASS EFFECTS: Only for specific elements (Get more section)
-/// - ✅ INCREASED: Top spacing for transparent app bar
+/// **🎯 TO ADJUST PROFILE CIRCLE SIZE & APPEARANCE:**
 /// 
-/// **🏗️ CLEAN STRUCTURE:**
+/// **📐 Size Parameters (in _buildProfilePhotoSection):**
+/// - `width: 180` ← Change this to make circle larger/smaller
+/// - `height: 180` ← Keep same as width for perfect circle
+/// 
+/// **🖼️ Border Parameters:**
+/// - `width: 4` ← Border thickness (1-8 recommended)
+/// - `color: primaryColor.withOpacity(0.3)` ← Border visibility (0.1-0.5)
+/// 
+/// **🌟 Shadow Parameters:**
+/// - `blurRadius: 24` ← Shadow softness (8-40 recommended)
+/// - `spreadRadius: 4` ← Shadow size (0-8 recommended)
+/// - `offset: Offset(0, 8)` ← Shadow position (x, y)
+/// 
+/// **✏️ Edit Button Position:**
+/// - `bottom: 8` ← Distance from bottom of circle
+/// - `right: 8` ← Distance from right of circle
+/// - Edit button size: 44x44 (professional standard)
+/// 
+/// **🎨 EXAMPLE ADJUSTMENTS:**
+/// ```dart
+/// // Larger circle (200px):
+/// width: 200, height: 200
+/// 
+/// // Thicker border:
+/// width: 6
+/// 
+/// // More subtle shadow:
+/// blurRadius: 16, spreadRadius: 2
+/// 
+/// // Edit button closer to edge:
+/// bottom: 4, right: 4
 /// ```
-/// ProfileMainView (NO BACKGROUND)
-/// ├── SafeArea + ScrollView (transparent)
-/// ├── Profile Photo (180px, floating on gradient)
-/// ├── Name + Age + Badges (floating text)
-/// ├── Location (floating text)
-/// └── Premium section (subtle glass effect)
-/// ```
-/// 
-/// **🎨 VISUAL RESULT:**
-/// - Complete transparency except for content elements
-/// - Profile photo and text float on continuous gradient
-/// - "Get more" section has subtle glass effect
-/// - No background interference anywhere
-/// - Seamless visual flow from top to bottom
-/// 
-/// **🔄 INTEGRATION WITH PROFILE SCREEN:**
-/// - ProfileScreen provides single continuous gradient
-/// - ProfileMainView provides only content (transparent)
-/// - Perfect visual continuity achieved
-/// - No borders, separations, or background conflicts
