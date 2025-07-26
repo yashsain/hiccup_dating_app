@@ -8,6 +8,7 @@ import '../../../../shared/services/theme_provider.dart';
 import '../widgets/edit/profile_edit_header.dart';
 import '../widgets/edit/profile_edit_tabs.dart';
 import '../providers/profile_edit_providers.dart';
+import '../widgets/edit/post_grid_widget.dart';
 
 /// ✏️ Profile Edit Screen - Complete Edit Experience (2025)
 ///
@@ -135,45 +136,7 @@ class ProfileEditScreen extends ConsumerWidget {
 
   /// ✏️ Build Edit tab content
   Widget _buildEditTabContent(BuildContext context, WidgetRef ref) {
-    final currentBrightness = ref.watch(currentBrightnessProvider);
-    final textColor = AppColors.getPrimaryTextColor(currentBrightness);
-
-    return Center(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 32),
-        padding: const EdgeInsets.all(32),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.edit_rounded,
-              size: 48,
-              color: textColor.withOpacity(0.8),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Coming Soon',
-              style: AppTextStyles.getBodyMedium(
-                context,
-              ).copyWith(color: textColor, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Edit profile functionality is being developed',
-              style: AppTextStyles.getBodyMedium(
-                context,
-              ).copyWith(color: textColor.withOpacity(0.8)),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
+    return PostGridWidget(profileId: profileId);
   }
 
   /// 👀 Build View tab content
